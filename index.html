@@ -20,6 +20,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Display actionable diagnostics if the application cannot bootstrap.
+      window.__nompongBooted = false;
+      const showStartupError = (detail) => {
+        if (window.__nompongBooted) return;
+        const root = document.getElementById('root');
+        if (!root) return;
+        root.innerHTML = '<main style="font:16px system-ui;padding:32px;max-width:680px;margin:auto;color:#514a43"><h1>Nompong Studio could not start</h1><p>Try a hard refresh (Ctrl+Shift+R), or open this page in a private window.</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere;background:#fff4dc;padding:16px;border-radius:12px"></pre></main>';
+        root.querySelector('pre').textContent = detail;
+      };
+      window.addEventListener('error', (e) => showStartupError(e.message || 'Script loading error'));
+      window.addEventListener('unhandledrejection', (e) => showStartupError(String(e.reason || 'Unhandled promise rejection')));
+      window.setTimeout(() => {
+        if (!window.__nompongBooted && !document.querySelector('#root > *')) showStartupError('Application did not render after 10 seconds. Check the browser Network tab for failed JavaScript assets.');
+      }, 10000);
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
