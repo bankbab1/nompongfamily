@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#FFF9EF" />
+    <title>Nompong Family — Nompong Studio</title>
+    <meta name="description" content="บ้านอย่างเป็นทางการของ nompong family — สติกเกอร์ LINE วอลเปเปอร์ และ Nompong Studio สำหรับเสนอไอเดียหรือสั่งทำชุดสติกเกอร์" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="nompong family" />
+    <meta property="og:title" content="Nompong Family — Nompong Studio" />
+    <meta property="og:description" content="สติกเกอร์ LINE ของน้องนมผง และพื้นที่สร้างชุดสติกเกอร์ของคุณเอง" />
+    <meta property="og:image" content="/nompongfamily/icons/og-cover.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/nompongfamily/icons/favicon.svg" />
+    <link rel="manifest" href="/nompongfamily/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/nompongfamily/assets/index-uPyOkyvj.js"></script>
+    <link rel="modulepreload" crossorigin href="/nompongfamily/assets/States-B7Ga0FUf.js">
+    <link rel="stylesheet" crossorigin href="/nompongfamily/assets/index-vh6qRVrm.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Display actionable diagnostics if the application cannot bootstrap.
+      window.__nompongBooted = false;
+      const showStartupError = (detail) => {
+        if (window.__nompongBooted) return;
+        const root = document.getElementById('root');
+        if (!root) return;
+        root.innerHTML = '<main style="font:16px system-ui;padding:32px;max-width:680px;margin:auto;color:#514a43"><h1>Nompong Studio could not start</h1><p>Try a hard refresh (Ctrl+Shift+R), or open this page in a private window.</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere;background:#fff4dc;padding:16px;border-radius:12px"></pre></main>';
+        root.querySelector('pre').textContent = detail;
+      };
+      window.addEventListener('error', (e) => showStartupError(e.message || 'Script loading error'));
+      window.addEventListener('unhandledrejection', (e) => showStartupError(String(e.reason || 'Unhandled promise rejection')));
+      window.setTimeout(() => {
+        if (!window.__nompongBooted && !document.querySelector('#root > *')) showStartupError('Application did not render after 10 seconds. Check the browser Network tab for failed JavaScript assets.');
+      }, 10000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "Nompong Studio",
+  "short_name": "Nompong",
+  "description": "nompong family — LINE stickers and the Nompong Studio request builder",
+  "lang": "th",
+  "start_url": "/nompongfamily/",
+  "scope": "/nompongfamily/",
+  "display": "standalone",
+  "background_color": "#FFF9EF",
+  "theme_color": "#FFF9EF",
+  "icons": [
+    { "src": "/nompongfamily/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/nompongfamily/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

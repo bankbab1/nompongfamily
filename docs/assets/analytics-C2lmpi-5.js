@@ -1,0 +1,1 @@
+var e=[];function t(t,n={}){e.push({event:t,props:n,at:new Date().toISOString()}),e.length>200&&e.shift()}export{t};
