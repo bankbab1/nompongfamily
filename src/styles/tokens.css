@@ -1,0 +1,64 @@
+/* Nompong brand tokens (spec §5 — suggested palette, subject to brand approval).
+   Components use the semantic names (bg-background, text-ink, border-line…), never raw hex,
+   so a palette change or a later dark theme only touches this file. */
+@theme {
+  --color-cream: #fff9ef;
+  --color-sunny: #f5d76e;
+  --color-sunny-50: #fffbeb;
+  --color-sunny-100: #fdf3cf;
+  --color-sunny-200: #fae7a3;
+  --color-sunny-700: #8a6a00;
+  --color-peach: #f2b5a7;
+  --color-peach-100: #fbe6e0;
+  --color-peach-700: #9b3f2b;
+  --color-mint: #9dcfc9;
+  --color-mint-100: #e0f1ee;
+  --color-mint-700: #2c6b63;
+  --color-brown: #514a43;
+  --color-brown-800: #3a342f;
+  --color-brown-400: #8a8077;
+
+  --font-sans: 'Noto Sans Thai', 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Mitr', 'Noto Sans Thai', system-ui, sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-ink: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+}
+
+:root {
+  --background: #fff9ef;
+  --surface: #ffffff;
+  --surface-muted: #fbf2e3;
+  --text-primary: #514a43; /* 8.9:1 on cream */
+  --text-muted: #726961; /* 5.2:1 on cream, 5.6:1 on white */
+  --border: #ecdfcb;
+  --border-strong: #d6c6ad;
+  --accent: #f5d76e;
+  --danger: #b42318; /* 6.2:1 on white */
+  --danger-soft: #fdeceb;
+  --success: #1d7a56; /* 5.3:1 on white */
+  --success-soft: #e3f4ec;
+  --warning: #8a5a00; /* 5.9:1 on white */
+  --warning-soft: #fdf3d6;
+  --info: #2c6b63;
+  --info-soft: #e0f1ee;
+}

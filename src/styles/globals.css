@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Pull-to-refresh guard (spec §13). This only works where the browser honours
+   overscroll-behavior; iOS Safari / LINE in-app may still refresh, which is why
+   drafts autosave to IndexedDB. Never touch-action:none or global touchmove
+   preventDefault — that breaks scrolling and assistive tech. */
+html,
+body,
+#root {
+  min-height: 100%;
+  overscroll-behavior-y: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-shell {
+  min-height: 100dvh;
+}
+
+.mobile-sticky-actions {
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0;
+}
+
+/* Thin scrollbars app-wide (UI.md §2: density, not a colour choice). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brown);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-toast-in {
+  animation: toast-in 160ms ease-out;
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-skeleton {
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}

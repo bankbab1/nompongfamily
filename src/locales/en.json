@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "home": "Home",
+    "explore": "Explore",
+    "studio": "Studio",
+    "my": "My Nompong",
+    "about": "Meet Nompong",
+    "stickers": "Stickers",
+    "wallpapers": "Wallpapers",
+    "shop": "Shop",
+    "cards": "Cards",
+    "ideas": "Ideas board",
+    "faq": "FAQ",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "account": "My account",
+    "admin": "Admin",
+    "back": "Back",
+    "skipToContent": "Skip to content"
+  },
+  "status": {
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "under_review": "Under review",
+    "clarification_requested": "Clarification requested",
+    "accepted": "Accepted",
+    "accepted_community": "Selected",
+    "declined": "Declined",
+    "brief_approved": "Brief approved",
+    "in_production": "In production",
+    "proof_ready": "Proof ready",
+    "revision_requested": "Revision requested",
+    "artwork_approved": "Artwork approved",
+    "line_submitted": "LINE submitted",
+    "published": "Published",
+    "closed": "Closed"
+  }
+}

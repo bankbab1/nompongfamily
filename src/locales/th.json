@@ -1,0 +1,93 @@
+{
+  "brand": { "family": "nompong family", "studio": "Nompong Studio" },
+  "nav": {
+    "home": "หน้าแรก",
+    "explore": "สำรวจ",
+    "studio": "สตูดิโอ",
+    "my": "My Nompong",
+    "about": "รู้จักนมผง",
+    "stickers": "สติกเกอร์",
+    "wallpapers": "วอลเปเปอร์",
+    "shop": "ร้านค้า",
+    "cards": "การ์ดสะสม",
+    "ideas": "บอร์ดไอเดีย",
+    "faq": "คำถามที่พบบ่อย",
+    "terms": "ข้อกำหนด",
+    "privacy": "ความเป็นส่วนตัว",
+    "signIn": "เข้าสู่ระบบ",
+    "signOut": "ออกจากระบบ",
+    "account": "บัญชีของฉัน",
+    "admin": "ผู้ดูแล",
+    "back": "ย้อนกลับ",
+    "skipToContent": "ข้ามไปยังเนื้อหา"
+  },
+  "channel": {
+    "community": "ไอเดียจากแฟนๆ",
+    "commission": "สั่งทำ (Commission)",
+    "communityShort": "Community",
+    "commissionShort": "Commission"
+  },
+  "status": {
+    "draft": "ฉบับร่าง",
+    "submitted": "ส่งแล้ว",
+    "under_review": "กำลังพิจารณา",
+    "clarification_requested": "ขอข้อมูลเพิ่ม",
+    "accepted": "รับงานแล้ว",
+    "accepted_community": "ได้รับเลือก",
+    "declined": "ไม่ได้รับเลือก",
+    "brief_approved": "อนุมัติบรีฟแล้ว",
+    "in_production": "กำลังผลิต",
+    "proof_ready": "รอตรวจงาน",
+    "revision_requested": "ขอแก้ไข",
+    "artwork_approved": "อนุมัติงานแล้ว",
+    "line_submitted": "ส่ง LINE แล้ว",
+    "published": "วางขายแล้ว",
+    "closed": "ปิดงาน"
+  },
+  "slotState": {
+    "empty": "ยังไม่กรอก",
+    "partial": "กรอกบางส่วน",
+    "complete": "ครบแล้ว",
+    "revision": "ต้องแก้ไข",
+    "approved": "อนุมัติแล้ว"
+  },
+  "autosave": {
+    "idle": "",
+    "saving": "กำลังบันทึก…",
+    "saved": "บันทึกแล้ว",
+    "local": "บันทึกในเครื่องนี้แล้ว",
+    "offline": "ออฟไลน์ — บันทึกไว้ในเครื่องนี้",
+    "error": "ซิงก์ไม่สำเร็จ — ลองอีกครั้ง",
+    "conflict": "มีเวอร์ชันใหม่กว่าบนเซิร์ฟเวอร์"
+  },
+  "wizard": {
+    "step1": "เลือกประเภท",
+    "step2": "ข้อมูลชุด",
+    "step3": "รายละเอียดสติกเกอร์",
+    "step4": "ภาพอ้างอิง",
+    "step5": "ตรวจทานและส่ง",
+    "next": "ถัดไป",
+    "prev": "ก่อนหน้า",
+    "submit": "ส่งคำขอ",
+    "submitting": "กำลังส่ง…",
+    "progress": "กรอกแล้ว {done} / {total}"
+  },
+  "common": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "confirm": "ยืนยัน",
+    "close": "ปิด",
+    "retry": "ลองอีกครั้ง",
+    "loading": "กำลังโหลด…",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "view": "ดู",
+    "search": "ค้นหา",
+    "all": "ทั้งหมด",
+    "optional": "ไม่บังคับ",
+    "required": "จำเป็น",
+    "comingSoon": "เร็วๆ นี้",
+    "sticker": "สติกเกอร์",
+    "stickers": "{count} ภาพ"
+  }
+}
