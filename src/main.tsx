@@ -9,6 +9,15 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
+// Mark the bootstrap successful only after React has painted content.
+window.requestAnimationFrame(() => {
+  window.requestAnimationFrame(() => {
+    if (document.querySelector('#root > *')) {
+      (window as Window & { __nompongBooted?: boolean }).__nompongBooted = true
+    }
+  })
+})
+
 // PWA: installability + static caching (spec §12). Production only, so dev HMR is never cached.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => undefined))
