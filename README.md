@@ -1,5 +1,18 @@
 # Nompong Studio — frontend
 
+## Phase 1: Nompong portal (current)
+
+The site currently shows only three pages: **Home** (`/`), **Meet Nompong** (`/nompong`) and the
+**sticker suggestion wall** (`/suggest`). It has Thai/English and light/dark switches in the header.
+
+- **Artwork:** put `logo.png` and `character-sheet.png` in `public/nompong/` (see the README there).
+  Until they're added, a drawn stand-in shows instead.
+- **Text:** all portal copy (TH + EN) lives in `src/features/portal/copy.ts`.
+- **Suggestions** are saved in the visitor's browser for now (`src/features/suggestions/store.ts`).
+  To share them between visitors, add a Supabase adapter there that implements `SuggestionsService`.
+- **Older features** (Studio, admin, shop, etc.) are hidden but kept. Run `VITE_FULL_APP=true npm run dev`
+  to bring them back. The Playwright tests cover those older features, so run them in that mode.
+
 Frontend MVP for **nompong family / Nompong Studio** built from `nompong_studio_frontend_spec.md` v1.0.
 It runs against a **typed mock backend** (the spec's backend and database are still to come), so the whole
 app works offline with demo data.

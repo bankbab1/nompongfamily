@@ -1,4 +1,6 @@
 import { Link } from 'react-router'
+import { FULL_APP } from '@/app/phase'
+import { PortalFooter } from './PortalChrome'
 import { Wordmark } from './Wordmark'
 
 const groups = [
@@ -31,6 +33,7 @@ const groups = [
 ] as const
 
 export function Footer() {
+  if (!FULL_APP) return <PortalFooter />
   return (
     <footer className="mt-12 border-t border-line bg-surface-muted/60">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">

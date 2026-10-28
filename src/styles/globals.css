@@ -97,3 +97,13 @@ h3,
 .animate-skeleton {
   animation: skeleton-pulse 1.4s ease-in-out infinite;
 }
+
+/* Nompong portal: gentle idle float for hero art (disabled by the reduced-motion rule above). */
+@keyframes nompong-float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.nompong-float {
+  animation: nompong-float 4.5s ease-in-out infinite;
+}

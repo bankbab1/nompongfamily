@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { getLocale } from '@/lib/i18n'
 
 const SITE = 'nompong family'
 
@@ -19,7 +20,7 @@ function setMeta(selector: string, attr: 'name' | 'property', key: string, conte
 export function usePageMeta(title: string | undefined, description?: string, opts: { noindex?: boolean } = {}) {
   useEffect(() => {
     if (!title) return
-    const full = title === SITE ? `${SITE} — Nompong Studio` : `${title} · ${SITE}`
+    const full = title === SITE ? `${SITE} — ${getLocale() === 'en' ? "Nompong's home" : 'บ้านของน้องนมผง'}` : `${title} · ${SITE}`
     document.title = full
     setMeta('meta[property="og:title"]', 'property', 'og:title', full)
     if (description) {

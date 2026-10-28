@@ -3,13 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#FFF9EF" />
-    <title>Nompong Family — Nompong Studio</title>
-    <meta name="description" content="บ้านอย่างเป็นทางการของ nompong family — สติกเกอร์ LINE วอลเปเปอร์ และ Nompong Studio สำหรับเสนอไอเดียหรือสั่งทำชุดสติกเกอร์" />
+    <meta name="theme-color" content="#FDF8F0" />
+    <script>
+      // Apply the saved theme and language before first paint (see src/lib/theme.ts, src/lib/i18n.ts).
+      (function () {
+        var d = document.documentElement, t, l;
+        try { t = localStorage.getItem('nompong.theme'); l = localStorage.getItem('nompong.locale'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        d.dataset.theme = t;
+        if (l === 'th' || l === 'en') d.lang = l;
+      })();
+    </script>
+    <title>nompong family — บ้านของน้องนมผง</title>
+    <meta name="description" content="ทำความรู้จักน้องนมผง น้องหมาขนฟูสีขาวนวล และมาเสนอไอเดียสติกเกอร์ชุดใหม่ที่อยากให้นมผงทำ" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="nompong family" />
-    <meta property="og:title" content="Nompong Family — Nompong Studio" />
-    <meta property="og:description" content="สติกเกอร์ LINE ของน้องนมผง และพื้นที่สร้างชุดสติกเกอร์ของคุณเอง" />
+    <meta property="og:title" content="nompong family — บ้านของน้องนมผง" />
+    <meta property="og:description" content="ทำความรู้จักน้องนมผง และเสนอไอเดียสติกเกอร์ชุดใหม่ที่อยากให้นมผงทำ" />
     <meta property="og:image" content="/nompongfamily/icons/og-cover.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/nompongfamily/icons/favicon.svg" />

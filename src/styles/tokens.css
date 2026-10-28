@@ -2,21 +2,24 @@
    Components use the semantic names (bg-background, text-ink, border-line…), never raw hex,
    so a palette change or a later dark theme only touches this file. */
 @theme {
-  --color-cream: #fff9ef;
-  --color-sunny: #f5d76e;
-  --color-sunny-50: #fffbeb;
-  --color-sunny-100: #fdf3cf;
-  --color-sunny-200: #fae7a3;
-  --color-sunny-700: #8a6a00;
-  --color-peach: #f2b5a7;
-  --color-peach-100: #fbe6e0;
-  --color-peach-700: #9b3f2b;
+  --color-cream: #fdf8f0;
+  --color-sunny: #ecd8bf; /* latte — Nompong's warm cream */
+  --color-sunny-50: #fdf9f3;
+  --color-sunny-100: #f7eddf;
+  --color-sunny-200: #e6cfb2;
+  --color-sunny-700: #7a5a3a;
+  --color-peach: #f4a9a3; /* heart pink */
+  --color-peach-100: #fde8e5;
+  --color-peach-700: #a33f37;
   --color-mint: #9dcfc9;
   --color-mint-100: #e0f1ee;
   --color-mint-700: #2c6b63;
-  --color-brown: #514a43;
-  --color-brown-800: #3a342f;
-  --color-brown-400: #8a8077;
+  --color-brown: #5c3d2e; /* logo chocolate */
+  --color-brown-800: #432b20;
+  --color-taupe: #a38f80; /* ear fur */
+  --color-taupe-100: #efe6dd;
+  --color-heart: #ef6f6c;
+  --color-brown-400: #9a8577;
 
   --font-sans: 'Noto Sans Thai', 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Mitr', 'Noto Sans Thai', system-ui, sans-serif;
@@ -45,14 +48,14 @@
 }
 
 :root {
-  --background: #fff9ef;
+  --background: #fdf8f0;
   --surface: #ffffff;
-  --surface-muted: #fbf2e3;
-  --text-primary: #514a43; /* 8.9:1 on cream */
-  --text-muted: #726961; /* 5.2:1 on cream, 5.6:1 on white */
-  --border: #ecdfcb;
-  --border-strong: #d6c6ad;
-  --accent: #f5d76e;
+  --surface-muted: #f7efe3;
+  --text-primary: #5c3d2e; /* ~9.5:1 on cream */
+  --text-muted: #7a685c; /* ~5.1:1 on cream */
+  --border: #ecdfce;
+  --border-strong: #d8c5b0;
+  --accent: #ecd8bf;
   --danger: #b42318; /* 6.2:1 on white */
   --danger-soft: #fdeceb;
   --success: #1d7a56; /* 5.3:1 on white */
@@ -61,4 +64,49 @@
   --warning-soft: #fdf3d6;
   --info: #2c6b63;
   --info-soft: #e0f1ee;
+}
+
+/* Dark theme: warm cocoa night. The brand scale is remapped too (cream ↔ brown), so
+   "bg-brown text-cream" panels and buttons flip to light-on-dark automatically. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-cream: #1c1512;
+  --color-brown: #f3e6d6;
+  --color-brown-800: #fff7ec;
+  --color-brown-400: #b9a697;
+  --color-sunny: #6b4f3a;
+  --color-sunny-50: #221a16;
+  --color-sunny-100: #2c221c;
+  --color-sunny-200: #3b2e25;
+  --color-sunny-700: #e6c9a5;
+  --color-peach: #e0857e;
+  --color-peach-100: #3a2321;
+  --color-peach-700: #f6b4ad;
+  --color-mint: #5f9e96;
+  --color-mint-100: #1c2e2b;
+  --color-mint-700: #a5d8d0;
+  --color-taupe: #b29d8d;
+  --color-taupe-100: #2f2621;
+
+  --background: #1c1512;
+  --surface: #261d18;
+  --surface-muted: #30251f;
+  --text-primary: #f3e6d6; /* ~14:1 on background */
+  --text-muted: #c0ad9e; /* ~8:1 on background */
+  --border: #3d3029;
+  --border-strong: #574538;
+  --accent: #6b4f3a;
+  --danger: #ff8f85;
+  --danger-soft: #3a1f1d;
+  --success: #7fd1a8;
+  --success-soft: #17302a;
+  --warning: #f0c36d;
+  --warning-soft: #33281a;
+  --info: #a5d8d0;
+  --info-soft: #1c2e2b;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
 }

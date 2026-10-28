@@ -2,12 +2,14 @@ import { ChevronLeft, Compass, Home, Palette, UserRound } from 'lucide-react'
 import { Suspense } from 'react'
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation, useMatches } from 'react-router'
 import { PageSkeleton } from '@/components/feedback/States'
+import { FULL_APP } from '@/app/phase'
 import { useCurrentUser } from '@/features/auth/useAuth'
 import { useT } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { AccountMenu, Avatar } from './AccountMenu'
 import { DevBanner } from './DevBanner'
 import { Footer } from './Footer'
+import { PortalBottomNav, PortalHeader } from './PortalChrome'
 import { Wordmark } from './Wordmark'
 
 /** Per-route layout hints, set via the route `handle`. */
@@ -149,7 +151,7 @@ export function AppShell() {
         {t('nav.skipToContent')}
       </a>
       <DevBanner />
-      <PublicHeader handle={handle} />
+      {FULL_APP ? <PublicHeader handle={handle} /> : <PortalHeader />}
       <main id="main" tabIndex={-1} className={cn('flex-1 focus:outline-none', !handle.hideBottomNav && 'pb-24 lg:pb-0')}>
         <Suspense
           fallback={
@@ -162,7 +164,7 @@ export function AppShell() {
         </Suspense>
       </main>
       {!handle.hideBottomNav && <Footer />}
-      {!handle.hideBottomNav && <MobileBottomNav />}
+      {!handle.hideBottomNav && (FULL_APP ? <MobileBottomNav /> : <PortalBottomNav />)}
       <ScrollRestoration />
     </div>
   )

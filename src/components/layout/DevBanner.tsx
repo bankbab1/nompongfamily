@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { FlaskConical, RotateCcw, WifiOff } from 'lucide-react'
 import { useState, useSyncExternalStore } from 'react'
+import { FULL_APP } from '@/app/phase'
 import { USING_MOCK_API } from '@/lib/api'
 import { getDevSettings, onDevSettings, resetMockDb, setDevSettings } from '@/lib/api/mock/db'
 import { confirm } from '@/components/ui/ConfirmDialog'
@@ -15,7 +16,8 @@ export function DevBanner() {
   const { offline } = JSON.parse(settings) as ReturnType<typeof getDevSettings>
   const [open, setOpen] = useState(false)
   const qc = useQueryClient()
-  if (!USING_MOCK_API) return null
+  // Phase 1 shows no mock backend data, so the test bar would only confuse visitors.
+  if (!USING_MOCK_API || !FULL_APP) return null
 
   return (
     <div className="border-b border-sunny-200 bg-sunny-100 text-xs text-brown">

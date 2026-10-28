@@ -1,10 +1,14 @@
 import { lazy } from 'react'
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, Navigate, type RouteObject } from 'react-router'
 import { AppShell, type RouteHandle } from '@/components/layout/AppShell'
 import { RequireAdmin, RequireAuth } from '@/features/auth/guards'
+import { FULL_APP } from './phase'
 import { RouteError } from './RouteError'
 
 /* Route-level code splitting (spec §3): every page is its own chunk. */
+const PortalHomePage = lazy(() => import('@/features/portal/PortalHomePage'))
+const NompongPage = lazy(() => import('@/features/nompong/NompongPage'))
+const SuggestPage = lazy(() => import('@/features/suggestions/SuggestPage'))
 const HomePage = lazy(() => import('@/features/home/HomePage'))
 const ExplorePage = lazy(() => import('@/features/home/ExplorePage'))
 const AboutPage = lazy(() => import('@/features/about/AboutPage'))
@@ -42,44 +46,54 @@ const AdminLaterPage = lazy(() => import('@/features/admin/AdminLaterPage'))
 
 const h = (handle: RouteHandle) => handle
 
-export const router = createBrowserRouter([
+/** Phase 1: only the Nompong introduction and the sticker suggestion wall. */
+const portalRoutes: RouteObject[] = [
+  { index: true, element: <PortalHomePage /> },
+  { path: 'nompong', element: <NompongPage />, handle: h({ title: 'รู้จักนมผง', back: '/' }) },
+  { path: 'suggest', element: <SuggestPage />, handle: h({ title: 'เสนอไอเดียสติกเกอร์', back: '/' }) },
+]
+
+/** Old links that point at hidden pages land on their phase-1 replacements. */
+const phase1Redirects: RouteObject[] = [
+  { path: 'about', element: <Navigate to="/nompong" replace /> },
+  { path: 'ideas', element: <Navigate to="/suggest" replace /> },
+]
+
+/** Earlier Studio / catalog / account features, kept for later phases (VITE_FULL_APP=true). */
+const fullRoutes: RouteObject[] = [
+  { path: 'classic', element: <HomePage /> },
+  { path: 'explore', element: <ExplorePage /> },
+  { path: 'about', element: <AboutPage />, handle: h({ title: 'รู้จักนมผง', back: '/explore' }) },
+  { path: 'stickers', element: <CatalogPage />, handle: h({ title: 'สติกเกอร์', back: '/explore' }) },
+  { path: 'stickers/:slug', element: <SetDetailPage />, handle: h({ title: 'ชุดสติกเกอร์', back: '/stickers' }) },
+  { path: 'studio', element: <StudioLandingPage /> },
+  { path: 'studio/new', element: <NewRequestPage />, handle: h({ title: 'สร้างคำขอ', back: '/studio', hideBottomNav: true }) },
+  { path: 'wallpapers', element: <WallpapersPage />, handle: h({ title: 'วอลเปเปอร์', back: '/explore' }) },
+  { path: 'wallpapers/:slug', element: <WallpaperDetailPage />, handle: h({ title: 'วอลเปเปอร์', back: '/wallpapers' }) },
+  { path: 'shop', element: <ShopPage />, handle: h({ title: 'ร้านค้า', back: '/explore' }) },
+  { path: 'cards', element: <CardsPage />, handle: h({ title: 'การ์ดสะสม', back: '/explore' }) },
+  { path: 'ideas', element: <IdeasPage />, handle: h({ title: 'บอร์ดไอเดีย', back: '/explore' }) },
+  { path: 'terms', element: <TermsPage />, handle: h({ title: 'ข้อกำหนด', back: '/' }) },
+  { path: 'privacy', element: <PrivacyPage />, handle: h({ title: 'ความเป็นส่วนตัว', back: '/' }) },
+  { path: 'faq', element: <FaqPage />, handle: h({ title: 'คำถามที่พบบ่อย', back: '/' }) },
+  { path: 'login', element: <LoginPage /> },
   {
-    element: <AppShell />,
-    errorElement: <RouteError />,
+    path: 'my',
+    element: <RequireAuth />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: 'explore', element: <ExplorePage /> },
-      { path: 'about', element: <AboutPage />, handle: h({ title: 'รู้จักนมผง', back: '/explore' }) },
-      { path: 'stickers', element: <CatalogPage />, handle: h({ title: 'สติกเกอร์', back: '/explore' }) },
-      { path: 'stickers/:slug', element: <SetDetailPage />, handle: h({ title: 'ชุดสติกเกอร์', back: '/stickers' }) },
-      { path: 'studio', element: <StudioLandingPage /> },
-      { path: 'studio/new', element: <NewRequestPage />, handle: h({ title: 'สร้างคำขอ', back: '/studio', hideBottomNav: true }) },
-      { path: 'wallpapers', element: <WallpapersPage />, handle: h({ title: 'วอลเปเปอร์', back: '/explore' }) },
-      { path: 'wallpapers/:slug', element: <WallpaperDetailPage />, handle: h({ title: 'วอลเปเปอร์', back: '/wallpapers' }) },
-      { path: 'shop', element: <ShopPage />, handle: h({ title: 'ร้านค้า', back: '/explore' }) },
-      { path: 'cards', element: <CardsPage />, handle: h({ title: 'การ์ดสะสม', back: '/explore' }) },
-      { path: 'ideas', element: <IdeasPage />, handle: h({ title: 'บอร์ดไอเดีย', back: '/explore' }) },
-      { path: 'terms', element: <TermsPage />, handle: h({ title: 'ข้อกำหนด', back: '/' }) },
-      { path: 'privacy', element: <PrivacyPage />, handle: h({ title: 'ความเป็นส่วนตัว', back: '/' }) },
-      { path: 'faq', element: <FaqPage />, handle: h({ title: 'คำถามที่พบบ่อย', back: '/' }) },
-      { path: 'login', element: <LoginPage /> },
-      {
-        path: 'my',
-        element: <RequireAuth />,
-        children: [
-          { index: true, element: <MyDashboardPage /> },
-          { path: 'requests', element: <MyRequestsPage />, handle: h({ title: 'คำขอของฉัน', back: '/my' }) },
-          { path: 'requests/:id', element: <RequestDetailPage />, handle: h({ title: 'รายละเอียดคำขอ', back: '/my/requests' }) },
-          { path: 'requests/:id/edit', element: <EditRequestPage />, handle: h({ title: 'แก้ไขคำขอ', back: '/my/requests', hideBottomNav: true }) },
-          { path: 'requests/:id/proof', element: <ProofReviewPage />, handle: h({ title: 'ตรวจงาน', back: '/my/requests' }) },
-          { path: 'profile', element: <ProfilePage />, handle: h({ title: 'โปรไฟล์', back: '/my' }) },
-          { path: 'collection', element: <LaterPage title="อัลบั้มการ์ดสะสม" phase="P3" />, handle: h({ title: 'อัลบั้มการ์ด', back: '/my' }) },
-          { path: 'orders', element: <LaterPage title="คำสั่งซื้อสินค้า" phase="P3" />, handle: h({ title: 'คำสั่งซื้อ', back: '/my' }) },
-        ],
-      },
-      { path: '*', element: <NotFoundPage /> },
+      { index: true, element: <MyDashboardPage /> },
+      { path: 'requests', element: <MyRequestsPage />, handle: h({ title: 'คำขอของฉัน', back: '/my' }) },
+      { path: 'requests/:id', element: <RequestDetailPage />, handle: h({ title: 'รายละเอียดคำขอ', back: '/my/requests' }) },
+      { path: 'requests/:id/edit', element: <EditRequestPage />, handle: h({ title: 'แก้ไขคำขอ', back: '/my/requests', hideBottomNav: true }) },
+      { path: 'requests/:id/proof', element: <ProofReviewPage />, handle: h({ title: 'ตรวจงาน', back: '/my/requests' }) },
+      { path: 'profile', element: <ProfilePage />, handle: h({ title: 'โปรไฟล์', back: '/my' }) },
+      { path: 'collection', element: <LaterPage title="อัลบั้มการ์ดสะสม" phase="P3" />, handle: h({ title: 'อัลบั้มการ์ด', back: '/my' }) },
+      { path: 'orders', element: <LaterPage title="คำสั่งซื้อสินค้า" phase="P3" />, handle: h({ title: 'คำสั่งซื้อ', back: '/my' }) },
     ],
   },
+]
+
+const adminRoutes: RouteObject[] = [
   {
     path: 'admin',
     element: <RequireAdmin />,
@@ -103,4 +117,20 @@ export const router = createBrowserRouter([
       },
     ],
   },
-], { basename: '/nompongfamily' })
+]
+
+export const router = createBrowserRouter(
+  [
+    {
+      element: <AppShell />,
+      errorElement: <RouteError />,
+      children: [
+        ...portalRoutes,
+        ...(FULL_APP ? fullRoutes : phase1Redirects),
+        { path: '*', element: <NotFoundPage /> },
+      ],
+    },
+    ...(FULL_APP ? adminRoutes : []),
+  ],
+  { basename: '/nompongfamily' },
+)
