@@ -7,7 +7,7 @@ import { createSeed, type MockDb } from './seed'
  * IndexedDB — that separation is what lets offline/conflict paths be exercised.
  */
 
-const DB_KEY = 'nompong-mock-db-v3' // v3: character names corrected (นมผง, พี่ก๊วย) in seed data
+const DB_KEY = 'nompong-mock-db-v5' // v5: no commission requests or Fastwork data
 const DEV_KEY = 'nompong-dev'
 
 export interface DevSettings {

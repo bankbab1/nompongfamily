@@ -35,12 +35,6 @@ describe('brief validation', () => {
     expect(validateBrief(d).some((i) => i.field === 'stickerCount')).toBe(true)
   })
 
-  it('rejects payment-card-like Fastwork references', () => {
-    const d = { ...filled(), channel: 'commission' as const, fastworkReference: '4111 1111 1111 1111' }
-    expect(validateBrief(d).some((i) => i.field === 'fastworkReference')).toBe(true)
-    expect(validateBrief({ ...d, fastworkReference: 'FW-58213' })).toEqual([])
-  })
-
   it('counts Thai graphemes, not code units, for length limits', () => {
     // "ที่" = 3 code points but one grapheme cluster with marks.
     expect(textLength('ที่')).toBe(1)

@@ -103,7 +103,6 @@ const DRAFT_FIELDS = [
   'notes',
   'items',
   'references',
-  'fastworkReference',
   'allowPublicIdea',
   'packageId',
 ] as const
@@ -113,10 +112,7 @@ function applyDraftPatch(r: StickerRequest, patch: Partial<StickerRequest>) {
   // Request type is fixed once submitted (spec §6.1).
   if (patch.channel && r.status === 'draft') r.channel = patch.channel
   if (r.channel === 'commission') r.packageId = `pkg_${r.stickerCount}`
-  else {
-    r.packageId = undefined
-    r.fastworkReference = undefined
-  }
+  else r.packageId = undefined
 }
 
 /* ------------------------------------------------------------------ auth */
@@ -400,7 +396,7 @@ const admin: AdminService = {
       .filter((r) => {
         if (!q) return true
         const owner = users.find((u) => u.id === r.ownerId)?.displayName ?? ''
-        return [r.id, r.setName, owner, r.fastworkReference ?? ''].some((f) => f.toLowerCase().includes(q))
+        return [r.id, r.setName, owner].some((f) => f.toLowerCase().includes(q))
       })
       .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
       .map(row)

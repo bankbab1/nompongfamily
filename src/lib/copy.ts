@@ -1,44 +1,14 @@
 import { useLocale, type Locale } from '@/lib/i18n'
 
 /**
- * All portal text, Thai and English side by side. Thai is the source; the English object
- * must have the same shape (TypeScript checks this). Nompong's profile copy is a DRAFT.
+ * Text for the sticker builder and the header switches, Thai and English side by side.
+ * Thai is the source; the English object must have the same shape (TypeScript checks this).
  */
 const th = {
-  site: { name: 'nompong family', tagline: 'บ้านของน้องนมผง' },
   nav: {
-    home: 'หน้าแรก',
-    nompong: 'รู้จักนมผง',
-    nompongShort: 'นมผง',
-    suggest: 'ออกแบบสติกเกอร์ LINE',
-    suggestShort: 'ออกแบบสติกเกอร์',
-    back: 'ย้อนกลับ',
-    menu: 'เมนูหลัก',
-    bottomMenu: 'เมนูด้านล่าง',
     language: 'ภาษา',
     toDark: 'เปลี่ยนเป็นโหมดมืด',
     toLight: 'เปลี่ยนเป็นโหมดสว่าง',
-  },
-  footer: {
-    blurb: 'บ้านของน้องนมผงและครอบครัว ที่ที่ความน่ารักจะค่อยๆ เติบโตไปพร้อมกับทุกคน',
-    links: 'ลิงก์ท้ายเว็บ',
-  },
-  nompong: {
-    name: 'นมผง',
-    altName: 'Nompong',
-    tagline: 'น้องหมาขนฟูสีขาวนวล ผู้ชอบส่งความอุ่นใจผ่านทุกแชต',
-    intro:
-      'นมผงเป็นน้องหมาตัวกลมขนปุยสีขาวนวลเหมือนนมผง หูยาวสีน้ำตาลอ่อนห้อยลงมาทั้งสองข้าง จมูกกลมโตสีขาวมันวาว และชอบแลบลิ้นสีชมพูเวลาดีใจ',
-    story: 'ไม่ว่าจะเป็นวันที่ยุ่งหรือวันที่เหนื่อย นมผงอยากอยู่ข้างๆ ทุกคนในรูปแบบสติกเกอร์ ให้ทุกข้อความมีความน่ารักเพิ่มขึ้นอีกนิด',
-    facts: [
-      { label: 'ชื่อ', value: 'นมผง (Nompong)' },
-      { label: 'ขน', value: 'ขาวนวล ฟูนุ่ม' },
-      { label: 'จุดเด่น', value: 'หูยาวสีน้ำตาล จมูกกลมสีขาว' },
-      { label: 'ท่าประจำ', value: 'แลบลิ้นยิ้มกว้าง' },
-    ],
-    traits: ['ใจดี', 'ขี้อ้อน', 'ร่าเริง', 'ชอบนอน', 'ขี้สงสัย'],
-    likes: ['งีบกลางวัน', 'ได้รับคำชม', 'อ้อมกอดอุ่นๆ', 'เล่นกับครอบครัว'],
-    family: 'นมผงไม่ได้อยู่ตัวเดียว ยังมีครอบครัวนมผงตัวเล็กๆ อีกหลายตัว ที่จะค่อยๆ มาทำความรู้จักกันในเร็วๆ นี้',
   },
   poses: {
     sit: 'นมผงนั่งยิ้ม',
@@ -48,43 +18,6 @@ const th = {
     sleep: 'นมผงนอนหลับปุ๋ย',
     curious: 'นมผงสงสัย',
     lazy: 'นมผงนอนเอกเขนก',
-  },
-  home: {
-    metaDesc: 'ทำความรู้จักน้องนมผง น้องหมาขนฟูสีขาวนวล และมาเสนอไอเดียสติกเกอร์ชุดใหม่ที่อยากให้นมผงทำ',
-    hello: 'สวัสดี!',
-    iAm: 'เราชื่อ',
-    meetCta: 'รู้จักนมผง',
-    suggestCta: 'ออกแบบสติกเกอร์ LINE',
-    meetTitle: 'นี่คือนมผง',
-    readProfile: 'อ่านโปรไฟล์นมผง',
-    posesLabel: 'ท่าทางของนมผง',
-    wishTitle1: 'อยากให้นมผงทำ',
-    wishTitle2: 'สติกเกอร์ชุดไหน?',
-    wishBody: 'เลือกจำนวน 8–40 ภาพ ตั้งชื่อชุดไทย/อังกฤษ ใส่คำและท่าทางทีละภาพ แล้วโหวตชุดของเพื่อนๆ ชุดที่คนอยากได้เยอะที่สุดจะได้วาดก่อน',
-    wishCta: 'เริ่มออกแบบเลย',
-    topIdeas: 'ชุดยอดนิยม',
-    soonTitle: 'เร็วๆ นี้ใน nompong family',
-    soonBody: 'บ้านของนมผงจะมีอะไรสนุกๆ เพิ่มขึ้นเรื่อยๆ',
-    soonBadge: 'เร็วๆ นี้',
-    coming: [
-      { title: 'สติกเกอร์ LINE', desc: 'ชุดแรกของนมผงกำลังวาดอยู่' },
-      { title: 'วอลเปเปอร์', desc: 'ภาพพื้นหลังมือถือน่ารักๆ' },
-      { title: 'Nompong Studio', desc: 'ออกแบบชุดสติกเกอร์ของคุณเอง' },
-      { title: 'ร้านค้า', desc: 'ตุ๊กตาและของที่ระลึก' },
-      { title: 'การ์ดสะสม', desc: 'สะสมนมผงครบทุกท่า' },
-    ],
-  },
-  profile: {
-    eyebrow: 'โปรไฟล์คาแรกเตอร์',
-    traitsLabel: 'นิสัย',
-    helloTitle: 'สวัสดี เราชื่อนมผง',
-    factsTitle: 'ข้อมูลน่ารู้',
-    likesTitle: 'ชอบ',
-    posesTitle: 'หลายอารมณ์ของนมผง',
-    posesBody: 'ท่าทางเหล่านี้คือจุดเริ่มต้นของสติกเกอร์ชุดแรกๆ',
-    soon: 'เร็วๆ นี้',
-    familyTitle: 'ครอบครัวนมผง',
-    familyCta: 'อยากให้นมผงทำสติกเกอร์ชุดไหน?',
   },
   suggest: {
     metaTitle: 'ออกแบบสติกเกอร์ LINE ให้นมผง',
@@ -152,6 +85,14 @@ const th = {
     resetConfirm: 'ล้างข้อมูลที่กรอกไว้ทั้งหมดใช่ไหม?',
     submit: 'ส่งชุดสติกเกอร์ให้นมผง',
     gridLabel: 'ตารางสติกเกอร์',
+    step3: 'ตรวจและส่ง',
+    step3Detail: 'ดูสรุปก่อนส่ง',
+    stepsLabel: 'ขั้นตอนการออกแบบ',
+    stepOf: 'ขั้นตอนที่ {n} จาก {total}',
+    back: 'ย้อนกลับ',
+    nextStep: 'ถัดไป',
+    edit: 'แก้ไข',
+    reviewNoName: 'ยังไม่ได้ตั้งชื่อชุด',
   },
   errors: {
     nameRequired: 'ตั้งชื่อชุดอย่างน้อยหนึ่งภาษานะ',
@@ -188,7 +129,6 @@ const th = {
     festival: 'เทศกาล',
     other: 'อื่นๆ',
   },
-  notFound: { title: 'ไม่พบหน้าที่ต้องการ', body: 'ลิงก์อาจผิดหรือหน้านี้ถูกย้ายแล้ว', home: 'กลับหน้าแรก' },
 }
 
 export type PortalCopy = typeof th
@@ -197,40 +137,10 @@ export type PortalCopy = typeof th
 type Shape<T> = T extends string ? string : T extends readonly (infer U)[] ? readonly Shape<U>[] : { [K in keyof T]: Shape<T[K]> }
 
 const en: Shape<PortalCopy> = {
-  site: { name: 'nompong family', tagline: "Nompong's home" },
   nav: {
-    home: 'Home',
-    nompong: 'Meet Nompong',
-    nompongShort: 'Nompong',
-    suggest: 'Design LINE stickers',
-    suggestShort: 'Design',
-    back: 'Back',
-    menu: 'Main menu',
-    bottomMenu: 'Bottom menu',
     language: 'Language',
     toDark: 'Switch to dark mode',
     toLight: 'Switch to light mode',
-  },
-  footer: {
-    blurb: 'The home of Nompong and family — a cozy corner that grows a little cuter with everyone who visits.',
-    links: 'Footer links',
-  },
-  nompong: {
-    name: 'Nompong',
-    altName: 'นมผง',
-    tagline: 'A fluffy cream-white pup who loves sending warm hugs through every chat',
-    intro:
-      'Nompong — “milk powder” in Thai — is a round, fluffy pup with a cream-white coat, long soft taupe ears, a big glossy white nose, and a little pink tongue that pops out whenever Nompong is happy.',
-    story: 'On busy days and tired days alike, Nompong wants to be right there with you as a sticker, adding a little extra cuteness to every message.',
-    facts: [
-      { label: 'Name', value: 'Nompong (นมผง)' },
-      { label: 'Coat', value: 'Cream-white, extra fluffy' },
-      { label: 'Signature look', value: 'Taupe ears, round white nose' },
-      { label: 'Go-to pose', value: 'Big smile, tongue out' },
-    ],
-    traits: ['Kind', 'Cuddly', 'Cheerful', 'Sleepyhead', 'Curious'],
-    likes: ['Afternoon naps', 'Compliments', 'Warm hugs', 'Playing with family'],
-    family: "Nompong isn't alone — a whole litter of little Nompongs is on the way, and you'll get to meet them soon.",
   },
   poses: {
     sit: 'Nompong sitting and smiling',
@@ -240,43 +150,6 @@ const en: Shape<PortalCopy> = {
     sleep: 'Nompong fast asleep',
     curious: 'Curious Nompong',
     lazy: 'Lazy, lounging Nompong',
-  },
-  home: {
-    metaDesc: 'Meet Nompong, the fluffy cream-white pup, and suggest the next sticker set you want Nompong to make.',
-    hello: 'Hello!',
-    iAm: "I'm",
-    meetCta: 'Meet Nompong',
-    suggestCta: 'Design LINE stickers',
-    meetTitle: 'This is Nompong',
-    readProfile: "Read Nompong's profile",
-    posesLabel: "Nompong's poses",
-    wishTitle1: 'Which sticker set',
-    wishTitle2: 'should Nompong make?',
-    wishBody: 'Pick 8–40 stickers, name your set in Thai and English, add a word and pose for each sticker, then vote for other sets. The most-wanted sets get drawn first.',
-    wishCta: 'Start designing',
-    topIdeas: 'Top sets',
-    soonTitle: 'Coming soon to nompong family',
-    soonBody: "Nompong's home will keep growing with more fun things.",
-    soonBadge: 'Soon',
-    coming: [
-      { title: 'LINE stickers', desc: "Nompong's first set is being drawn" },
-      { title: 'Wallpapers', desc: 'Cute phone backgrounds' },
-      { title: 'Nompong Studio', desc: 'Design your own sticker set' },
-      { title: 'Shop', desc: 'Plushies and keepsakes' },
-      { title: 'Collectible cards', desc: 'Collect every Nompong pose' },
-    ],
-  },
-  profile: {
-    eyebrow: 'Character profile',
-    traitsLabel: 'Personality',
-    helloTitle: "Hi, I'm Nompong",
-    factsTitle: 'Quick facts',
-    likesTitle: 'Loves',
-    posesTitle: 'The many moods of Nompong',
-    posesBody: 'These poses are where the first sticker sets begin.',
-    soon: 'Coming soon',
-    familyTitle: 'The Nompong family',
-    familyCta: 'Which sticker set should Nompong make?',
   },
   suggest: {
     metaTitle: 'Design a LINE sticker set for Nompong',
@@ -331,7 +204,7 @@ const en: Shape<PortalCopy> = {
     prev: 'Previous sticker',
     next: 'Next sticker',
     clear: 'Clear this sticker',
-    hiddenNote: "Stickers {from}–{to} are hidden. Their details come back if you raise the count.",
+    hiddenNote: 'Stickers {from}–{to} are hidden. Their details come back if you raise the count.',
     bulkTitle: 'Add words to many stickers at once',
     bulkHint: 'Type or paste one word per line. They fill the empty stickers in order.',
     bulkPh: 'Thank you\nGot it\nSweet dreams',
@@ -344,6 +217,14 @@ const en: Shape<PortalCopy> = {
     resetConfirm: 'Clear everything you have entered?',
     submit: 'Send my sticker set to Nompong',
     gridLabel: 'Sticker grid',
+    step3: 'Review & send',
+    step3Detail: 'Check the summary',
+    stepsLabel: 'Design steps',
+    stepOf: 'Step {n} of {total}',
+    back: 'Back',
+    nextStep: 'Next',
+    edit: 'Edit',
+    reviewNoName: 'No set name yet',
   },
   errors: {
     nameRequired: 'Please name your set in at least one language',
@@ -380,7 +261,6 @@ const en: Shape<PortalCopy> = {
     festival: 'Holidays',
     other: 'Other',
   },
-  notFound: { title: 'Page not found', body: 'The link may be wrong, or the page has moved.', home: 'Back to home' },
 }
 
 const COPY: Record<Locale, Shape<PortalCopy>> = { th, en }

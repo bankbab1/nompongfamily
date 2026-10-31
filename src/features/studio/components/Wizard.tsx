@@ -48,7 +48,8 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
 
   const { data, step } = draft
   const activeSlot = Math.min(draft.activeSlot, data.stickerCount)
-  const channelLocked = !!serverStatus && serverStatus !== 'draft'
+  // The request type step is gone (Community only), so step 1 is never shown.
+  const channelLocked = true
   const issues: BriefIssue[] = useMemo(() => validateBrief(data, { termsAccepted: terms, checkTerms: termsTouched }), [data, terms, termsTouched])
   const blocking = issues.filter((i) => i.scope !== 'terms')
 
@@ -125,7 +126,7 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
       <div className="mb-5 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="font-display text-sm text-muted">
-            {data.channel === 'commission' ? 'Commission Brief' : 'Community Idea'}
+            เสนอไอเดียชุดสติกเกอร์
             {draft.serverId && <span className="ml-2 tabular-nums">· {draft.serverId}</span>}
           </p>
           <AutosaveIndicator state={saveState} onRetry={() => void retry()} />

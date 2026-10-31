@@ -1,13 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, Briefcase, Check, ClipboardList, Eye, Lightbulb, MessageSquareText, PenLine, Store } from 'lucide-react'
+import { ArrowRight, Check, ClipboardList, Eye, PenLine, Store } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { Alert } from '@/components/feedback/States'
 import { Page } from '@/components/layout/AppShell'
 import { LinkButton } from '@/components/ui/LinkButton'
 import { useCurrentUser } from '@/features/auth/useAuth'
-import { api } from '@/lib/api'
-import { qk } from '@/lib/api/queryKeys'
 import { track } from '@/lib/analytics'
 import { localDrafts } from '@/lib/storage/drafts'
 import { formatRelative } from '@/lib/utils/format'
@@ -18,15 +15,14 @@ import { completedCount, type LocalDraft } from '../model/draft'
 const HOW = [
   { icon: ClipboardList, title: 'กรอกบรีฟ', body: 'ตั้งชื่อชุด เลือก 8–40 ภาพ ใส่ข้อความและท่าทางทีละภาพ บันทึกอัตโนมัติ' },
   { icon: Eye, title: 'ทีมงานพิจารณา', body: 'ทีมงานอ่านบรีฟ อาจขอข้อมูลเพิ่ม แล้วแจ้งผลในหน้าคำขอ' },
-  { icon: PenLine, title: 'ผลิตและตรวจงาน', body: 'งาน Commission ตรวจและขอแก้ได้ทีละภาพก่อนอนุมัติทั้งชุด' },
+  { icon: PenLine, title: 'วาดและตรวจงาน', body: 'ไอเดียที่ได้รับเลือกจะวาดในสไตล์นมผง และตรวจทุกภาพก่อนวางขาย' },
   { icon: Store, title: 'วางขายสาธารณะ', body: 'ชุดที่เสร็จจะส่งให้ LINE พิจารณาและวางขายใน LINE Sticker Store' },
 ]
 
 export default function StudioLandingPage() {
   const user = useCurrentUser()
   const [drafts, setDrafts] = useState<LocalDraft[]>([])
-  usePageMeta('Nompong Studio', 'เสนอไอเดียชุดสติกเกอร์นมผงฟรี หรือสั่งทำชุดสติกเกอร์ผ่าน Fastwork พร้อมตรวจงานทีละภาพ')
-  const packages = useQuery({ queryKey: qk.packages, queryFn: () => api.requests.getPackages() })
+  usePageMeta('Nompong Studio', 'เสนอไอเดียชุดสติกเกอร์นมผงฟรี ทีมงานพิจารณาทุกไอเดีย')
 
   useEffect(() => {
     track('studio_opened')
@@ -35,11 +31,11 @@ export default function StudioLandingPage() {
 
   return (
     <>
-      <section className="border-b border-line bg-gradient-to-b from-sunny-100 to-cream">
-        <Page className="pb-10 sm:pb-14">
-          <p className="font-display text-sm font-medium text-muted">Nompong Studio</p>
-          <h1 className="mt-2 max-w-2xl font-display text-3xl leading-tight sm:text-5xl">สร้างชุดสติกเกอร์นมผงในแบบของคุณ</h1>
-          <p className="mt-3 max-w-xl text-[17px] text-muted">เลือกเส้นทางที่ใช่ ทั้งสองแบบใช้บรีฟเดียวกัน กรอกง่ายบนมือถือ และไม่หายแม้รีเฟรชหน้า</p>
+      <section>
+        <Page className="pt-10 pb-6 sm:pt-16">
+          <p className="text-sm font-medium text-muted">Nompong Studio</p>
+          <h1 className="t-page mt-2 max-w-2xl font-display">เสนอไอเดียชุดสติกเกอร์นมผง</h1>
+          <p className="t-lead mt-3 max-w-xl">ฟรี กรอกง่ายบนมือถือ บันทึกอัตโนมัติ และไม่หายแม้รีเฟรชหน้า</p>
         </Page>
       </section>
 
@@ -62,7 +58,7 @@ export default function StudioLandingPage() {
                         {d.data.setName || 'ฉบับร่างยังไม่ตั้งชื่อ'}
                       </span>
                       <span className="block text-xs text-muted">
-                        {d.data.channel === 'commission' ? 'Commission' : 'Community'} · {completedCount(d.data)}/{d.data.stickerCount} ภาพ · {formatRelative(d.updatedAt)}
+                        {completedCount(d.data)}/{d.data.stickerCount} ภาพ · {formatRelative(d.updatedAt)}
                       </span>
                     </span>
                     <ArrowRight size={18} aria-hidden />
@@ -73,46 +69,35 @@ export default function StudioLandingPage() {
           </section>
         )}
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {(['community', 'commission'] as const).map((c) => {
-            const info = CHANNEL_INFO[c]
-            const Icon = c === 'community' ? Lightbulb : Briefcase
-            return (
-              <article key={c} className="flex flex-col rounded-3xl border border-line bg-surface p-6">
-                <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${c === 'community' ? 'bg-mint-100' : 'bg-sunny-100'}`}>
-                  <Icon size={24} aria-hidden />
-                </span>
-                <h2 className="mt-4 font-display text-2xl">{info.title}</h2>
-                <p className="mt-1 text-muted">{info.summary}</p>
-                <ul className="mt-4 flex-1 space-y-2">
-                  {info.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm">
-                      <Check size={18} className="mt-0.5 shrink-0 text-success" aria-hidden /> {p}
-                    </li>
-                  ))}
-                </ul>
-                <LinkButton
-                  to={`/studio/new?type=${c}`}
-                  variant={c === 'community' ? 'secondary' : 'primary'}
-                  size="lg"
-                  block
-                  className="mt-6"
-                  iconRight={<ArrowRight size={18} />}
-                  onClick={() => track('request_type_selected', { channel: c })}
-                >
-                  {c === 'community' ? 'เสนอไอเดีย' : 'เริ่มบรีฟงานสั่งทำ'}
-                </LinkButton>
-              </article>
-            )
-          })}
-        </div>
+        <article className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-6 sm:flex-row sm:items-center sm:p-8">
+          <div className="min-w-0 flex-1">
+            <h2 className="font-display text-2xl">{CHANNEL_INFO.community.title}</h2>
+            <p className="mt-1 text-muted">{CHANNEL_INFO.community.summary}</p>
+            <ul className="mt-4 space-y-2">
+              {CHANNEL_INFO.community.points.map((p) => (
+                <li key={p} className="flex items-start gap-2 text-sm">
+                  <Check size={18} className="mt-0.5 shrink-0 text-success" aria-hidden /> {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <LinkButton
+            to="/studio/new"
+            variant="primary"
+            size="lg"
+            iconRight={<ArrowRight size={18} />}
+            onClick={() => track('request_type_selected', { channel: 'community' })}
+          >
+            เสนอไอเดีย
+          </LinkButton>
+        </article>
 
         <Alert tone="info" className="mt-6" title={PUBLIC_DISCLOSURE.title}>
           {PUBLIC_DISCLOSURE.body}
         </Alert>
 
         <section aria-labelledby="how" className="mt-12">
-          <h2 id="how" className="font-display text-2xl">
+          <h2 id="how" className="t-section font-display">
             ขั้นตอนการทำงาน
           </h2>
           <ol className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -127,47 +112,6 @@ export default function StudioLandingPage() {
               </li>
             ))}
           </ol>
-        </section>
-
-        <section aria-labelledby="packages" className="mt-12">
-          <h2 id="packages" className="font-display text-2xl">
-            แพ็กเกจงานสั่งทำ
-          </h2>
-          <p className="mt-1 text-sm text-muted">ราคา รอบแก้ไข และระยะเวลากำหนดโดยทีมงาน และยืนยันบน Fastwork</p>
-          <div className="mt-4 -mx-4 overflow-x-auto px-4">
-            <table className="w-full min-w-[30rem] overflow-hidden rounded-3xl border border-line bg-surface text-sm">
-              <thead className="bg-surface-muted text-left">
-                <tr>
-                  <th scope="col" className="px-4 py-3 font-medium">
-                    จำนวน
-                  </th>
-                  <th scope="col" className="px-4 py-3 font-medium">
-                    ราคา
-                  </th>
-                  <th scope="col" className="px-4 py-3 font-medium">
-                    แก้ไขได้
-                  </th>
-                  <th scope="col" className="px-4 py-3 font-medium">
-                    ระยะเวลา
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line">
-                {(packages.data ?? []).map((p) => (
-                  <tr key={p.id}>
-                    <td className="px-4 py-3 font-display">{p.stickerCount} ภาพ</td>
-                    <td className="px-4 py-3">{p.priceLabel}</td>
-                    <td className="px-4 py-3">{p.revisionRounds} รอบ</td>
-                    <td className="px-4 py-3">~{p.turnaroundDays} วัน</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 flex items-start gap-2 text-sm text-muted">
-            <MessageSquareText size={16} className="mt-0.5 shrink-0" aria-hidden />
-            เว็บไซต์นี้ไม่รับชำระเงิน การชำระเงิน การส่งมอบ และข้อพิพาทเป็นไปตามกติกาของ Fastwork
-          </p>
         </section>
       </Page>
     </>

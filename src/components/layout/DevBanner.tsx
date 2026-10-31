@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { FlaskConical, RotateCcw, WifiOff } from 'lucide-react'
 import { useState, useSyncExternalStore } from 'react'
-import { FULL_APP } from '@/app/phase'
 import { USING_MOCK_API } from '@/lib/api'
 import { getDevSettings, onDevSettings, resetMockDb, setDevSettings } from '@/lib/api/mock/db'
 import { confirm } from '@/components/ui/ConfirmDialog'
@@ -16,13 +15,12 @@ export function DevBanner() {
   const { offline } = JSON.parse(settings) as ReturnType<typeof getDevSettings>
   const [open, setOpen] = useState(false)
   const qc = useQueryClient()
-  // Phase 1 shows no mock backend data, so the test bar would only confuse visitors.
-  if (!USING_MOCK_API || !FULL_APP) return null
+  if (!USING_MOCK_API) return null
 
   return (
-    <div className="border-b border-sunny-200 bg-sunny-100 text-xs text-brown">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-1">
-        <span className="inline-flex items-center gap-1.5 font-semibold">
+    <div className="border-b border-line bg-surface-muted text-xs text-muted">
+      <div className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 px-4 py-1 sm:px-6 lg:px-10">
+        <span className="inline-flex items-center gap-1.5 font-medium">
           <FlaskConical size={13} aria-hidden /> โหมดทดสอบ — ข้อมูลจำลอง (mock)
         </span>
         {offline && (
@@ -30,19 +28,24 @@ export function DevBanner() {
             <WifiOff size={12} aria-hidden /> จำลองออฟไลน์
           </span>
         )}
-        <button type="button" className="ml-auto min-h-8 rounded-lg px-2 font-medium underline underline-offset-2" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <button
+          type="button"
+          className="ml-auto min-h-8 rounded-lg px-2 font-medium text-ink underline-offset-2 hover:underline"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+        >
           {open ? 'ซ่อนเครื่องมือ' : 'เครื่องมือทดสอบ'}
         </button>
       </div>
       {open && (
-        <div className="mx-auto flex max-w-6xl flex-wrap gap-2 px-4 pb-2">
-          <label className="inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-lg border border-sunny-200 bg-surface px-3">
+        <div className="flex w-full flex-wrap gap-2 px-4 pb-2 sm:px-6 lg:px-10">
+          <label className="inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-lg border border-line bg-surface px-3">
             <input type="checkbox" checked={offline} onChange={(e) => setDevSettings({ offline: e.target.checked })} />
             จำลองเซิร์ฟเวอร์ออฟไลน์
           </label>
           <button
             type="button"
-            className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-sunny-200 bg-surface px-3"
+            className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-line bg-surface px-3"
             onClick={async () => {
               const ok = await confirm({
                 title: 'รีเซ็ตข้อมูลจำลอง?',

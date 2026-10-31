@@ -67,7 +67,7 @@ export default function InboxPage() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <PageHeader title="กล่องคำขอ" description="ค้นหาด้วยเลขที่คำขอ ชื่อชุด ชื่อลูกค้า หรือเลข Fastwork" />
+      <PageHeader title="กล่องคำขอ" description="ค้นหาด้วยเลขที่คำขอ ชื่อชุด หรือชื่อผู้ส่ง" />
 
       <div className="no-scrollbar -mx-4 mb-4 overflow-x-auto px-4 lg:-mx-8 lg:px-8">
         <div role="tablist" aria-label="มุมมองที่บันทึกไว้" className="inline-flex gap-1 rounded-2xl bg-surface-muted p-1">
@@ -94,7 +94,6 @@ export default function InboxPage() {
         <InlineSelect aria-label="ประเภท" value={filter.channel} onChange={(e) => set('channel', e.target.value)}>
           <option value="all">ทุกประเภท</option>
           <option value="community">Community</option>
-          <option value="commission">Commission</option>
         </InlineSelect>
         <InlineSelect aria-label="สถานะ" value={filter.status} onChange={(e) => set('status', e.target.value)}>
           <option value="all">ทุกสถานะ</option>

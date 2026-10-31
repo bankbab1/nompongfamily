@@ -14,14 +14,32 @@ body,
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: 5rem;
+  /* Reserve the scrollbar's space on every page, so short and long pages are the same width
+     and the header never shifts sideways when you switch pages. */
+  scrollbar-gutter: stable;
+}
+
+/* Comfortable reading at 100% zoom: phones keep 16px (no iOS input zoom); from big laptops up
+   the root grows a little, and every rem size (text, buttons, spacing) grows with it. */
+@media (min-width: 1280px) {
+  html {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1700px) {
+  html {
+    font-size: 18px;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  line-height: 1.6;
+  /* Thai stacks tone marks above and vowels below the line: give body text room. */
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -37,12 +55,110 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* Thai headings need taller lines and no negative tracking (tight tracking clips tone marks). */
 h1,
 h2,
 h3,
 .font-display {
   font-family: var(--font-display);
+  font-weight: 600;
   letter-spacing: 0;
+  line-height: 1.3;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Type scale: one size and weight per role, used on every screen.
+ *   t-hero     landing titles          t-page     the one title of a page
+ *   t-section  a heading inside a page  t-card     the title of a card
+ *   t-lead     intro under a title      t-meta     small secondary text
+ * ------------------------------------------------------------------------------------------- */
+@utility t-hero {
+  font-size: 2.25rem;
+  line-height: 1.25;
+  font-weight: 600;
+  @media (width >= 40rem) {
+    font-size: 3.25rem;
+  }
+}
+@utility t-page {
+  font-size: 1.75rem;
+  line-height: 1.3;
+  font-weight: 600;
+  @media (width >= 40rem) {
+    font-size: 2.25rem;
+  }
+}
+@utility t-section {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 600;
+  @media (width >= 40rem) {
+    font-size: 1.5rem;
+  }
+}
+@utility t-card {
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  font-weight: 600;
+}
+@utility t-lead {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  @media (width >= 40rem) {
+    font-size: 1.125rem;
+  }
+}
+@utility t-meta {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* A screen arriving: a soft fade and a short rise, so moving around the app feels continuous. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-page {
+  animation: page-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Typing caret: a steady blink. */
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+.animate-caret-blink {
+  animation: caret-blink 1s step-end infinite;
+}
+
+/* Touch screens: no long-press callout or text selection on controls. */
+@media (hover: none) {
+  button,
+  [role='radio'],
+  [role='switch'],
+  [role='tab'] {
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
 }
 
 /* Thin scrollbars app-wide (UI.md §2: density, not a colour choice). */
@@ -59,7 +175,7 @@ h3,
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-brown);
+  outline: 2px solid var(--color-brown);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -96,14 +212,4 @@ h3,
 }
 .animate-skeleton {
   animation: skeleton-pulse 1.4s ease-in-out infinite;
-}
-
-/* Nompong portal: gentle idle float for hero art (disabled by the reduced-motion rule above). */
-@keyframes nompong-float {
-  50% {
-    transform: translateY(-8px);
-  }
-}
-.nompong-float {
-  animation: nompong-float 4.5s ease-in-out infinite;
 }

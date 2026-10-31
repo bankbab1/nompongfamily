@@ -16,17 +16,17 @@ import { Wizard } from '../components/Wizard'
 type Phase = { kind: 'loading' } | { kind: 'choose'; existing: LocalDraft } | { kind: 'missing' } | { kind: 'ready'; draft: LocalDraft }
 
 /**
- * /studio/new?type=community|commission[&draft=<clientDraftId>]
+ * /studio/new[?draft=<clientDraftId>] (Community ideas only)
  * The draft id lives in the URL, so a refresh (or accidental pull-to-refresh) reopens
  * the exact same draft from IndexedDB (FE-04, FE-12).
  */
 export default function NewRequestPage() {
   const [params, setParams] = useSearchParams()
   const { data: user, isPending } = useSession()
-  const type: RequestChannel = params.get('type') === 'commission' ? 'commission' : 'community'
+  const type: RequestChannel = 'community'
   const draftId = params.get('draft')
   const [phase, setPhase] = useState<Phase>({ kind: 'loading' })
-  usePageMeta(type === 'commission' ? 'สั่งทำชุดสติกเกอร์' : 'เสนอไอเดียสติกเกอร์', undefined, { noindex: true })
+  usePageMeta('เสนอไอเดียสติกเกอร์', undefined, { noindex: true })
 
   useEffect(() => {
     if (isPending) return

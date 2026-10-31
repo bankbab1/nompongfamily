@@ -36,8 +36,7 @@ export interface ResponsiveModalProps {
 
 const widths = { sm: 'sm:max-w-sm', md: 'sm:max-w-lg', lg: 'sm:max-w-2xl', xl: 'sm:max-w-5xl' }
 
-const closeBtn =
-  '-mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted hover:bg-surface-muted hover:text-ink'
+const closeBtn = '-mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted hover:bg-surface-muted hover:text-ink'
 
 /** Bottom sheet below 640px (thumb-reachable, safe-area aware), centred dialog above. */
 export function ResponsiveModal({
@@ -129,9 +128,7 @@ export function Drawer({
             </RDialog.Close>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">{children}</div>
-          {footer && (
-            <div className="mobile-sticky-actions flex flex-wrap items-center justify-end gap-2 border-t border-line px-5 pt-3">{footer}</div>
-          )}
+          {footer && <div className="mobile-sticky-actions flex flex-wrap items-center justify-end gap-2 border-t border-line px-5 pt-3">{footer}</div>}
         </RDialog.Content>
       </RDialog.Portal>
     </RDialog.Root>

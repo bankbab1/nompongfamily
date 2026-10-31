@@ -117,9 +117,7 @@ export function ImageUploader({
       >
         <ImagePlus size={compact ? 22 : 28} className="text-muted" aria-hidden />
         <span className="font-medium text-ink">{busy ? 'กำลังเตรียมภาพ…' : label}</span>
-        <span className="text-xs text-muted">
-          {hint ?? `JPG, PNG, WebP · ไม่เกิน ${formatBytes(limits.maxBytes)} · เหลือ ${Math.max(0, remaining)} ไฟล์`}
-        </span>
+        <span className="text-xs text-muted">{hint ?? `JPG, PNG, WebP · ไม่เกิน ${formatBytes(limits.maxBytes)} · เหลือ ${Math.max(0, remaining)} ไฟล์`}</span>
         <input
           ref={inputRef}
           id={id}

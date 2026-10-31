@@ -1,6 +1,6 @@
 import { ChevronDown, Heart } from 'lucide-react'
 import { useId, useState } from 'react'
-import { fill, useCopy } from '@/features/portal/copy'
+import { fill, useCopy } from '@/lib/copy'
 import { useLocale } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { isFilled, localDesc, localName, moodEmoji, type Suggestion } from './model'
@@ -22,7 +22,7 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
     <article
       className={cn(
         'flex h-full flex-col rounded-3xl border bg-surface p-5 transition-shadow',
-        highlight ? 'border-brown shadow-md ring-4 ring-sunny-200' : 'border-line',
+        highlight ? 'border-brown ring-4 ring-brown/10' : 'border-line hover:border-line-strong',
       )}
     >
       <div className="flex flex-wrap items-center gap-1.5 text-sm">
@@ -33,7 +33,7 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
           <span aria-hidden>{moodEmoji(s.mood)}</span> {c.moods[s.mood]}
         </span>
         {s.mine ? (
-          <span className="ml-auto rounded-full bg-mint-100 px-2.5 py-0.5 text-xs font-medium text-mint-700">{c.card.yours}</span>
+          <span className="ml-auto rounded-full bg-success-soft px-2.5 py-0.5 text-xs font-medium text-success">{c.card.yours}</span>
         ) : s.isExample ? (
           <span className="ml-auto text-xs text-muted">{c.card.example}</span>
         ) : null}
@@ -46,11 +46,13 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
       {words.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={c.card.captionsLabel}>
           {words.slice(0, PREVIEW_WORDS).map((w, i) => (
-            <li key={`${w}-${i}`} className="rounded-xl bg-sunny-100 px-2.5 py-1 text-sm">
+            <li key={`${w}-${i}`} className="rounded-full bg-surface-muted px-2.5 py-1 text-sm">
               {w}
             </li>
           ))}
-          {words.length > PREVIEW_WORDS && <li className="rounded-xl px-1.5 py-1 text-sm text-muted">{fill(c.card.more, { n: words.length - PREVIEW_WORDS })}</li>}
+          {words.length > PREVIEW_WORDS && (
+            <li className="rounded-xl px-1.5 py-1 text-sm text-muted">{fill(c.card.more, { n: words.length - PREVIEW_WORDS })}</li>
+          )}
         </ul>
       )}
 
@@ -96,7 +98,7 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
           onClick={onVote}
           className={cn(
             'inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-sm font-medium transition-colors',
-            s.votedByMe ? 'border-peach-700/25 bg-peach-100 text-peach-700' : 'border-line-strong hover:bg-surface-muted',
+            s.votedByMe ? 'border-transparent bg-peach-100 text-peach-700' : 'border-line hover:border-line-strong',
           )}
         >
           <Heart size={17} fill={s.votedByMe ? 'currentColor' : 'none'} aria-hidden />

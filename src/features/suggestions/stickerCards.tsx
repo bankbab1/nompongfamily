@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { TextArea, TextField } from '@/components/ui/Field'
 import { NompongArt, type NompongPose } from '@/features/nompong/art'
-import { fill, useCopy } from '@/features/portal/copy'
+import { fill, useCopy } from '@/lib/copy'
 import { cn } from '@/lib/utils/cn'
 import { emptySticker, ERROR_LIMIT, isFilled, LIMITS, type StickerIdea, type SuggestionErrorCode, type SuggestionErrors } from './model'
 
@@ -20,9 +20,9 @@ const reduceMotion = () => typeof window !== 'undefined' && window.matchMedia?.(
 export function StickerPager({ active, total, onGo }: { active: number; total: number; onGo: (i: number) => void }) {
   const b = useCopy().builder
   return (
-    <div className="mb-3 flex items-center justify-between gap-3 rounded-2xl bg-surface-muted p-1.5">
+    <div className="mb-3 flex items-center justify-between gap-3">
       <Button variant="secondary" iconOnly label={b.prev} icon={<ChevronLeft size={22} />} disabled={active === 0} onClick={() => onGo(active - 1)} />
-      <p className="font-display text-lg tabular-nums" aria-live="polite">
+      <p className="text-sm font-semibold tabular-nums" aria-live="polite">
         {fill(b.stickerOf, { n: active + 1, total })}
       </p>
       <Button variant="secondary" iconOnly label={b.next} icon={<ChevronRight size={22} />} disabled={active === total - 1} onClick={() => onGo(active + 1)} />
@@ -81,8 +81,8 @@ export function StickerStrip({
                   : bad
                     ? 'border-danger text-danger'
                     : done
-                      ? 'border-line-strong bg-sunny-100'
-                      : 'border-dashed border-line-strong bg-surface text-muted hover:bg-surface-muted',
+                      ? 'border-transparent bg-surface-muted text-ink'
+                      : 'border-line bg-surface text-muted hover:border-line-strong',
               )}
             >
               <span className="sm:text-xs">{i + 1}</span>
@@ -227,15 +227,9 @@ export function StickerCarousel({
               inert={i !== active}
               className="w-full shrink-0 px-0.5"
             >
-              <div
-                className={cn(
-                  'rounded-3xl border bg-surface p-4 sm:p-5',
-                  i === active ? 'border-line-strong shadow-sm' : 'border-line',
-                  err && 'border-danger',
-                )}
-              >
+              <div className={cn('rounded-3xl border bg-surface p-4 sm:p-5', 'border-line', err && 'border-danger')}>
                 <div className="mb-3 flex items-center justify-between">
-                  <h3 className="font-display text-xl">{fill(b.sticker, { n: i + 1 })}</h3>
+                  <h3 className="font-display text-base">{fill(b.sticker, { n: i + 1 })}</h3>
                   <Button size="sm" variant="ghost" icon={<Eraser size={16} />} disabled={!isFilled(s)} onClick={() => onChange(i, emptySticker())}>
                     {b.clear}
                   </Button>
@@ -243,13 +237,13 @@ export function StickerCarousel({
 
                 {/* Big preview: how the word sits on a Nompong sticker */}
                 <div
-                  className="relative mx-auto mb-4 flex aspect-square w-full max-w-[17rem] items-start justify-center overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-sunny-50 to-sunny-100 pt-[9%] sm:max-w-[19rem]"
+                  className="relative mx-auto mb-4 flex aspect-square w-full max-w-[17rem] items-start justify-center overflow-hidden rounded-2xl bg-sunny-50 pt-[9%] sm:max-w-[19rem]"
                   aria-hidden
                 >
                   <NompongArt pose={PREVIEW_POSES[i % PREVIEW_POSES.length]} className="h-[68%] w-auto" decorative />
                   <span
                     className={cn(
-                      'absolute inset-x-3 bottom-3 truncate rounded-xl px-3 py-1.5 text-center font-display text-xl shadow-sm sm:text-2xl',
+                      'absolute inset-x-3 bottom-3 truncate rounded-xl px-3 py-1.5 text-center font-display text-xl sm:text-2xl',
                       s.word.trim() ? 'bg-surface text-ink' : 'bg-surface/70 text-muted/70',
                     )}
                   >

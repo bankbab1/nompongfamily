@@ -9,7 +9,7 @@
     "wallpapers": "Wallpapers",
     "shop": "Shop",
     "cards": "Cards",
-    "ideas": "Ideas board",
+    "design": "Design stickers",
     "faq": "FAQ",
     "terms": "Terms",
     "privacy": "Privacy",
@@ -18,7 +18,8 @@
     "account": "My account",
     "admin": "Admin",
     "back": "Back",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "backToTop": "Back to top"
   },
   "status": {
     "draft": "Draft",

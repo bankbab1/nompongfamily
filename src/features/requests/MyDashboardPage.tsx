@@ -1,4 +1,4 @@
-import { Briefcase, ChevronRight, CreditCard, FileText, Lightbulb, LogOut, Package, Shield, UserRound } from 'lucide-react'
+import { ChevronRight, CreditCard, FileText, Lightbulb, LogOut, Package, Palette, Shield, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { Alert, PageSkeleton } from '@/components/feedback/States'
@@ -34,13 +34,13 @@ export default function MyDashboardPage() {
       <h1 className="font-display text-3xl">{user.displayName}</h1>
 
       <div className="mt-6 grid grid-cols-2 gap-3">
-        <Link to="/studio/new?type=community" className="flex min-h-24 flex-col justify-between rounded-3xl bg-mint-100 p-4 hover:brightness-[0.98]">
+        <Link to="/suggest" className="flex min-h-24 flex-col justify-between rounded-3xl bg-sunny-100 p-4 hover:brightness-[0.98]">
+          <Palette size={22} aria-hidden />
+          <span className="font-display text-lg leading-tight">ออกแบบชุดสติกเกอร์</span>
+        </Link>
+        <Link to="/studio/new" className="flex min-h-24 flex-col justify-between rounded-3xl border border-line bg-surface p-4 hover:border-line-strong">
           <Lightbulb size={22} aria-hidden />
           <span className="font-display text-lg leading-tight">เสนอไอเดีย</span>
-        </Link>
-        <Link to="/studio/new?type=commission" className="flex min-h-24 flex-col justify-between rounded-3xl bg-sunny p-4 hover:brightness-[0.98]">
-          <Briefcase size={22} aria-hidden />
-          <span className="font-display text-lg leading-tight">สั่งทำชุดสติกเกอร์</span>
         </Link>
       </div>
 

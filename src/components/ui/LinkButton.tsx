@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router'
 import { cn } from '@/lib/utils/cn'
-import { buttonBase, buttonSizes, buttonVariants, type ButtonSize, type ButtonVariant } from './Button'
+import { buttonBase, buttonSizes, buttonVariants, iconRightClass, type ButtonSize, type ButtonVariant } from './Button'
 
 /** A router link styled as a button (navigation stays a link for a11y and middle-click). */
 export function LinkButton({
@@ -18,7 +18,7 @@ export function LinkButton({
     <Link className={cn(buttonBase, buttonVariants[variant], buttonSizes[size], block && 'w-full', className)} {...rest}>
       {icon}
       {children}
-      {iconRight}
+      {iconRight && <span className={iconRightClass}>{iconRight}</span>}
     </Link>
   )
 }

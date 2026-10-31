@@ -17,7 +17,6 @@ export const LIMITS = {
   clothingProps: 500,
   colorNotes: 300,
   notes: 2000,
-  fastworkReference: 60,
   referenceFiles: 10,
   referenceFileBytes: 5 * 1024 * 1024,
 } as const
@@ -39,7 +38,6 @@ export function textLength(value: string): number {
 const blank = (s: string | undefined) => !s || s.trim().length === 0
 
 /** 13–19 digits, optionally grouped — looks like a payment card. Never accepted (spec §7). */
-const CARD_LIKE = /(?:\d[ -]?){13,19}/
 
 const maxLen = (max: number, label: string) =>
   z.string().refine((v) => textLength(v) <= max, { message: `${label}ยาวเกิน ${max} ตัวอักษร` })
@@ -66,9 +64,6 @@ export const setInfoSchema = z.object({
   language: z.literal('th'),
   theme: maxLen(LIMITS.theme, 'ธีม').optional(),
   notes: maxLen(LIMITS.notes, 'โน้ต').optional(),
-  fastworkReference: maxLen(LIMITS.fastworkReference, 'เลขอ้างอิง')
-    .refine((v) => !CARD_LIKE.test(v), { message: 'ห้ามใส่เลขบัตรหรือข้อมูลการชำระเงิน ใส่เฉพาะเลขงาน Fastwork' })
-    .optional(),
 })
 
 export type SlotStatus = 'empty' | 'partial' | 'complete'
@@ -95,7 +90,6 @@ export interface BriefInput {
   language: string
   theme?: string
   notes?: string
-  fastworkReference?: string
   items: StickerBriefItem[]
 }
 

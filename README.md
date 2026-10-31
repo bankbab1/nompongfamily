@@ -1,19 +1,15 @@
 # Nompong Studio — frontend
 
-## Phase 1: Nompong portal (current)
+## New: LINE sticker set builder, TH/EN and dark mode
 
-The site currently shows only three pages: **Home** (`/`), **Meet Nompong** (`/nompong`) and the
-**LINE sticker set builder** (`/suggest`). Visitors pick 8/16/24/32/40 stickers, give the set a Thai and
-English name and description, add a word and a pose/style for each sticker, and vote for other sets.
-The site has Thai/English and light/dark switches in the header.
-
-- **Artwork:** put `logo.png` and `character-sheet.png` in `public/nompong/` (see the README there).
-  Until they're added, a drawn stand-in shows instead.
-- **Text:** all portal copy (TH + EN) lives in `src/features/portal/copy.ts`.
-- **Suggestions** are saved in the visitor's browser for now (`src/features/suggestions/store.ts`).
-  To share them between visitors, add a Supabase adapter there that implements `SuggestionsService`.
-- **Older features** (Studio, admin, shop, etc.) are hidden but kept. Run `VITE_FULL_APP=true npm run dev`
-  to bring them back. The Playwright tests cover those older features, so run them in that mode.
+- **Sticker set builder** (`/suggest`, linked as "ออกแบบสติกเกอร์" in the menu, Explore, Home and the footer):
+  pick 8/16/24/32/40 stickers, give the set a Thai and English name and description, then fill in a word and
+  Nompong's pose/style for each sticker on big swipeable cards. Sets are saved in the visitor's browser for now
+  (`src/features/suggestions/store.ts`); a Supabase adapter can replace that later.
+- **TH/EN switch** and **light/dark switch** in the header. Both are remembered per device. The builder and the
+  menu are fully translated; the older page copy is still Thai only. Builder text lives in `src/lib/copy.ts`.
+- **Artwork:** put `character-sheet.png` in `public/nompong/` (see the README there). Until then a drawn stand-in shows.
+- **Dev port:** `npm run dev` uses 5210, or `PORT` if set (so a second preview can run beside it).
 
 Frontend MVP for **nompong family / Nompong Studio** built from `nompong_studio_frontend_spec.md` v1.0.
 It runs against a **typed mock backend** (the spec's backend and database are still to come), so the whole
@@ -32,7 +28,7 @@ npm run build
 | Persona | Role | Use it to try |
 |---|---|---|
 | พลอย | member | Community ideas, a request with "clarification requested", votes |
-| เมย์ (ลูกค้า Fastwork) | customer | Commission `NP-26-0101` with proof round 2 ready to review |
+| เมย์ | customer | No sample requests (commission work was removed) |
 | แอดมินสตูดิโอ | admin | Inbox, status transitions, production workspace, catalog, settings |
 
 The yellow **test-mode bar** at the top has switches to simulate the server being offline and to reset all demo data.
@@ -81,4 +77,4 @@ form state is a long-lived document synced to IndexedDB/server rather than a tra
 - **Mock backend only.** The real auth, upload, protected media and notification work is in the backend spec (§17).
 - English UI is partial (`src/locales/en.json`); long-form page copy is still inline Thai.
 - Light theme only (spec: dark mode later). Policy text and package prices are draft placeholders.
-- Open decisions in §18 (Fastwork rules, rights/credit, sign-in vs invitation links, LINE specs) are still unresolved.
+- Open decisions in §18 (rights/credit, sign-in vs invitation links, LINE specs) are still unresolved.

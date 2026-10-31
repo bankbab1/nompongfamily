@@ -27,7 +27,7 @@ function resolve(): Theme {
 function apply() {
   const theme = resolve()
   document.documentElement.dataset.theme = theme
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#1c1512' : '#fdf8f0')
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#141311' : '#fbfaf7')
   listeners.forEach((l) => l())
 }
 

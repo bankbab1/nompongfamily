@@ -24,7 +24,6 @@ export type DraftData = Pick<
   | 'notes'
   | 'items'
   | 'references'
-  | 'fastworkReference'
   | 'allowPublicIdea'
 >
 
@@ -86,7 +85,6 @@ export function newDraft(channel: RequestChannel, ownerId: string | null): Local
       notes: '',
       items: emptyItems(),
       references: [],
-      fastworkReference: '',
       allowPublicIdea: false,
     },
   }
@@ -112,7 +110,6 @@ export function fromServer(req: StickerRequest, ownerId: string): LocalDraft {
       notes: req.notes ?? '',
       items: normaliseItems(req.items),
       references: req.references,
-      fastworkReference: req.fastworkReference ?? '',
       allowPublicIdea: req.allowPublicIdea ?? false,
     },
   }

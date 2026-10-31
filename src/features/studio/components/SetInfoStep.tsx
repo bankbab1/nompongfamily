@@ -1,10 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { Briefcase, Info } from 'lucide-react'
-import { Alert, Skeleton } from '@/components/feedback/States'
 import { confirm } from '@/components/ui/ConfirmDialog'
 import { Checkbox, RadioCards, Select, TextArea, TextField } from '@/components/ui/Field'
-import { api } from '@/lib/api'
-import { qk } from '@/lib/api/queryKeys'
 import { STICKER_COUNTS, type StickerCount } from '@/lib/api/types'
 import { pad2 } from '@/lib/utils/id'
 import { fieldError, LIMITS, type BriefIssue } from '@/lib/validation/brief'
@@ -27,8 +22,6 @@ export function SetInfoStep({
   onChange(fn: (d: DraftData) => DraftData): void
 }) {
   const err = (field: string) => (showErrors ? fieldError(issues, 'set', field) : undefined)
-  const packages = useQuery({ queryKey: qk.packages, queryFn: () => api.requests.getPackages(), enabled: data.channel === 'commission' })
-  const pkg = packages.data?.find((p) => p.stickerCount === data.stickerCount)
 
   async function changeCount(count: StickerCount) {
     if (count < data.stickerCount) {
@@ -113,56 +106,12 @@ export function SetInfoStep({
         lang="th"
       />
 
-      {data.channel === 'commission' ? (
-        <div className="space-y-4 rounded-3xl border border-line bg-sunny-50 p-4 sm:p-5">
-          <div className="flex items-center gap-2">
-            <Briefcase size={18} aria-hidden />
-            <h3 className="font-display text-lg">แพ็กเกจ {data.stickerCount} ภาพ</h3>
-          </div>
-          {packages.isPending ? (
-            <Skeleton className="h-16" />
-          ) : pkg ? (
-            <dl className="grid grid-cols-3 gap-3 text-sm">
-              <div>
-                <dt className="text-muted">ราคา</dt>
-                <dd className="font-medium">{pkg.priceLabel}</dd>
-              </div>
-              <div>
-                <dt className="text-muted">แก้ไขได้</dt>
-                <dd className="font-medium">{pkg.revisionRounds} รอบ</dd>
-              </div>
-              <div>
-                <dt className="text-muted">ระยะเวลาโดยประมาณ</dt>
-                <dd className="font-medium">{pkg.turnaroundDays} วัน</dd>
-              </div>
-            </dl>
-          ) : (
-            <p className="text-sm text-muted">ยังไม่มีแพ็กเกจสำหรับจำนวนนี้ ทีมงานจะติดต่อกลับ</p>
-          )}
-          <TextField
-            label="เลขอ้างอิงงาน Fastwork"
-            optional
-            value={data.fastworkReference ?? ''}
-            maxChars={LIMITS.fastworkReference}
-            onChange={(e) => onChange((d) => ({ ...d, fastworkReference: e.target.value }))}
-            placeholder="เช่น FW-58213"
-            hint="ใส่ได้ภายหลังเมื่อยืนยันงานบน Fastwork แล้ว ห้ามใส่ข้อมูลบัตรหรือการชำระเงิน"
-            error={err('fastworkReference')}
-            autoComplete="off"
-            inputMode="text"
-          />
-          <Alert tone="info" icon={<Info size={18} />}>
-            ราคาและเงื่อนไขกำหนดโดยทีมงานและตกลงกันบน Fastwork เว็บไซต์นี้ใช้รับบรีฟและตรวจงานเท่านั้น ไม่มีการชำระเงินที่นี่
-          </Alert>
-        </div>
-      ) : (
-        <Checkbox
-          checked={!!data.allowPublicIdea}
-          onChange={(e) => onChange((d) => ({ ...d, allowPublicIdea: e.target.checked }))}
-          label="ยินยอมให้แสดงไอเดียนี้บนบอร์ดไอเดียสาธารณะ (หลังผ่านการคัดกรอง)"
-          description="จะแสดงเฉพาะชื่อชุด ธีม และตัวอย่างข้อความ ไม่แสดงชื่อบัญชีหรือไฟล์แนบ"
-        />
-      )}
+      <Checkbox
+        checked={!!data.allowPublicIdea}
+        onChange={(e) => onChange((d) => ({ ...d, allowPublicIdea: e.target.checked }))}
+        label="ยินยอมให้ทีมงานแสดงไอเดียนี้ต่อสาธารณะ (หลังผ่านการคัดกรอง)"
+        description="จะแสดงเฉพาะชื่อชุด ธีม และตัวอย่างข้อความ ไม่แสดงชื่อบัญชีหรือไฟล์แนบ"
+      />
     </div>
   )
 }

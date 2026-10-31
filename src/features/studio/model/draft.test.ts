@@ -80,7 +80,7 @@ describe('draft model', () => {
   })
 
   it('removing a reference detaches it from every slot', () => {
-    let data = newDraft('commission', 'u').data
+    let data = newDraft('community', 'u').data
     data = { ...data, references: [{ id: 'r1', name: 'a.png', mime: 'image/png', size: 1, url: 'data:' }] }
     data = toggleItemReference(data, 2, 'r1')
     expect(data.items[1].referenceAssetIds).toEqual(['r1'])

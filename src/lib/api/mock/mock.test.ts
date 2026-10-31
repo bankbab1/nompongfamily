@@ -78,38 +78,6 @@ describe('mock adapter contract', () => {
     await expect(api.admin.listRequests()).rejects.toMatchObject({ code: 'forbidden' })
   })
 
-  it('final approval only when every image is approved, recording exact versions (FE-09)', async () => {
-    await asUser('u_may')
-    const proof = (await api.requests.getProof('NP-26-0101'))!
-    await expect(api.requests.approveFinalSet('NP-26-0101', proof.proofVersion)).rejects.toMatchObject({ code: 'invalid_state' })
-    const pending = proof.items.filter((i) => i.state === 'pending')
-    await expect(api.requests.reviewArtwork('NP-26-0101', pending[0].itemId, 'revise', '  ')).rejects.toMatchObject({ code: 'validation' })
-    for (const p of pending) await api.requests.reviewArtwork('NP-26-0101', p.itemId, 'approve')
-    const done = await api.requests.approveFinalSet('NP-26-0101', proof.proofVersion)
-    expect(done.finalApproval?.proofVersion).toBe(2)
-    expect(done.items.every((i) => i.approvedVersion === i.versions.at(-1)!.version)).toBe(true)
-    const req = await api.requests.getRequest('NP-26-0101')
-    expect(req.status).toBe('artwork_approved')
-  })
-
-  it('revision loop: customer revises → admin uploads + releases → new round keeps approved items', async () => {
-    await asUser('u_may')
-    const proof = (await api.requests.getProof('NP-26-0101'))!
-    const [a, b] = proof.items.filter((i) => i.state === 'pending')
-    await api.requests.reviewArtwork('NP-26-0101', a.itemId, 'approve')
-    await api.requests.reviewArtwork('NP-26-0101', b.itemId, 'revise', 'ขอตาโตกว่านี้')
-    expect((await api.requests.getRequest('NP-26-0101')).status).toBe('revision_requested')
-
-    await asUser('u_admin')
-    await expect(api.admin.releaseProof('NP-26-0101')).rejects.toMatchObject({ code: 'invalid_state' })
-    await api.admin.uploadArtwork('NP-26-0101', b.itemId, { dataUrl: 'data:image/png;base64,AA' })
-    const round3 = await api.admin.releaseProof('NP-26-0101')
-    expect(round3.proofVersion).toBe(3)
-    expect(round3.items.find((i) => i.itemId === b.itemId)).toMatchObject({ state: 'pending' })
-    expect(round3.items.find((i) => i.itemId === b.itemId)!.versions.at(-1)!.version).toBe(3)
-    expect(round3.items.find((i) => i.itemId === a.itemId)!.state).toBe('approved')
-  })
-
   it('publishing a community request assigns the next CR code, never V/M', async () => {
     await asUser('u_admin')
     let r = await api.admin.getRequest('NP-26-0103') // under_review community

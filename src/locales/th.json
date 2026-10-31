@@ -10,7 +10,7 @@
     "wallpapers": "วอลเปเปอร์",
     "shop": "ร้านค้า",
     "cards": "การ์ดสะสม",
-    "ideas": "บอร์ดไอเดีย",
+    "design": "ออกแบบสติกเกอร์",
     "faq": "คำถามที่พบบ่อย",
     "terms": "ข้อกำหนด",
     "privacy": "ความเป็นส่วนตัว",
@@ -19,13 +19,12 @@
     "account": "บัญชีของฉัน",
     "admin": "ผู้ดูแล",
     "back": "ย้อนกลับ",
-    "skipToContent": "ข้ามไปยังเนื้อหา"
+    "skipToContent": "ข้ามไปยังเนื้อหา",
+    "backToTop": "กลับขึ้นด้านบน"
   },
   "channel": {
     "community": "ไอเดียจากแฟนๆ",
-    "commission": "สั่งทำ (Commission)",
-    "communityShort": "Community",
-    "commissionShort": "Commission"
+    "communityShort": "Community"
   },
   "status": {
     "draft": "ฉบับร่าง",

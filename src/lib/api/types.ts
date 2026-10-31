@@ -86,7 +86,6 @@ export interface StickerRequest {
    *  trimmed to stickerCount on submission. */
   items: StickerBriefItem[]
   references: ReferenceAsset[]
-  fastworkReference?: string
   packageId?: string
   /** Opt-in to appear (moderated) on the public Ideas board — community only. */
   allowPublicIdea?: boolean

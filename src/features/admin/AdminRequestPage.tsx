@@ -136,8 +136,7 @@ export default function AdminRequestPage() {
           {r.setName}
         </h1>
         <p className="mt-1 text-sm text-muted">
-          {r.id} · {r.ownerName} · {r.stickerCount} ภาพ{r.fastworkReference && ` · Fastwork ${r.fastworkReference}`}
-          {r.packageId && ` · ${r.packageId}`}
+          {r.id} · {r.ownerName} · {r.stickerCount} ภาพ
         </p>
       </header>
 

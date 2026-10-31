@@ -94,10 +94,7 @@ export function Tooltip({ content, children, disabled, side = 'top', className }
           <div
             ref={tipRef}
             role="tooltip"
-            className={cn(
-              'pointer-events-none fixed z-[100] max-w-xs rounded-md bg-brown-800 px-2 py-1 text-xs leading-snug text-cream shadow-lg',
-              className,
-            )}
+            className={cn('pointer-events-none fixed z-[100] max-w-xs rounded-md bg-brown-800 px-2 py-1 text-xs leading-snug text-cream shadow-lg', className)}
             style={{ top: pos?.top ?? -9999, left: pos?.left ?? -9999 }}
           >
             {content}

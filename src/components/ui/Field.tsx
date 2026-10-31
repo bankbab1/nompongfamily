@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils/cn'
 import { textLength } from '@/lib/validation/brief'
 
 export const inputClass =
-  'w-full rounded-xl border border-line-strong bg-surface px-3.5 text-[16px] text-ink placeholder:text-muted/70 transition-colors focus:border-brown focus:outline-none focus:ring-2 focus:ring-sunny disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-muted aria-[invalid=true]:border-danger aria-[invalid=true]:ring-danger/20'
+  'w-full rounded-xl border border-line bg-surface px-3.5 text-[16px] text-ink placeholder:text-muted/60 transition-[border-color,box-shadow] hover:border-line-strong focus:border-brown focus:outline-none focus:ring-4 focus:ring-brown/10 disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-muted aria-[invalid=true]:border-danger aria-[invalid=true]:ring-danger/20'
 
 interface FieldShellProps {
   id: string
@@ -263,14 +263,7 @@ export function RadioCards<T extends string | number>({
                 columns === 5 && 'items-center justify-center p-2 text-center',
               )}
             >
-              <input
-                type="radio"
-                name={name}
-                className="sr-only"
-                checked={checked}
-                disabled={o.disabled}
-                onChange={() => onChange(o.value)}
-              />
+              <input type="radio" name={name} className="sr-only" checked={checked} disabled={o.disabled} onChange={() => onChange(o.value)} />
               {o.icon && <span className="mt-0.5 shrink-0 text-ink">{o.icon}</span>}
               <span className="min-w-0">
                 <span className="block font-medium text-ink">{o.label}</span>

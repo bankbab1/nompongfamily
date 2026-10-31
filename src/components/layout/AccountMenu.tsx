@@ -40,7 +40,7 @@ export function AccountMenu() {
 
   if (!user) {
     return (
-      <Link to="/login" className="inline-flex h-11 items-center rounded-xl px-3 text-[15px] font-medium text-ink hover:bg-surface-muted">
+      <Link to="/login" className="inline-flex h-10 items-center rounded-full px-3 text-sm font-medium text-ink hover:bg-surface-muted">
         {t('nav.signIn')}
       </Link>
     )
@@ -59,7 +59,7 @@ export function AccountMenu() {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-11 items-center gap-2 rounded-xl pr-2 pl-1 hover:bg-surface-muted"
+        className="flex h-10 items-center gap-2 rounded-full pr-2 pl-1 hover:bg-surface-muted"
       >
         <Avatar name={user.displayName} />
         <span className="hidden max-w-[10rem] truncate text-sm font-medium xl:block">{user.displayName}</span>

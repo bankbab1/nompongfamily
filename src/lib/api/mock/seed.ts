@@ -48,7 +48,7 @@ const ago = (days: number, hours = 0) => new Date(Date.now() - days * DAY - hour
 
 export const USERS: User[] = [
   { id: 'u_ploy', displayName: 'พลอย', email: 'ploy@example.com', role: 'member', locale: 'th' },
-  { id: 'u_may', displayName: 'เมย์ (ลูกค้า Fastwork)', email: 'may@example.com', role: 'customer', locale: 'th' },
+  { id: 'u_may', displayName: 'เมย์', email: 'may@example.com', role: 'customer', locale: 'th' },
   { id: 'u_admin', displayName: 'แอดมินสตูดิโอ', email: 'studio@example.com', role: 'admin', locale: 'th' },
   { id: 'u_art', displayName: 'นักวาด A', email: 'artist@example.com', role: 'admin', locale: 'th' },
   { id: 'u_ken', displayName: 'เคน', email: 'ken@example.com', role: 'customer', locale: 'th' },
@@ -122,7 +122,6 @@ interface SeedReq {
   theme: string
   createdDaysAgo: number
   offset: number
-  fastworkReference?: string
   history: [number, TimelineEvent['actor'], RequestStatus, string?][]
   allowPublicIdea?: boolean
 }
@@ -146,7 +145,6 @@ function buildRequest(s: SeedReq): StickerRequest {
     notes: '',
     items: items(s.count, s.offset),
     references: [],
-    fastworkReference: s.fastworkReference,
     packageId: s.channel === 'commission' ? `pkg_${s.count}` : undefined,
     allowPublicIdea: s.allowPublicIdea,
     termsVersion: s.status === 'draft' ? undefined : '2026-10-01',
@@ -170,7 +168,6 @@ const SEED_REQUESTS: SeedReq[] = [
     theme: 'ชีวิตออฟฟิศ ประชุม ส่งงาน เลิกงาน โทนสดใส',
     createdDaysAgo: 21,
     offset: 0,
-    fastworkReference: 'FW-58213',
     history: [
       [21, 'customer', 'submitted'],
       [20, 'admin', 'under_review'],
@@ -192,7 +189,6 @@ const SEED_REQUESTS: SeedReq[] = [
     theme: 'ต่อจากชุดแรก เน้นมุกประชุมออนไลน์',
     createdDaysAgo: 2,
     offset: 6,
-    fastworkReference: 'FW-60117',
     history: [[2, 'customer', 'submitted']],
   },
   {
@@ -232,7 +228,7 @@ const SEED_REQUESTS: SeedReq[] = [
     ownerId: 'u_ploy',
     channel: 'community',
     status: 'published',
-    setName: 'นมผงกับเพื่อนๆ',
+    setName: 'นมผงจากไอเดียแฟนๆ',
     count: 16,
     theme: 'ไอเดียจากแฟนๆ รอบแรก',
     createdDaysAgo: 80,
@@ -256,7 +252,6 @@ const SEED_REQUESTS: SeedReq[] = [
     theme: 'ออกกำลังกาย ยิม วิ่ง',
     createdDaysAgo: 12,
     offset: 12,
-    fastworkReference: 'FW-59002',
     history: [
       [12, 'customer', 'submitted'],
       [11, 'admin', 'under_review'],
@@ -288,7 +283,6 @@ const SEED_REQUESTS: SeedReq[] = [
     theme: 'มุกส่วนตัวกับเพื่อนสนิท',
     createdDaysAgo: 4,
     offset: 15,
-    fastworkReference: 'FW-60001',
     history: [
       [4, 'customer', 'submitted'],
       [3, 'admin', 'under_review'],
@@ -348,7 +342,7 @@ function seedProof(req: StickerRequest): { proof: ArtworkProof; job: ProductionJ
           id: `c_${it.position}`,
           at: ago(7),
           actor: 'customer' as const,
-          actorName: 'เมย์ (ลูกค้า Fastwork)',
+          actorName: 'เมย์',
           artworkVersion: 1,
           body: it.position === 3 ? 'อยากให้ตาปรือกว่านี้ ดูง่วงจริงๆ' : 'ไฟด้านหลังเล็กไปนิด ขอใหญ่ขึ้นค่ะ',
         },
@@ -393,15 +387,25 @@ const SETS: StickerSet[] = [
   ['V2', 'นมผงวันชิลล์', 'Chill Day', 'วันพักผ่อนสบายๆ', 24, 'live', '#9DCFC9', ['ชิลล์', 'relax'], 240],
   ['V3', 'นมผงสายหวาน', 'Sweet Nompong', 'บอกรักแบบน่ารักๆ', 32, 'live', '#F2B5A7', ['ความรัก', 'love'], 200],
   ['V4', 'นมผงทำงาน', 'Work Mode', 'ประชุม ส่งงาน โอที', 40, 'live', '#F7C99B', ['ทำงาน', 'office'], 150],
-  ['V5', 'นมผงกับพี่ก๊วย', "Nompong & P'Guay", 'คู่หูตัวป่วน นมผงและพี่ก๊วย', 24, 'live', '#C9D7A5', ['พี่ก๊วย', 'friends'], 90],
+  ['V5', 'นมผงตัวป่วน', 'Playful Nompong', 'ซน ป่วน และขี้เล่นสุดๆ', 24, 'live', '#C9D7A5', ['ขี้เล่น', 'playful'], 90],
   ['V6', 'นมผงเทศกาล', 'Festive Nompong', 'สงกรานต์ ลอยกระทง ปีใหม่', 16, 'live', '#D9C2E8', ['เทศกาล', 'festival'], 45],
   ['V7', 'นมผงหน้าฝน', 'Rainy Season', 'ร่ม รองเท้าบูท และฝนตก', 24, 'coming_soon', '#A9CBE8', ['ฝน', 'rain'], 0],
   ['V8', 'งานภายใน (ร่าง)', 'Internal draft', 'ชุดร่างที่ยังไม่เผยแพร่', 8, 'draft', '#E5E5E5', [], 0],
   ['M1', 'นมผงขยับได้', 'Animated Nompong', 'สติกเกอร์ดุ๊กดิ๊กชุดพิเศษ', 24, 'live', '#F5D76E', ['animated', 'พิเศษ'], 120],
   ['M2', 'นมผงป๊อปอัป', 'Pop-up Nompong', 'สติกเกอร์ป๊อปอัปเต็มจอ', 16, 'live', '#F3C4D6', ['popup', 'พิเศษ'], 60],
   ['M3', 'นมผงพูดได้', 'Talking Nompong', 'สติกเกอร์มีเสียง', 16, 'coming_soon', '#9DCFC9', ['sound', 'พิเศษ'], 0],
-  ['CR1', 'นมผงกับเพื่อนๆ', 'Nompong & Friends', 'ชุดแรกจากไอเดียของแฟนๆ', 16, 'live', '#F7C99B', ['community', 'แฟนๆ'], 30],
-  ['INTRO01', 'รู้จักนมผง', 'Meet Nompong (working title)', 'ชุดแนะนำตัวว่านมผงคือใคร — ชื่อชุดยังรออนุมัติ', 32, 'coming_soon', '#FFF0B8', ['foundation', 'แนะนำตัว'], 0],
+  ['CR1', 'นมผงจากไอเดียแฟนๆ', 'Nompong by Fans', 'ชุดแรกจากไอเดียของแฟนๆ', 16, 'live', '#F7C99B', ['community', 'แฟนๆ'], 30],
+  [
+    'INTRO01',
+    'รู้จักนมผง',
+    'Meet Nompong (working title)',
+    'ชุดแนะนำตัวว่านมผงคือใคร — ชื่อชุดยังรออนุมัติ',
+    32,
+    'coming_soon',
+    '#FFF0B8',
+    ['foundation', 'แนะนำตัว'],
+    0,
+  ],
 ].map(([code, titleTh, titleEn, description, stickerCount, status, coverHue, tags, daysAgo]) => {
   const c = code as string
   const series = c.startsWith('INTRO') ? 'INTRO' : c.startsWith('CR') ? 'CR' : (c[0] as 'V' | 'M')
@@ -460,11 +464,11 @@ const WALLPAPERS: Wallpaper[] = (
 
 const PACKAGES: CommissionPackage[] = (
   [
-    [8, 'ตามราคาแพ็กเกจบน Fastwork', 2, 10],
-    [16, 'ตามราคาแพ็กเกจบน Fastwork', 2, 14],
-    [24, 'ตามราคาแพ็กเกจบน Fastwork', 2, 18],
-    [32, 'ตามราคาแพ็กเกจบน Fastwork', 3, 21],
-    [40, 'ตามราคาแพ็กเกจบน Fastwork', 3, 25],
+    [8, 'ตามที่ตกลง', 2, 10],
+    [16, 'ตามที่ตกลง', 2, 14],
+    [24, 'ตามที่ตกลง', 2, 18],
+    [32, 'ตามที่ตกลง', 3, 21],
+    [40, 'ตามที่ตกลง', 3, 25],
   ] as const
 ).map(([stickerCount, priceLabel, revisionRounds, turnaroundDays]) => ({
   id: `pkg_${stickerCount}`,
@@ -476,7 +480,7 @@ const PACKAGES: CommissionPackage[] = (
 }))
 
 export function createSeed(): MockDb {
-  const requests = SEED_REQUESTS.map(buildRequest)
+  const requests = SEED_REQUESTS.filter((s) => s.channel !== 'commission').map(buildRequest)
   const meta: Record<string, AdminRequestMeta> = {}
   const proofs: Record<string, ArtworkProof> = {}
   const production: Record<string, ProductionJob> = {}
@@ -487,10 +491,7 @@ export function createSeed(): MockDb {
       priority: r.channel === 'commission' ? 'high' : 'normal',
       assigneeId: ['in_production', 'proof_ready', 'accepted'].includes(r.status) ? 'u_art' : undefined,
       deadline: r.channel === 'commission' && r.status !== 'published' ? new Date(Date.now() + 10 * DAY).toISOString().slice(0, 10) : undefined,
-      notes:
-        r.id === 'NP-26-0101'
-          ? [{ id: 'n1', at: ago(8), authorName: 'นักวาด A', body: 'ลูกค้าชอบโทนสีเหลืองมาก ระวังอย่าให้ซีด (ภายใน)' }]
-          : [],
+      notes: r.id === 'NP-26-0101' ? [{ id: 'n1', at: ago(8), authorName: 'นักวาด A', body: 'ลูกค้าชอบโทนสีเหลืองมาก ระวังอย่าให้ซีด (ภายใน)' }] : [],
       snapshots: r.status === 'draft' ? [] : [{ at: r.submittedAt!, version: 1, setName: r.setName, items: r.items }],
     }
     if (r.id === 'NP-26-0101') {
@@ -513,9 +514,30 @@ export function createSeed(): MockDb {
     wallpapers: WALLPAPERS,
     packages: PACKAGES,
     ideas: [
-      { id: 'idea_1', setName: 'นมผงสายกิน', theme: 'ของกินไทย ชานม หมูกระทะ', stickerCount: 8, sampleCaptions: ['หิวข้าวแล้ว', 'หมูกระทะมั้ย', 'ชานมไข่มุก!'], voterIds: ['u_fah', 'u_ken'] },
-      { id: 'idea_2', setName: 'นมผงรักษ์โลก', theme: 'แยกขยะ ปลูกต้นไม้ พกแก้วเอง', stickerCount: 8, sampleCaptions: ['พกแก้วมาเองนะ', 'แยกขยะด้วยย'], voterIds: ['u_ploy'] },
-      { id: 'idea_3', setName: 'นมผงสายมู', theme: 'ขอพร สายมู ดวงดี', stickerCount: 16, sampleCaptions: ['สาธุ', 'ปังๆ รวยๆ', 'ดวงดีมาก'], voterIds: ['u_ploy', 'u_fah', 'u_ken', 'u_may'] },
+      {
+        id: 'idea_1',
+        setName: 'นมผงสายกิน',
+        theme: 'ของกินไทย ชานม หมูกระทะ',
+        stickerCount: 8,
+        sampleCaptions: ['หิวข้าวแล้ว', 'หมูกระทะมั้ย', 'ชานมไข่มุก!'],
+        voterIds: ['u_fah', 'u_ken'],
+      },
+      {
+        id: 'idea_2',
+        setName: 'นมผงรักษ์โลก',
+        theme: 'แยกขยะ ปลูกต้นไม้ พกแก้วเอง',
+        stickerCount: 8,
+        sampleCaptions: ['พกแก้วมาเองนะ', 'แยกขยะด้วยย'],
+        voterIds: ['u_ploy'],
+      },
+      {
+        id: 'idea_3',
+        setName: 'นมผงสายมู',
+        theme: 'ขอพร สายมู ดวงดี',
+        stickerCount: 16,
+        sampleCaptions: ['สาธุ', 'ปังๆ รวยๆ', 'ดวงดีมาก'],
+        voterIds: ['u_ploy', 'u_fah', 'u_ken', 'u_may'],
+      },
     ],
     audit: [{ id: 'a1', at: ago(1), actorName: 'แอดมินสตูดิโอ', action: 'release_proof', target: 'NP-26-0101 (round 2)' }],
   }

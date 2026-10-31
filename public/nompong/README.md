@@ -1,10 +1,9 @@
 # Nompong artwork
 
-Drop the official images here with exactly these names:
+Drop the official character sheet here with exactly this name:
 
 | File | What it is |
 |---|---|
-| `logo.png` | Round "Nompong Family" badge (mother + 3 puppies) |
 | `character-sheet.png` | 1536×1024 character sheet: big sitting pose on the left, six small poses on the right |
 
 The site crops each pose from `character-sheet.png` (see `src/features/nompong/art.tsx`).

@@ -153,5 +153,5 @@ export function AutosaveIndicator({ state, onRetry, className }: { state: SaveSt
 }
 
 export function Card({ children, className, as: As = 'section' }: { children: ReactNode; className?: string; as?: 'section' | 'div' | 'article' }) {
-  return <As className={cn('min-w-0 rounded-3xl border border-line bg-surface p-5', className)}>{children}</As>
+  return <As className={cn('min-w-0 rounded-3xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(38,34,31,0.04)]', className)}>{children}</As>
 }

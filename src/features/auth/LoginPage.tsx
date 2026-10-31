@@ -13,7 +13,7 @@ import { useSession, useSignIn } from './useAuth'
 
 const ROLE_INFO: Record<User['role'], { label: string; icon: typeof UserRound; body: string }> = {
   member: { label: 'สมาชิก', icon: Sparkles, body: 'เสนอไอเดีย Community และติดตามคำขอ' },
-  customer: { label: 'ลูกค้า Commission', icon: UserRound, body: 'มีงานสั่งทำที่รอตรวจ (proof) พร้อมทดลอง' },
+  customer: { label: 'สมาชิก', icon: UserRound, body: 'เสนอไอเดียและติดตามคำขอ' },
   admin: { label: 'ผู้ดูแลสตูดิโอ', icon: Shield, body: 'กล่องคำขอ งานผลิต อัปโหลด proof' },
 }
 

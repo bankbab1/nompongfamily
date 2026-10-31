@@ -17,7 +17,6 @@ import { EventLog, MilestoneTrack } from './components'
 export default function RequestDetailPage() {
   const { id = '' } = useParams()
   const q = useQuery({ queryKey: qk.request(id), queryFn: () => api.requests.getRequest(id) })
-  const pkgs = useQuery({ queryKey: qk.packages, queryFn: () => api.requests.getPackages(), enabled: q.data?.channel === 'commission' })
   usePageMeta(q.data ? `${q.data.id} ${q.data.setName}` : 'คำขอ', undefined, { noindex: true })
 
   if (q.isPending)
@@ -34,7 +33,6 @@ export default function RequestDetailPage() {
     )
 
   const r = q.data
-  const pkg = pkgs.data?.find((p) => p.id === r.packageId)
   const lastAdminMsg = [...r.timeline].reverse().find((e) => e.actor === 'admin' && e.message)
   const locked = isBriefLocked(r.status)
   const hasProof = ['proof_ready', 'revision_requested', 'artwork_approved', 'line_submitted', 'published', 'closed'].includes(r.status) && r.channel === 'commission'
@@ -51,8 +49,7 @@ export default function RequestDetailPage() {
           {r.setName || 'ฉบับร่างยังไม่ตั้งชื่อ'}
         </h1>
         <p className="mt-1 text-sm text-muted">
-          {r.stickerCount} ภาพ{pkg && ` · แพ็กเกจ ${pkg.stickerCount} ภาพ (${pkg.revisionRounds} รอบแก้)`}
-          {r.fastworkReference && ` · Fastwork ${r.fastworkReference}`} · อัปเดต {formatRelative(r.updatedAt)}
+          {r.stickerCount} ภาพ · อัปเดต {formatRelative(r.updatedAt)}
         </p>
       </header>
 

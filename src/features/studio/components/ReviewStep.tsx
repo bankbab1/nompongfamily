@@ -14,7 +14,6 @@ const SET_FIELD_LABEL: Record<string, string> = {
   stickerCount: 'จำนวนสติกเกอร์',
   theme: 'ธีม',
   notes: 'โน้ต',
-  fastworkReference: 'เลขอ้างอิง Fastwork',
   channel: 'ประเภทคำขอ',
   items: 'ช่องสติกเกอร์',
 }
@@ -113,12 +112,6 @@ export function ReviewStep({
               <dd className="whitespace-pre-wrap" lang="th">
                 {data.theme}
               </dd>
-            </div>
-          )}
-          {data.channel === 'commission' && (
-            <div>
-              <dt className="text-muted">เลขอ้างอิง Fastwork</dt>
-              <dd>{data.fastworkReference || '— (ใส่ภายหลังได้)'}</dd>
             </div>
           )}
           <div>

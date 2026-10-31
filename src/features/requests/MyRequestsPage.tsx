@@ -67,7 +67,7 @@ export default function MyRequestsPage() {
         <EmptyState
           icon={<Inbox size={24} />}
           title={tab === 'all' ? 'ยังไม่มีคำขอ' : 'ไม่มีรายการในหมวดนี้'}
-          description="เริ่มจากเสนอไอเดียฟรี หรือส่งบรีฟงานสั่งทำ"
+          description="เริ่มจากเสนอไอเดียชุดสติกเกอร์ฟรี"
           actions={
             <LinkButton to="/studio" variant="primary">
               ไปที่สตูดิโอ

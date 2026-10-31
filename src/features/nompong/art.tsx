@@ -1,19 +1,17 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { useCopy } from '@/features/portal/copy'
+import { useCopy } from '@/lib/copy'
 import { cn } from '@/lib/utils/cn'
 
 /**
  * Nompong artwork.
  *
  * Real files live in `public/nompong/` (see the README there):
- *   - logo.png             round "Nompong Family" badge
  *   - character-sheet.png  1536×1024 sheet: big sitting pose on the left, six poses on the right
  *
  * Poses are cropped from the sheet with CSS, so one file feeds the whole site.
  * While a file is missing, a drawn stand-in is shown instead so the layout never breaks.
  */
 const base = import.meta.env.BASE_URL
-export const NOMPONG_LOGO = `${base}nompong/logo.png`
 export const NOMPONG_SHEET = `${base}nompong/character-sheet.png`
 
 const SHEET_W = 1536
@@ -85,19 +83,6 @@ export function NompongArt({ pose = 'sit', className, decorative }: { pose?: Nom
   return <div className={cn('w-full rounded-[1.25rem]', className)} style={spriteStyle(pose)} {...a11y} />
 }
 
-/** The round "Nompong Family" badge. */
-export function NompongLogo({ className, decorative }: { className?: string; decorative?: boolean }) {
-  const state = useImageState(NOMPONG_LOGO)
-  if (state === 'ok') {
-    return <img src={NOMPONG_LOGO} alt={decorative ? '' : 'Nompong Family'} className={cn('aspect-square object-contain', className)} draggable={false} />
-  }
-  return (
-    <div className={cn('aspect-square', className)} aria-hidden={decorative} role={decorative ? undefined : 'img'} aria-label={decorative ? undefined : 'Nompong Family'}>
-      {state === 'error' && <LogoDrawing />}
-    </div>
-  )
-}
-
 /* ---------- Drawn stand-ins (used only until the real files are added) ---------- */
 
 const FUR = '#fffdf8'
@@ -147,7 +132,9 @@ function NompongDrawing({ pose, className }: { pose: NompongPose; className?: st
       <ellipse cx="100" cy="164" rx="54" ry="42" fill={FUR} stroke={LINE} strokeWidth="2" strokeDasharray="1.2 3.2" strokeLinecap="round" />
       <ellipse cx="80" cy="196" rx="16" ry="11" fill={FUR} stroke={LINE} strokeWidth="2" strokeDasharray="1.2 3.2" strokeLinecap="round" />
       <ellipse cx="120" cy="196" rx="16" ry="11" fill={FUR} stroke={LINE} strokeWidth="2" strokeDasharray="1.2 3.2" strokeLinecap="round" />
-      {pose === 'wave' && <ellipse cx="160" cy="118" rx="12" ry="16" fill={FUR} stroke={LINE} strokeWidth="2" strokeDasharray="1.2 3.2" transform="rotate(25 160 118)" />}
+      {pose === 'wave' && (
+        <ellipse cx="160" cy="118" rx="12" ry="16" fill={FUR} stroke={LINE} strokeWidth="2" strokeDasharray="1.2 3.2" transform="rotate(25 160 118)" />
+      )}
       {pose === 'back' ? (
         <g>
           <ellipse cx="50" cy="96" rx="18" ry="36" fill={EAR} transform="rotate(14 50 96)" />
@@ -158,25 +145,6 @@ function NompongDrawing({ pose, className }: { pose: NompongPose; className?: st
       ) : (
         <Head cx={100} cy={82} r={58} />
       )}
-    </svg>
-  )
-}
-
-function LogoDrawing() {
-  return (
-    <svg viewBox="0 0 240 240" className="h-full w-full">
-      <circle cx="120" cy="120" r="114" fill="#f6efe3" stroke="#b08d75" strokeWidth="8" />
-      <text x="120" y="70" textAnchor="middle" fontFamily="Mitr, sans-serif" fontWeight="600" fontSize="34" fill="#5c3d2e">
-        Nompong
-      </text>
-      <text x="120" y="98" textAnchor="middle" fontFamily="Mitr, sans-serif" fontSize="20" fill="#8a6650">
-        – Family –
-      </text>
-      <g transform="translate(64 104) scale(.56)">
-        <Head cx={100} cy={82} r={58} />
-      </g>
-      <path d="M50 112c-6-8 6-14 9-6 3-8 15-2 9 6l-9 9z" fill="#ef6f6c" />
-      <path d="M176 120c-6-8 6-14 9-6 3-8 15-2 9 6l-9 9z" fill="#ef6f6c" />
     </svg>
   )
 }

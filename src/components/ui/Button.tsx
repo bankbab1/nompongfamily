@@ -22,25 +22,33 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 }
 
 export const buttonVariants: Record<ButtonVariant, string> = {
-  primary: 'bg-brown text-cream hover:bg-brown-800 shadow-sm',
-  accent: 'bg-sunny text-brown hover:bg-sunny-200 shadow-sm',
-  secondary: 'border border-line-strong bg-surface text-ink hover:bg-surface-muted',
+  primary: 'bg-brown text-cream hover:bg-brown-800',
+  accent: 'bg-sunny text-[#26221f] hover:brightness-95',
+  secondary: 'border border-line bg-surface text-ink hover:border-line-strong hover:bg-surface-muted',
   ghost: 'text-ink hover:bg-surface-muted',
-  danger: 'bg-danger text-white hover:brightness-95 shadow-sm',
-  success: 'bg-success text-white hover:brightness-95 shadow-sm',
+  danger: 'bg-danger text-white hover:brightness-95',
+  success: 'bg-success text-white hover:brightness-95',
 }
 
 /* Heights are explicit, not padding-derived, so bordered and borderless variants align.
    md/lg meet the 44px touch-target guidance (spec §4). */
 export const buttonSizes: Record<ButtonSize, string> = {
-  sm: 'h-9 px-3 text-sm gap-1.5',
-  md: 'h-11 px-4 text-[15px] gap-2',
-  lg: 'h-12 px-6 text-base gap-2',
+  sm: 'h-9 px-3.5 text-sm gap-1.5 pointer-coarse:min-h-10',
+  md: 'h-11 px-5 text-[0.9375rem] gap-2 pointer-coarse:min-h-11',
+  lg: 'h-12 px-6 text-base gap-2 pointer-coarse:min-h-12',
 }
-const iconSizes: Record<ButtonSize, string> = { sm: 'h-9 w-9', md: 'h-11 w-11', lg: 'h-12 w-12' }
+const iconSizes: Record<ButtonSize, string> = {
+  sm: 'h-9 w-9 pointer-coarse:min-h-10 pointer-coarse:min-w-10',
+  md: 'h-11 w-11',
+  lg: 'h-12 w-12',
+}
 
 export const buttonBase =
-  'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-xl font-medium transition-colors disabled:pointer-events-none disabled:opacity-50'
+  'group/btn inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-full font-medium transition-[color,background-color,border-color,opacity,transform,filter] duration-150 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50'
+
+/** Wraps a trailing icon so it nudges forward on hover/focus/press ("go on" affordance). */
+export const iconRightClass =
+  'inline-flex shrink-0 transition-transform duration-200 ease-out motion-safe:group-hover/btn:translate-x-0.5 motion-safe:group-focus-visible/btn:translate-x-0.5 motion-safe:group-active/btn:translate-x-1'
 
 export function Button({
   variant = 'secondary',
@@ -71,7 +79,7 @@ export function Button({
     >
       {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : icon}
       {iconOnly ? <span className="sr-only">{label}</span> : children}
-      {!iconOnly && iconRight}
+      {!iconOnly && iconRight && <span className={iconRightClass}>{iconRight}</span>}
     </button>
   )
   const tip = title ?? (iconOnly ? label : undefined)

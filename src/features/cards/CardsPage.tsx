@@ -7,7 +7,7 @@ import { usePageMeta } from '@/lib/utils/usePageMeta'
 /** P2/P3 shell. Claims will be validated server-side; no blockchain or trading (spec §9.6). */
 const SERIES = [
   { name: 'Series 1 — สวัสดีนมผง', cards: 24, status: 'กำลังออกแบบ' },
-  { name: 'Series 2 — เพื่อนๆ ของนมผง', cards: 24, status: 'วางแผน' },
+  { name: 'Series 2 — นมผงทั้งปี', cards: 24, status: 'วางแผน' },
 ]
 
 export default function CardsPage() {
