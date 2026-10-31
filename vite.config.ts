@@ -7,6 +7,11 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   base: '/nompongfamily/',
   plugins: [react(), tailwindcss()],
+  // Dev port: 5210 by default, or PORT when a tool assigns one (e.g. a second preview).
+  server: {
+    port: Number(process.env.PORT) || 5210,
+    strictPort: true,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

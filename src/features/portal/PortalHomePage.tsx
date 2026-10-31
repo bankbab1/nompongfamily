@@ -4,10 +4,11 @@ import { Page } from '@/components/layout/AppShell'
 import { LinkButton } from '@/components/ui/LinkButton'
 import { GALLERY_POSES, NompongArt, NompongLogo } from '@/features/nompong/art'
 import { Paws } from '@/features/nompong/NompongPage'
-import { moodEmoji, sortSuggestions } from '@/features/suggestions/model'
+import { localName, moodEmoji, sortSuggestions } from '@/features/suggestions/model'
 import { useSuggestions } from '@/features/suggestions/useSuggestions'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
-import { useCopy } from './copy'
+import { useLocale } from '@/lib/i18n'
+import { fill, useCopy } from './copy'
 
 /** What the portal will grow into. Shown as "coming soon" — none of these are links yet. */
 const COMING_STYLE = [
@@ -21,6 +22,7 @@ const COMING_STYLE = [
 export default function PortalHomePage() {
   const c = useCopy()
   const h = c.home
+  const locale = useLocale()
   usePageMeta(c.site.name, h.metaDesc)
   const ideas = useSuggestions()
   const top = sortSuggestions(ideas.data ?? [], 'popular').slice(0, 3)
@@ -112,10 +114,9 @@ export default function PortalHomePage() {
                   <Link to="/suggest" className="flex items-center gap-4 rounded-2xl bg-cream/10 p-4 transition-colors hover:bg-cream/15">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sunny font-display text-lg text-brown">{i + 1}</span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate font-display text-lg">{s.title}</span>
+                      <span className="block truncate font-display text-lg">{localName(s, locale).main}</span>
                       <span className="block truncate text-sm text-cream/70">
-                        {moodEmoji(s.mood)} {c.moods[s.mood]}
-                        {s.captions.length > 0 && ` · “${s.captions.slice(0, 2).join('”, “')}”`}
+                        {fill(c.card.count, { n: s.stickerCount })} · {moodEmoji(s.mood)} {c.moods[s.mood]}
                       </span>
                     </span>
                     <span className="inline-flex shrink-0 items-center gap-1 text-sm tabular-nums">

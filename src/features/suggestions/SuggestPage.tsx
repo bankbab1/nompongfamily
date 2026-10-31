@@ -8,7 +8,8 @@ import { Paws } from '@/features/nompong/NompongPage'
 import { useCopy } from '@/features/portal/copy'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
-import { SuggestionCard, SuggestionForm } from './components'
+import { StickerSetBuilder } from './builder'
+import { SuggestionCard } from './components'
 import { MOODS, sortSuggestions, type MoodId, type SuggestionSort } from './model'
 import { SUGGESTIONS_ON_DEVICE_ONLY } from './store'
 import { useCreateSuggestion, useSuggestions, useToggleVote } from './useSuggestions'
@@ -50,38 +51,37 @@ export default function SuggestPage() {
       </section>
 
       <Page>
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
-          <section aria-labelledby="form-title" className="rounded-[2rem] border border-line bg-surface p-5 shadow-sm sm:p-7 lg:sticky lg:top-24">
-            <h2 id="form-title" className="font-display text-2xl">
-              {c.suggest.formTitle}
+        <section aria-labelledby="form-title" className="rounded-[2rem] border border-line bg-surface p-5 shadow-sm sm:p-8">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <h2 id="form-title" className="font-display text-2xl sm:text-3xl">
+              {c.builder.title}
             </h2>
             {SUGGESTIONS_ON_DEVICE_ONLY && (
-              <p className="mt-2 flex gap-2 rounded-2xl bg-info-soft px-3 py-2 text-sm text-info">
+              <p className="flex gap-2 rounded-2xl bg-info-soft px-3 py-2 text-sm text-info">
                 <Info size={16} className="mt-0.5 shrink-0" aria-hidden />
                 {c.suggest.deviceNote}
               </p>
             )}
-            <div className="mt-5">
-              <SuggestionForm
-                submitting={create.isPending}
-                onSubmit={async (input) => {
-                  try {
-                    const s = await create.mutateAsync(input)
-                    setMood('all')
-                    setSort('newest')
-                    setJustAdded(s.id)
-                    toast.success(c.suggest.sent)
-                    requestAnimationFrame(() => document.getElementById(`s-${s.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
-                  } catch (e) {
-                    toast.error(c.suggest.sendFailed)
-                    throw e
-                  }
-                }}
-              />
-            </div>
-          </section>
+          </div>
+          <StickerSetBuilder
+            submitting={create.isPending}
+            onSubmit={async (input) => {
+              try {
+                const s = await create.mutateAsync(input)
+                setMood('all')
+                setSort('newest')
+                setJustAdded(s.id)
+                toast.success(c.suggest.sent)
+                requestAnimationFrame(() => document.getElementById(`s-${s.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+              } catch (e) {
+                toast.error(c.suggest.sendFailed)
+                throw e
+              }
+            }}
+          />
+        </section>
 
-          <section aria-labelledby="wall-title" className="min-w-0">
+          <section aria-labelledby="wall-title" className="mt-14 min-w-0">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <h2 id="wall-title" className="font-display text-2xl">
                 {c.suggest.wallTitle} {q.data && <span className="text-base font-normal text-muted">({q.data.length})</span>}
@@ -123,7 +123,7 @@ export default function SuggestPage() {
 
             <div className="mt-5">
               {q.isPending ? (
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 4 }).map((_, i) => (
                     <Skeleton key={i} className="h-56 rounded-3xl" />
                   ))}
@@ -133,7 +133,7 @@ export default function SuggestPage() {
               ) : items.length === 0 ? (
                 <EmptyState title={c.suggest.emptyTitle} description={c.suggest.emptyBody} />
               ) : (
-                <ul className="grid gap-4 sm:grid-cols-2">
+                <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((s) => (
                     <li key={s.id} id={`s-${s.id}`}>
                       <SuggestionCard
@@ -148,7 +148,6 @@ export default function SuggestPage() {
               )}
             </div>
           </section>
-        </div>
       </Page>
     </>
   )

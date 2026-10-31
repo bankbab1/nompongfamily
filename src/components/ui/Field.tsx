@@ -1,5 +1,6 @@
 import { Check, ChevronDown } from 'lucide-react'
 import { useId, type InputHTMLAttributes, type ReactNode, type Ref, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react'
+import { useLocale } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { textLength } from '@/lib/validation/brief'
 
@@ -20,6 +21,7 @@ interface FieldShellProps {
 
 /** Label + control + hint/error, with ids wired for aria-describedby. */
 function FieldShell({ id, label, hint, error, required, optional, counter, className, children }: FieldShellProps) {
+  const locale = useLocale()
   const len = counter ? textLength(counter.value) : 0
   return (
     <div className={cn('min-w-0', className)}>
@@ -31,7 +33,7 @@ function FieldShell({ id, label, hint, error, required, optional, counter, class
               *
             </span>
           )}
-          {optional && <span className="ml-1.5 text-xs font-normal text-muted">(ไม่บังคับ)</span>}
+          {optional && <span className="ml-1.5 text-xs font-normal text-muted">{locale === 'en' ? '(optional)' : '(ไม่บังคับ)'}</span>}
         </label>
         {counter && (
           <span className={cn('text-xs tabular-nums', len > counter.max ? 'font-semibold text-danger' : 'text-muted')} aria-hidden>

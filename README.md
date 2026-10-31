@@ -3,7 +3,9 @@
 ## Phase 1: Nompong portal (current)
 
 The site currently shows only three pages: **Home** (`/`), **Meet Nompong** (`/nompong`) and the
-**sticker suggestion wall** (`/suggest`). It has Thai/English and light/dark switches in the header.
+**LINE sticker set builder** (`/suggest`). Visitors pick 8/16/24/32/40 stickers, give the set a Thai and
+English name and description, add a word and a pose/style for each sticker, and vote for other sets.
+The site has Thai/English and light/dark switches in the header.
 
 - **Artwork:** put `logo.png` and `character-sheet.png` in `public/nompong/` (see the README there).
   Until they're added, a drawn stand-in shows instead.
