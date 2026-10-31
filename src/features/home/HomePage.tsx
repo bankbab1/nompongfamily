@@ -31,7 +31,9 @@ function HeroArt() {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[22rem]" aria-hidden>
       <div className="absolute inset-[6%] rounded-full bg-sunny-100" />
-      <NompongArt pose="sit" className="relative mx-auto h-full w-auto p-[14%]" decorative />
+      <div className="absolute inset-[12%] flex items-center justify-center">
+        <NompongArt pose="sit" className="h-full w-auto max-w-full" decorative />
+      </div>
     </div>
   )
 }

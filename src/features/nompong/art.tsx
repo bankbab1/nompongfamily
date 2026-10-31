@@ -6,26 +6,26 @@ import { cn } from '@/lib/utils/cn'
  * Nompong artwork.
  *
  * Real files live in `public/nompong/` (see the README there):
- *   - character-sheet.png  1536×1024 sheet: big sitting pose on the left, six poses on the right
+ *   - character-sheet.jpg  1536×1024 sheet: big sitting pose on the left, six poses on the right
  *
  * Poses are cropped from the sheet with CSS, so one file feeds the whole site.
  * While a file is missing, a drawn stand-in is shown instead so the layout never breaks.
  */
 const base = import.meta.env.BASE_URL
-export const NOMPONG_SHEET = `${base}nompong/character-sheet.png`
+export const NOMPONG_SHEET = `${base}nompong/character-sheet.jpg`
 
 const SHEET_W = 1536
 const SHEET_H = 1024
 
 /** Crop boxes on the character sheet, in sheet pixels. */
 const POSES = {
-  sit: { x: 0, y: 60, w: 800, h: 900 },
-  side: { x: 760, y: 60, w: 360, h: 390 },
-  back: { x: 1110, y: 60, w: 420, h: 390 },
-  wave: { x: 790, y: 440, w: 330, h: 290 },
-  sleep: { x: 1120, y: 470, w: 410, h: 260 },
-  curious: { x: 790, y: 740, w: 330, h: 280 },
-  lazy: { x: 1110, y: 750, w: 420, h: 270 },
+  sit: { x: 0, y: 80, w: 780, h: 870 },
+  side: { x: 750, y: 15, w: 355, h: 425 },
+  back: { x: 1105, y: 15, w: 425, h: 425 },
+  wave: { x: 780, y: 445, w: 330, h: 285 },
+  sleep: { x: 1120, y: 495, w: 410, h: 235 },
+  curious: { x: 790, y: 730, w: 310, h: 275 },
+  lazy: { x: 1110, y: 770, w: 420, h: 235 },
 } as const
 
 export type NompongPose = keyof typeof POSES
@@ -37,7 +37,11 @@ const cache = new Map<string, LoadState>()
 function useImageState(src: string): LoadState {
   const [state, setState] = useState<LoadState>(() => cache.get(src) ?? 'loading')
   useEffect(() => {
-    if (cache.get(src) === 'ok' || cache.get(src) === 'error') return
+    const cached = cache.get(src)
+    if (cached === 'ok' || cached === 'error') {
+      setState(cached)
+      return
+    }
     const img = new Image()
     img.onload = () => {
       cache.set(src, 'ok')

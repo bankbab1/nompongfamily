@@ -1,10 +1,7 @@
 # Nompong artwork
 
-Drop the official character sheet here with exactly this name:
+`character-sheet.jpg` is the original official 1536×1024 reference supplied by the character owner. Keep the original artwork unchanged.
 
-| File | What it is |
-|---|---|
-| `character-sheet.png` | 1536×1024 character sheet: big sitting pose on the left, six small poses on the right |
+The shared component in `src/features/nompong/art.tsx` crops seven poses with CSS for the home page, about page, and suggestion previews. The file uses Vite’s base URL so it also loads under `/nompongfamily/` on GitHub Pages.
 
-The site crops each pose from `character-sheet.png` (see `src/features/nompong/art.tsx`).
-If a file is missing, a simple drawn stand-in shows instead.
+The reference has a cream background; it is not a transparent sticker asset. The simple drawn fallback is used only if the original image cannot load.
