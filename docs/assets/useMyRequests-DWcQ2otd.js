@@ -1,1 +1,0 @@
-import{F as e,L as t}from"./States-DWiXo1q_.js";import{C as n,S as r,_t as i,x as a}from"./index-lp8khVFr.js";var o=t(e(),1);function s(){return i({queryKey:r.myRequests,queryFn:()=>n.requests.getMyRequests()})}function c(e){let[t,n]=(0,o.useState)([]);return(0,o.useEffect)(()=>{a.listFor(e).then(e=>n(e.filter(e=>!e.serverId)))},[e]),t}export{s as n,c as t};
