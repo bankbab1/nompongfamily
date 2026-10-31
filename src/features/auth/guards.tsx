@@ -4,6 +4,7 @@ import { EmptyState, PageSkeleton } from '@/components/feedback/States'
 import { Page } from '@/components/layout/AppShell'
 import { LinkButton } from '@/components/ui/LinkButton'
 import { useSession } from './useAuth'
+import { useTx } from '@/lib/i18n'
 
 /**
  * Route guards are a UX convenience only. Hiding a screen is not authorization —
@@ -23,15 +24,19 @@ export function RequireAuth() {
 }
 
 export function AccessDenied() {
+  const tx = useTx()
   return (
     <Page narrow>
       <EmptyState
         icon={<Lock size={24} />}
-        title="ไม่มีสิทธิ์เข้าถึงหน้านี้"
-        description="หน้านี้สำหรับทีมงาน Nompong Studio เท่านั้น ถ้าคิดว่าเป็นข้อผิดพลาด กรุณาติดต่อทีมงาน"
+        title={tx('ไม่มีสิทธิ์เข้าถึงหน้านี้', 'You can’t open this page')}
+        description={tx(
+          'หน้านี้สำหรับทีมงาน Nompong Studio เท่านั้น ถ้าคิดว่าเป็นข้อผิดพลาด กรุณาติดต่อทีมงาน',
+          'This page is for the Nompong Studio team only. If you think this is a mistake, please contact the team.',
+        )}
         actions={
           <LinkButton to="/" variant="primary">
-            กลับหน้าแรก
+            {tx('กลับหน้าแรก', 'Back to home')}
           </LinkButton>
         }
       />

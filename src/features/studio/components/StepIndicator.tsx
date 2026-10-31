@@ -1,5 +1,5 @@
 import { Check } from 'lucide-react'
-import { useT, type MessageKey } from '@/lib/i18n'
+import { type MessageKey, useT, useTx } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import type { WizardStep } from '../model/draft'
 
@@ -13,13 +13,14 @@ const STEPS: { n: WizardStep; key: MessageKey }[] = [
 
 export function StepIndicator({ step, onStep }: { step: WizardStep; onStep(n: WizardStep): void; lockedChannel?: boolean }) {
   const t = useT()
+  const tx = useTx()
   const current = STEPS.find((s) => s.n === step)!
   return (
-    <nav aria-label="ขั้นตอน">
+    <nav aria-label={tx('ขั้นตอน', 'Steps')}>
       {/* Mobile: compact text + bar */}
       <div className="sm:hidden">
         <p className="text-sm text-muted">
-          ขั้นตอน {step - 1}/{STEPS.length} · <span className="font-medium text-ink">{t(current.key)}</span>
+          {tx('ขั้นตอน', 'Step')} {step - 1}/{STEPS.length} · <span className="font-medium text-ink">{t(current.key)}</span>
         </p>
         <div className="mt-2 flex gap-1" aria-hidden>
           {STEPS.map((s) => (

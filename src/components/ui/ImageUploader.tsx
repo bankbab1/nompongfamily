@@ -4,6 +4,7 @@ import type { ReferenceAsset } from '@/lib/api/types'
 import { formatBytes } from '@/lib/utils/format'
 import { uid } from '@/lib/utils/id'
 import { cn } from '@/lib/utils/cn'
+import { useTx } from '@/lib/i18n'
 
 export interface UploaderLimits {
   maxFiles: number
@@ -46,7 +47,7 @@ export function ImageUploader({
   limits,
   existingCount,
   onAdd,
-  label = 'เพิ่มภาพอ้างอิง',
+  label,
   hint,
   disabled,
   compact,
@@ -59,6 +60,8 @@ export function ImageUploader({
   disabled?: boolean
   compact?: boolean
 }) {
+  const tx = useTx()
+  const text = label ?? tx('เพิ่มภาพอ้างอิง', 'Add reference images')
   const id = useId()
   const inputRef = useRef<HTMLInputElement>(null)
   const [errors, setErrors] = useState<string[]>([])
@@ -71,9 +74,10 @@ export function ImageUploader({
     const errs: string[] = []
     const accepted: File[] = []
     for (const f of Array.from(files)) {
-      if (!limits.accept.includes(f.type)) errs.push(`${f.name}: รองรับเฉพาะ JPG, PNG, WebP`)
-      else if (f.size > limits.maxBytes) errs.push(`${f.name}: ใหญ่เกิน ${formatBytes(limits.maxBytes)}`)
-      else if (accepted.length >= remaining) errs.push(`${f.name}: เกินจำนวนสูงสุด ${limits.maxFiles} ไฟล์`)
+      if (!limits.accept.includes(f.type)) errs.push(`${f.name}: ${tx('รองรับเฉพาะ JPG, PNG, WebP', 'only JPG, PNG or WebP')}`)
+      else if (f.size > limits.maxBytes) errs.push(`${f.name}: ${tx('ใหญ่เกิน', 'larger than')} ${formatBytes(limits.maxBytes)}`)
+      else if (accepted.length >= remaining)
+        errs.push(`${f.name}: ${tx(`เกินจำนวนสูงสุด ${limits.maxFiles} ไฟล์`, `over the limit of ${limits.maxFiles} files`)}`)
       else accepted.push(f)
     }
     setBusy(true)
@@ -83,7 +87,7 @@ export function ImageUploader({
         const p = await prepare(f)
         assets.push({ id: uid('ref'), name: f.name, mime: p.mime, size: p.size, url: p.url })
       } catch {
-        errs.push(`${f.name}: อ่านไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง`)
+        errs.push(`${f.name}: ${tx('อ่านไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง', 'couldn’t read the file, please try again')}`)
       }
     }
     setBusy(false)
@@ -116,8 +120,11 @@ export function ImageUploader({
         )}
       >
         <ImagePlus size={compact ? 22 : 28} className="text-muted" aria-hidden />
-        <span className="font-medium text-ink">{busy ? 'กำลังเตรียมภาพ…' : label}</span>
-        <span className="text-xs text-muted">{hint ?? `JPG, PNG, WebP · ไม่เกิน ${formatBytes(limits.maxBytes)} · เหลือ ${Math.max(0, remaining)} ไฟล์`}</span>
+        <span className="font-medium text-ink">{busy ? tx('กำลังเตรียมภาพ…', 'Preparing images…') : text}</span>
+        <span className="text-xs text-muted">
+          {hint ??
+            `JPG, PNG, WebP · ${tx('ไม่เกิน', 'up to')} ${formatBytes(limits.maxBytes)} · ${tx('เหลือ', '')} ${Math.max(0, remaining)} ${tx('ไฟล์', 'files left')}`}
+        </span>
         <input
           ref={inputRef}
           id={id}

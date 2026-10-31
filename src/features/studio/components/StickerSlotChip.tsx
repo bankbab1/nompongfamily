@@ -1,6 +1,6 @@
 import { Check, CircleDashed, PenLine, RotateCcw, ThumbsUp } from 'lucide-react'
 import type { Ref } from 'react'
-import { t } from '@/lib/i18n'
+import { pick, t } from '@/lib/i18n'
 import { pad2 } from '@/lib/utils/id'
 import { cn } from '@/lib/utils/cn'
 
@@ -58,7 +58,7 @@ export function StickerSlotChip({
       type="button"
       onClick={onClick}
       aria-current={selected ? 'true' : undefined}
-      aria-label={`${t('common.sticker')} ${pad2(position)} — ${t(`slotState.${state}`)}${invalid ? ' (มีข้อผิดพลาด)' : ''}`}
+      aria-label={`${t('common.sticker')} ${pad2(position)} — ${t(`slotState.${state}`)}${invalid ? pick({ th: ' (มีข้อผิดพลาด)', en: ' (has errors)' }) : ''}`}
       className={cn(
         'relative flex shrink-0 flex-col items-center justify-center rounded-xl border-2 font-display font-medium tabular-nums transition-transform',
         size === 'lg' ? 'h-14 w-14 text-base' : 'h-11 w-11 text-sm',

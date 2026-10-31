@@ -14,6 +14,7 @@ import { usePageMeta } from '@/lib/utils/usePageMeta'
 import { ConflictDialog } from '../components/ConflictDialog'
 import { Wizard } from '../components/Wizard'
 import { fromServer, type LocalDraft } from '../model/draft'
+import { useTx } from '@/lib/i18n'
 
 /**
  * /my/requests/:id/edit — reopen a server draft (or a request waiting for clarification).
@@ -23,7 +24,8 @@ import { fromServer, type LocalDraft } from '../model/draft'
 export default function EditRequestPage() {
   const { id = '' } = useParams()
   const user = useCurrentUser()!
-  usePageMeta('แก้ไขคำขอ', undefined, { noindex: true })
+  const tx = useTx()
+  usePageMeta(tx('แก้ไขคำขอ', 'Edit request'), undefined, { noindex: true })
   const q = useQuery({ queryKey: qk.request(id), queryFn: () => api.requests.getRequest(id), staleTime: 0 })
   const [initial, setInitial] = useState<LocalDraft | null>(null)
   const [pending, setPending] = useState<{ local: LocalDraft } | null>(null)
@@ -62,11 +64,14 @@ export default function EditRequestPage() {
       <Page narrow>
         <EmptyState
           icon={<Lock size={24} />}
-          title="บรีฟนี้ถูกล็อกแล้ว"
-          description="คำขอที่ส่งแล้วหรืออนุมัติบรีฟแล้วแก้ไขโดยตรงไม่ได้ ถ้าต้องการเปลี่ยนแปลง ทีมงานจะเปิดให้แก้ผ่านขั้นตอนขอข้อมูลเพิ่มหรือรอบแก้ไขงาน"
+          title={tx('บรีฟนี้ถูกล็อกแล้ว', 'This brief is locked')}
+          description={tx(
+            'คำขอที่ส่งแล้วหรืออนุมัติบรีฟแล้วแก้ไขโดยตรงไม่ได้ ถ้าต้องการเปลี่ยนแปลง ทีมงานจะเปิดให้แก้ผ่านขั้นตอนขอข้อมูลเพิ่มหรือรอบแก้ไขงาน',
+            'A sent or approved brief can’t be edited directly. If changes are needed, the team will reopen it by asking for more information.',
+          )}
           actions={
             <LinkButton to={`/my/requests/${server.id}`} variant="primary">
-              กลับไปที่คำขอ
+              {tx('กลับไปที่คำขอ', 'Back to the request')}
             </LinkButton>
           }
         />

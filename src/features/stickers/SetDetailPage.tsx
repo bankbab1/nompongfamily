@@ -8,12 +8,15 @@ import { api } from '@/lib/api'
 import { qk } from '@/lib/api/queryKeys'
 import { formatDate } from '@/lib/utils/format'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
-import { SERIES_LABEL, setCover, SetStatusBadge, StoreLink } from './components'
+import { SERIES_LABEL, setCover, setDesc, setName, SetStatusBadge, StoreLink } from './components'
+import { useLocale, useTx } from '@/lib/i18n'
 
 export default function SetDetailPage() {
   const { slug = '' } = useParams()
   const q = useQuery({ queryKey: qk.set(slug), queryFn: () => api.catalog.getSet(slug) })
-  usePageMeta(q.data ? `${q.data.titleTh} (${q.data.code})` : 'ชุดสติกเกอร์', q.data?.description)
+  const locale = useLocale()
+  const tx = useTx()
+  usePageMeta(q.data ? `${setName(q.data, locale).main} (${q.data.code})` : tx('ชุดสติกเกอร์', 'Sticker set'), q.data ? setDesc(q.data, locale) : undefined)
 
   if (q.isPending)
     return (
@@ -32,19 +35,25 @@ export default function SetDetailPage() {
   return (
     <Page>
       <div className="grid gap-6 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-10">
-        <img src={setCover(s)} alt={`ปกชุด ${s.titleTh}`} className="w-full rounded-3xl border border-line" />
+        <img src={setCover(s)} alt={`${tx('ปกชุด', 'Cover of')} ${setName(s, locale).main}`} className="w-full rounded-3xl border border-line" />
         <div>
           <p className="text-sm text-muted">
-            {SERIES_LABEL[s.series].th} · <span className="font-display">{s.code}</span>
+            {tx(SERIES_LABEL[s.series].th, SERIES_LABEL[s.series].en)} · <span className="font-display">{s.code}</span>
           </p>
-          <h1 className="mt-1 font-display text-3xl">{s.titleTh}</h1>
-          <p className="text-muted">{s.titleEn}</p>
+          <h1 className="t-page mt-1 font-display">{setName(s, locale).main}</h1>
+          <p className="text-muted">{setName(s, locale).alt}</p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <SetStatusBadge set={s} />
-            <span className="text-sm text-muted">{s.stickerCount} ภาพ</span>
-            {s.releasedAt && <span className="text-sm text-muted">· วางขาย {formatDate(s.releasedAt)}</span>}
+            <span className="text-sm text-muted">
+              {s.stickerCount} {tx('ภาพ', 'stickers')}
+            </span>
+            {s.releasedAt && (
+              <span className="text-sm text-muted">
+                · {tx('วางขาย', 'Released')} {formatDate(s.releasedAt)}
+              </span>
+            )}
           </div>
-          <p className="mt-4 text-[15px] leading-relaxed">{s.description}</p>
+          <p className="mt-4 text-[15px] leading-relaxed">{setDesc(s, locale)}</p>
           {s.tags.length > 0 && (
             <ul className="mt-3 flex flex-wrap gap-1.5">
               {s.tags.map((t) => (
@@ -58,8 +67,8 @@ export default function SetDetailPage() {
             {s.status === 'live' ? (
               <StoreLink set={s} />
             ) : (
-              <Alert tone="info" icon={<Clock size={18} />} title="ยังไม่วางขาย">
-                ลิงก์ LINE Store จะแสดงเมื่อชุดนี้เผยแพร่จริงแล้วเท่านั้น
+              <Alert tone="info" icon={<Clock size={18} />} title={tx('ยังไม่วางขาย', 'Not on sale yet')}>
+                {tx('ลิงก์ LINE Store จะแสดงเมื่อชุดนี้เผยแพร่จริงแล้วเท่านั้น', 'The LINE Store link appears only once this set is actually published.')}
               </Alert>
             )}
           </div>
@@ -69,7 +78,7 @@ export default function SetDetailPage() {
       {s.status === 'live' && (
         <section aria-labelledby="preview" className="mt-10">
           <h2 id="preview" className="mb-4 font-display text-xl">
-            ตัวอย่างในชุด
+            {tx('ตัวอย่างในชุด', 'Preview')}
           </h2>
           <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-8">
             {s.sampleCaptions.map((c, i) => (

@@ -4,11 +4,11 @@ import { ProgressIndicator } from '@/components/feedback/States'
 import { Button } from '@/components/ui/Button'
 import { ResponsiveModal } from '@/components/ui/Dialog'
 import { track } from '@/lib/analytics'
-import { useT } from '@/lib/i18n'
+import { useT, useTx } from '@/lib/i18n'
 import { pad2 } from '@/lib/utils/id'
 import { cn } from '@/lib/utils/cn'
 import { slotStatus, type BriefIssue } from '@/lib/validation/brief'
-import { POSE_EXAMPLES } from '../content'
+import { useStudioContent } from '../content'
 import { completedCount, moveItem, toggleItemReference, updateItem, type DraftData } from '../model/draft'
 import { BulkPasteDialog } from './BulkPasteDialog'
 import { CopySlotDialog } from './CopySlotDialog'
@@ -16,23 +16,34 @@ import { SlotEditor } from './SlotEditor'
 import { StickerSlotChip } from './StickerSlotChip'
 
 function isTyping(el: Element | null) {
-  return !!el && (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement || (el as HTMLElement).isContentEditable)
+  return (
+    !!el && (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement || (el as HTMLElement).isContentEditable)
+  )
 }
 
 export function PoseGuidance({ className }: { className?: string }) {
+  const tx = useTx()
+  const { POSE_EXAMPLES } = useStudioContent()
   return (
     <aside className={cn('rounded-3xl border border-line bg-mint-100/60 p-4', className)} aria-labelledby="pose-tips">
       <h3 id="pose-tips" className="flex items-center gap-2 font-display text-base">
-        <Lightbulb size={18} aria-hidden /> เขียนท่าทางให้เห็นภาพ
+        <Lightbulb size={18} aria-hidden /> {tx('เขียนท่าทางให้เห็นภาพ', 'Describe the pose vividly')}
       </h3>
-      <p className="mt-1 text-sm text-muted">ยิ่งละเอียด ทีมงานยิ่งวาดได้ตรงใจ (ตัวอย่างเท่านั้น ระบบไม่แก้ข้อความของคุณ)</p>
+      <p className="mt-1 text-sm text-muted">
+        {tx(
+          'ยิ่งละเอียด ทีมงานยิ่งวาดได้ตรงใจ (ตัวอย่างเท่านั้น ระบบไม่แก้ข้อความของคุณ)',
+          'The more detail, the closer the drawing. (Examples only — your text is never changed.)',
+        )}
+      </p>
       <ul className="mt-3 space-y-3 text-sm">
         {POSE_EXAMPLES.map((ex) => (
           <li key={ex.bad} className="rounded-2xl bg-surface p-3">
             <p className="text-muted">
-              แทนที่จะเขียน <span className="line-through">“{ex.bad}”</span>
+              {tx('แทนที่จะเขียน', 'Instead of')} <span className="line-through">“{ex.bad}”</span>
             </p>
-            <p className="mt-0.5 text-ink">ลองเขียน “{ex.good}”</p>
+            <p className="mt-0.5 text-ink">
+              {tx('ลองเขียน', 'try')} “{ex.good}”
+            </p>
           </li>
         ))}
       </ul>
@@ -56,6 +67,7 @@ export function SlotsStep({
   onActive(position: number): void
 }) {
   const t = useT()
+  const tx = useTx()
   const [bulkOpen, setBulkOpen] = useState(false)
   const [copyOpen, setCopyOpen] = useState(false)
   const [gridOpen, setGridOpen] = useState(false)
@@ -103,7 +115,7 @@ export function SlotsStep({
     const to = item.position + dir
     onChange((d) => moveItem(d, item.position, to))
     onActive(to)
-    setAnnounce(`ย้ายภาพ ${pad2(item.position)} ไปตำแหน่ง ${pad2(to)} แล้ว`)
+    setAnnounce(tx(`ย้ายภาพ ${pad2(item.position)} ไปตำแหน่ง ${pad2(to)} แล้ว`, `Moved sticker ${pad2(item.position)} to position ${pad2(to)}`))
   }
 
   const chips = (size: 'md' | 'lg' = 'md', onPick?: () => void) =>
@@ -127,16 +139,18 @@ export function SlotsStep({
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-xl text-ink">รายละเอียดสติกเกอร์ทีละภาพ</h2>
-          <p className="mt-1 text-sm text-muted">ใส่ข้อความและท่าทางให้ครบทุกภาพ บันทึกอัตโนมัติทุกครั้งที่พิมพ์</p>
+          <h2 className="font-display text-xl text-ink">{tx('รายละเอียดสติกเกอร์ทีละภาพ', 'Each sticker')}</h2>
+          <p className="mt-1 text-sm text-muted">
+            {tx('ใส่ข้อความและท่าทางให้ครบทุกภาพ บันทึกอัตโนมัติทุกครั้งที่พิมพ์', 'Add a word and a pose for every sticker. It saves as you type.')}
+          </p>
         </div>
         <Button size="sm" variant="secondary" icon={<ClipboardPaste size={16} />} onClick={() => setBulkOpen(true)}>
-          วางข้อความหลายภาพ
+          {tx('วางข้อความหลายภาพ', 'Paste many words')}
         </Button>
       </div>
 
       <div className="flex items-center gap-3">
-        <ProgressIndicator value={done} max={total} label="ความคืบหน้าการกรอก" className="flex-1" />
+        <ProgressIndicator value={done} max={total} label={tx('ความคืบหน้าการกรอก', 'Progress')} className="flex-1" />
         <span className="shrink-0 text-sm font-medium tabular-nums">{t('wizard.progress', { done, total })}</span>
       </div>
 
@@ -144,19 +158,33 @@ export function SlotsStep({
         {/* Slot overview: horizontal strip on phones, grid beside the editor from md. */}
         <div className="min-w-0">
           <div className="flex items-center gap-2 md:hidden">
-            <div ref={stripRef} className="no-scrollbar -mx-1 flex min-w-0 flex-1 overflow-x-auto py-1" role="group" aria-label="เลือกภาพ">
+            <div
+              ref={stripRef}
+              className="no-scrollbar -mx-1 flex min-w-0 flex-1 overflow-x-auto py-1"
+              role="group"
+              aria-label={tx('เลือกภาพ', 'Choose a sticker')}
+            >
               {chips()}
             </div>
-            <Button size="md" variant="secondary" iconOnly label="ดูทุกภาพ" icon={<LayoutGrid size={18} />} onClick={() => setGridOpen(true)} />
+            <Button
+              size="md"
+              variant="secondary"
+              iconOnly
+              label={tx('ดูทุกภาพ', 'See all stickers')}
+              icon={<LayoutGrid size={18} />}
+              onClick={() => setGridOpen(true)}
+            />
           </div>
           <div className="sticky top-20 hidden rounded-3xl border border-line bg-surface p-3 md:block">
-            <p className="mb-2 px-1 text-sm font-medium">ทุกภาพ ({total})</p>
-            <div className="-m-1 flex flex-wrap" role="group" aria-label="เลือกภาพ">
+            <p className="mb-2 px-1 text-sm font-medium">
+              {tx('ทุกภาพ', 'All stickers')} ({total})
+            </p>
+            <div className="-m-1 flex flex-wrap" role="group" aria-label={tx('เลือกภาพ', 'Choose a sticker')}>
               {chips()}
             </div>
             <p className="mt-3 hidden px-1 text-xs text-muted lg:block">
-              คีย์ลัด: <kbd className="rounded border border-line px-1">[</kbd> <kbd className="rounded border border-line px-1">]</kbd> หรือลูกศร
-              ซ้าย/ขวา เมื่อไม่ได้พิมพ์อยู่
+              {tx('คีย์ลัด', 'Shortcuts')}: <kbd className="rounded border border-line px-1">[</kbd> <kbd className="rounded border border-line px-1">]</kbd>{' '}
+              {tx('หรือลูกศรซ้าย/ขวา เมื่อไม่ได้พิมพ์อยู่', 'or the left/right arrows when you aren’t typing')}
             </p>
           </div>
         </div>
@@ -185,7 +213,12 @@ export function SlotsStep({
         {announce}
       </p>
 
-      <ResponsiveModal open={gridOpen} onOpenChange={setGridOpen} title="เลือกภาพ" description={t('wizard.progress', { done, total })}>
+      <ResponsiveModal
+        open={gridOpen}
+        onOpenChange={setGridOpen}
+        title={tx('เลือกภาพ', 'Choose a sticker')}
+        description={t('wizard.progress', { done, total })}
+      >
         <div className="-m-1 grid grid-cols-5 justify-items-center gap-1 sm:grid-cols-8">{chips('lg', () => setGridOpen(false))}</div>
       </ResponsiveModal>
       <BulkPasteDialog

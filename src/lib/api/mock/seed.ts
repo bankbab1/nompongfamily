@@ -382,6 +382,23 @@ function seedJob(req: StickerRequest): ProductionJob {
   }
 }
 
+/** English descriptions for the sample sets (the Thai ones live in the rows below). */
+const SET_DESC_EN: Record<string, string> = {
+  V1: 'Everyday greetings from Nompong',
+  V2: 'A slow, cosy day off',
+  V3: 'Say I love you, the cute way',
+  V4: 'Meetings, deadlines and overtime',
+  V5: 'Mischievous and playful to the max',
+  V6: 'Songkran, Loy Krathong and New Year',
+  V7: 'Umbrellas, rain boots and rainy days',
+  V8: 'An unpublished draft set',
+  M1: 'A special set of wiggly animated stickers',
+  M2: 'Full-screen pop-up stickers',
+  M3: 'Stickers with sound',
+  CR1: 'The first set made from fans’ ideas',
+  INTRO01: 'An intro set showing who Nompong is — name not final',
+}
+
 const SETS: StickerSet[] = [
   ['V1', 'นมผงทักทาย', 'Nompong Says Hi', 'คำทักทายประจำวันจากน้องนมผง', 40, 'live', '#F5D76E', ['ทักทาย', 'daily'], 300],
   ['V2', 'นมผงวันชิลล์', 'Chill Day', 'วันพักผ่อนสบายๆ', 24, 'live', '#9DCFC9', ['ชิลล์', 'relax'], 240],
@@ -418,6 +435,7 @@ const SETS: StickerSet[] = [
     titleTh: titleTh as string,
     titleEn: titleEn as string,
     description: description as string,
+    descriptionEn: SET_DESC_EN[c],
     stickerCount: stickerCount as number,
     status: status as StickerSet['status'],
     // Mock link to the public LINE Store search — real product URLs are recorded by admin at publication.
@@ -431,28 +449,29 @@ const SETS: StickerSet[] = [
 })
 
 const WALLPAPER_VARIANTS: Omit<WallpaperVariant, 'id' | 'sizeKb'>[] = [
-  { label: 'มือถือ FHD+', device: 'mobile', width: 1080, height: 2400, format: 'PNG' },
-  { label: 'มือถือ QHD+', device: 'mobile', width: 1440, height: 3200, format: 'PNG' },
-  { label: 'แท็บเล็ตแนวตั้ง', device: 'tablet', width: 2048, height: 2732, format: 'PNG' },
-  { label: 'แท็บเล็ตแนวนอน', device: 'tablet', width: 2732, height: 2048, format: 'PNG' },
-  { label: 'เดสก์ท็อป Full HD', device: 'desktop', width: 1920, height: 1080, format: 'JPG' },
-  { label: 'เดสก์ท็อป QHD', device: 'desktop', width: 2560, height: 1440, format: 'JPG' },
-  { label: 'เดสก์ท็อป 4K', device: 'desktop', width: 3840, height: 2160, format: 'JPG' },
+  { label: 'มือถือ FHD+', labelEn: 'Phone FHD+', device: 'mobile', width: 1080, height: 2400, format: 'PNG' },
+  { label: 'มือถือ QHD+', labelEn: 'Phone QHD+', device: 'mobile', width: 1440, height: 3200, format: 'PNG' },
+  { label: 'แท็บเล็ตแนวตั้ง', labelEn: 'Tablet portrait', device: 'tablet', width: 2048, height: 2732, format: 'PNG' },
+  { label: 'แท็บเล็ตแนวนอน', labelEn: 'Tablet landscape', device: 'tablet', width: 2732, height: 2048, format: 'PNG' },
+  { label: 'เดสก์ท็อป Full HD', labelEn: 'Desktop Full HD', device: 'desktop', width: 1920, height: 1080, format: 'JPG' },
+  { label: 'เดสก์ท็อป QHD', labelEn: 'Desktop QHD', device: 'desktop', width: 2560, height: 1440, format: 'JPG' },
+  { label: 'เดสก์ท็อป 4K', labelEn: 'Desktop 4K', device: 'desktop', width: 3840, height: 2160, format: 'JPG' },
 ]
 
 const WALLPAPERS: Wallpaper[] = (
   [
-    ['sunny-morning', 'เช้าสดใส', 'Sunny Morning', 'สดใส', ['#FFF4C9', '#F5D76E', '#9DCFC9']],
-    ['peach-nap', 'งีบบ่ายสีพีช', 'Peach Nap', 'ผ่อนคลาย', ['#FDEAE4', '#F2B5A7', '#F5D76E']],
-    ['mint-rain', 'ฝนพรำสีมิ้นต์', 'Mint Rain', 'ฤดูฝน', ['#E3F3F0', '#9DCFC9', '#A9CBE8']],
-    ['cozy-night', 'คืนอบอุ่น', 'Cozy Night', 'กลางคืน', ['#EDE6F4', '#D9C2E8', '#F5D76E']],
+    ['sunny-morning', 'เช้าสดใส', 'Sunny Morning', 'สดใส', 'Bright', ['#FFF4C9', '#F5D76E', '#9DCFC9']],
+    ['peach-nap', 'งีบบ่ายสีพีช', 'Peach Nap', 'ผ่อนคลาย', 'Relaxing', ['#FDEAE4', '#F2B5A7', '#F5D76E']],
+    ['mint-rain', 'ฝนพรำสีมิ้นต์', 'Mint Rain', 'ฤดูฝน', 'Rainy season', ['#E3F3F0', '#9DCFC9', '#A9CBE8']],
+    ['cozy-night', 'คืนอบอุ่น', 'Cozy Night', 'กลางคืน', 'Night', ['#EDE6F4', '#D9C2E8', '#F5D76E']],
   ] as const
-).map(([slug, titleTh, titleEn, theme, palette]) => ({
+).map(([slug, titleTh, titleEn, theme, themeEn, palette]) => ({
   id: `wp_${slug}`,
   slug,
   titleTh,
   titleEn,
   theme,
+  themeEn,
   palette: [...palette] as [string, string, string],
   free: true,
   variants: WALLPAPER_VARIANTS.map((v) => ({

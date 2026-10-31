@@ -19,7 +19,11 @@
     "admin": "Admin",
     "back": "Back",
     "skipToContent": "Skip to content",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "mainMenu": "Main menu",
+    "bottomMenu": "Bottom menu",
+    "myRequests": "My requests",
+    "profile": "Profile"
   },
   "status": {
     "draft": "Draft",

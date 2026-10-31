@@ -1,6 +1,7 @@
 import { AlertTriangle, CheckCircle2, Info, X, XCircle } from 'lucide-react'
 import { useEffect, type ReactNode } from 'react'
 import { create } from 'zustand'
+import { pick } from '@/lib/i18n'
 
 type ToastType = 'success' | 'info' | 'warning' | 'error'
 
@@ -78,7 +79,7 @@ function ToastView({ item }: { item: ToastItem }) {
       <button
         type="button"
         onClick={() => dismiss(item.id)}
-        aria-label="ปิดการแจ้งเตือน"
+        aria-label={pick({ th: 'ปิดการแจ้งเตือน', en: 'Dismiss' })}
         className="-m-1.5 flex h-9 w-9 items-center justify-center rounded-lg text-muted hover:bg-surface-muted"
       >
         <X size={16} />

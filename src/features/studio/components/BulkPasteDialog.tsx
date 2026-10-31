@@ -6,6 +6,7 @@ import { ResponsiveModal } from '@/components/ui/Dialog'
 import { Select, TextArea } from '@/components/ui/Field'
 import { pad2 } from '@/lib/utils/id'
 import { applyBulkCaptions, planBulkCaptions, type DraftData } from '../model/draft'
+import { useTx } from '@/lib/i18n'
 
 /** One caption per line → preview mapping → explicit confirm before replacing (spec §6.4). */
 export function BulkPasteDialog({
@@ -19,6 +20,7 @@ export function BulkPasteDialog({
   data: DraftData
   onApply(fn: (d: DraftData) => DraftData, firstPosition: number): void
 }) {
+  const tx = useTx()
   const [text, setText] = useState('')
   const [start, setStart] = useState(1)
   const [confirming, setConfirming] = useState(false)
@@ -37,18 +39,22 @@ export function BulkPasteDialog({
     <ResponsiveModal
       open={open}
       onOpenChange={close}
-      title="วางข้อความหลายภาพพร้อมกัน"
-      description="พิมพ์หรือวางข้อความ 1 บรรทัดต่อ 1 ภาพ"
+      title={tx('วางข้อความหลายภาพพร้อมกัน', 'Paste words for many stickers')}
+      description={tx('พิมพ์หรือวางข้อความ 1 บรรทัดต่อ 1 ภาพ', 'Type or paste one line per sticker')}
       size="lg"
       closeOnBackdrop={!text}
       footer={
         <>
           <Button variant="secondary" onClick={() => (confirming ? setConfirming(false) : close(false))}>
-            {confirming ? 'กลับไปแก้' : 'ยกเลิก'}
+            {confirming ? tx('กลับไปแก้', 'Go back') : tx('ยกเลิก', 'Cancel')}
           </Button>
           {!confirming ? (
-            <Button variant="primary" disabled={!plan.mapping.length} onClick={() => (replacing.length ? setConfirming(true) : (onApply((d) => applyBulkCaptions(d, plan.mapping), start), close(false)))}>
-              ใส่ข้อความ {plan.mapping.length} ภาพ
+            <Button
+              variant="primary"
+              disabled={!plan.mapping.length}
+              onClick={() => (replacing.length ? setConfirming(true) : (onApply((d) => applyBulkCaptions(d, plan.mapping), start), close(false)))}
+            >
+              {tx(`ใส่ข้อความ ${plan.mapping.length} ภาพ`, `Fill ${plan.mapping.length} stickers`)}
             </Button>
           ) : (
             <Button
@@ -58,7 +64,7 @@ export function BulkPasteDialog({
                 close(false)
               }}
             >
-              ยืนยันแทนที่ {replacing.length} ภาพ
+              {tx(`ยืนยันแทนที่ ${replacing.length} ภาพ`, `Replace ${replacing.length} stickers`)}
             </Button>
           )}
         </>
@@ -68,7 +74,7 @@ export function BulkPasteDialog({
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-[1fr_10rem]">
             <TextArea
-              label="ข้อความ (บรรทัดละภาพ)"
+              label={tx('ข้อความ (บรรทัดละภาพ)', 'Words (one line per sticker)')}
               rows={8}
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -77,9 +83,9 @@ export function BulkPasteDialog({
               autoCorrect="off"
               autoCapitalize="off"
               lang="th"
-              hint="บรรทัดว่างจะถูกข้าม ข้อความแต่ละบรรทัดจะถูกเก็บตามที่พิมพ์ทุกตัวอักษร"
+              hint={tx('บรรทัดว่างจะถูกข้าม ข้อความแต่ละบรรทัดจะถูกเก็บตามที่พิมพ์ทุกตัวอักษร', 'Empty lines are skipped. Each line is kept exactly as typed.')}
             />
-            <Select label="เริ่มที่ภาพ" value={start} onChange={(e) => setStart(Number(e.target.value))}>
+            <Select label={tx('เริ่มที่ภาพ', 'Start at sticker')} value={start} onChange={(e) => setStart(Number(e.target.value))}>
               {Array.from({ length: data.stickerCount }, (_, i) => (
                 <option key={i} value={i + 1}>
                   {pad2(i + 1)}
@@ -88,14 +94,14 @@ export function BulkPasteDialog({
             </Select>
           </div>
           {plan.overflow.length > 0 && (
-            <Alert tone="warning" title={`มี ${plan.overflow.length} บรรทัดเกินจำนวนภาพ`}>
-              บรรทัดเหล่านี้จะไม่ถูกใส่: {plan.overflow.slice(0, 3).join(', ')}
+            <Alert tone="warning" title={tx(`มี ${plan.overflow.length} บรรทัดเกินจำนวนภาพ`, `${plan.overflow.length} line(s) more than the stickers`)}>
+              {tx('บรรทัดเหล่านี้จะไม่ถูกใส่', 'These lines won’t be used')}: {plan.overflow.slice(0, 3).join(', ')}
               {plan.overflow.length > 3 && ' …'}
             </Alert>
           )}
           {plan.mapping.length > 0 && (
             <div>
-              <h3 className="mb-2 text-sm font-medium">ตัวอย่างการจับคู่</h3>
+              <h3 className="mb-2 text-sm font-medium">{tx('ตัวอย่างการจับคู่', 'Preview')}</h3>
               <ol className="max-h-64 divide-y divide-line overflow-y-auto rounded-2xl border border-line">
                 {plan.mapping.map((m) => (
                   <li key={m.position} className="flex items-baseline gap-3 px-3 py-2 text-sm">
@@ -116,8 +122,12 @@ export function BulkPasteDialog({
         </div>
       ) : (
         <div className="space-y-3">
-          <Alert tone="warning" icon={<AlertTriangle size={18} />} title={`ข้อความเดิม ${replacing.length} ภาพจะถูกแทนที่`}>
-            ตรวจรายการด้านล่างก่อนยืนยัน
+          <Alert
+            tone="warning"
+            icon={<AlertTriangle size={18} />}
+            title={tx(`ข้อความเดิม ${replacing.length} ภาพจะถูกแทนที่`, `${replacing.length} existing word(s) will be replaced`)}
+          >
+            {tx('ตรวจรายการด้านล่างก่อนยืนยัน', 'Check the list below before confirming.')}
           </Alert>
           <ul className="max-h-72 divide-y divide-line overflow-y-auto rounded-2xl border border-line text-sm">
             {replacing.map((m) => (

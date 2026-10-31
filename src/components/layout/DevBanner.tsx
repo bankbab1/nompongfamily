@@ -5,6 +5,7 @@ import { USING_MOCK_API } from '@/lib/api'
 import { getDevSettings, onDevSettings, resetMockDb, setDevSettings } from '@/lib/api/mock/db'
 import { confirm } from '@/components/ui/ConfirmDialog'
 import { localDrafts } from '@/lib/storage/drafts'
+import { useTx } from '@/lib/i18n'
 
 /**
  * Makes mock mode impossible to miss (spec §11: "mock data must be clearly marked") and
@@ -15,17 +16,18 @@ export function DevBanner() {
   const { offline } = JSON.parse(settings) as ReturnType<typeof getDevSettings>
   const [open, setOpen] = useState(false)
   const qc = useQueryClient()
+  const tx = useTx()
   if (!USING_MOCK_API) return null
 
   return (
     <div className="border-b border-line bg-surface-muted text-xs text-muted">
       <div className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 px-4 py-1 sm:px-6 lg:px-10">
         <span className="inline-flex items-center gap-1.5 font-medium">
-          <FlaskConical size={13} aria-hidden /> โหมดทดสอบ — ข้อมูลจำลอง (mock)
+          <FlaskConical size={13} aria-hidden /> {tx('โหมดทดสอบ — ข้อมูลจำลอง (mock)', 'Test mode — sample data (mock)')}
         </span>
         {offline && (
           <span className="inline-flex items-center gap-1 rounded-full bg-brown px-2 py-0.5 font-semibold text-cream">
-            <WifiOff size={12} aria-hidden /> จำลองออฟไลน์
+            <WifiOff size={12} aria-hidden /> {tx('จำลองออฟไลน์', 'Simulated offline')}
           </span>
         )}
         <button
@@ -34,23 +36,26 @@ export function DevBanner() {
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
         >
-          {open ? 'ซ่อนเครื่องมือ' : 'เครื่องมือทดสอบ'}
+          {open ? tx('ซ่อนเครื่องมือ', 'Hide tools') : tx('เครื่องมือทดสอบ', 'Test tools')}
         </button>
       </div>
       {open && (
         <div className="flex w-full flex-wrap gap-2 px-4 pb-2 sm:px-6 lg:px-10">
           <label className="inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-lg border border-line bg-surface px-3">
             <input type="checkbox" checked={offline} onChange={(e) => setDevSettings({ offline: e.target.checked })} />
-            จำลองเซิร์ฟเวอร์ออฟไลน์
+            {tx('จำลองเซิร์ฟเวอร์ออฟไลน์', 'Simulate server offline')}
           </label>
           <button
             type="button"
             className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-line bg-surface px-3"
             onClick={async () => {
               const ok = await confirm({
-                title: 'รีเซ็ตข้อมูลจำลอง?',
-                description: 'คืนค่าข้อมูลเซิร์ฟเวอร์จำลองและลบฉบับร่างในเครื่องนี้ทั้งหมด',
-                confirmLabel: 'รีเซ็ต',
+                title: tx('รีเซ็ตข้อมูลจำลอง?', 'Reset sample data?'),
+                description: tx(
+                  'คืนค่าข้อมูลเซิร์ฟเวอร์จำลองและลบฉบับร่างในเครื่องนี้ทั้งหมด',
+                  'Restores the sample server data and deletes every draft on this device.',
+                ),
+                confirmLabel: tx('รีเซ็ต', 'Reset'),
                 tone: 'danger',
               })
               if (!ok) return
@@ -59,7 +64,7 @@ export function DevBanner() {
               qc.invalidateQueries()
             }}
           >
-            <RotateCcw size={13} aria-hidden /> รีเซ็ตข้อมูลตัวอย่าง
+            <RotateCcw size={13} aria-hidden /> {tx('รีเซ็ตข้อมูลตัวอย่าง', 'Reset sample data')}
           </button>
         </div>
       )}

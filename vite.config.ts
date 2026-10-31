@@ -8,7 +8,10 @@ export default defineConfig({
   base: '/nompongfamily/',
   plugins: [react(), tailwindcss()],
   // Dev port: 5210 by default, or PORT when a tool assigns one (e.g. a second preview).
+  // host: true also listens on the local network, so a phone on the same Wi-Fi can open
+  // http://<this PC's IP>:5210/nompongfamily/ (Vite prints the address on start).
   server: {
+    host: true,
     port: Number(process.env.PORT) || 5210,
     strictPort: true,
   },

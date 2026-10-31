@@ -10,7 +10,7 @@ import { errorMessage, isApiError, type ApiError } from '@/lib/api/errors'
 import { qk } from '@/lib/api/queryKeys'
 import type { RequestStatus, StickerRequest, User } from '@/lib/api/types'
 import { track } from '@/lib/analytics'
-import { useT } from '@/lib/i18n'
+import { useT, useTx } from '@/lib/i18n'
 import { localDrafts } from '@/lib/storage/drafts'
 import { useOnline } from '@/lib/utils/useOnline'
 import { TERMS_VERSION, validateBrief, type BriefIssue } from '@/lib/validation/brief'
@@ -31,6 +31,7 @@ import { SubmittedView } from './SubmittedView'
  */
 export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; user: User | null; serverStatus?: RequestStatus }) {
   const t = useT()
+  const tx = useTx()
   const qc = useQueryClient()
   const navigate = useNavigate()
   const location = useLocation()
@@ -106,13 +107,23 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
     } catch (e) {
       // The draft stays intact locally on every failure path (spec §6.6).
       if (e instanceof Error && e.message === 'sync') {
-        setSubmitError(online ? 'บันทึกขึ้นเซิร์ฟเวอร์ไม่สำเร็จ ฉบับร่างยังอยู่ในเครื่อง ลองกดส่งอีกครั้ง' : 'ออฟไลน์อยู่ ฉบับร่างยังอยู่ในเครื่อง เชื่อมต่อแล้วกดส่งอีกครั้ง')
+        setSubmitError(
+          online
+            ? tx(
+                'บันทึกขึ้นเซิร์ฟเวอร์ไม่สำเร็จ ฉบับร่างยังอยู่ในเครื่อง ลองกดส่งอีกครั้ง',
+                'Couldn’t save to the server. Your draft is still on this device — try sending again.',
+              )
+            : tx(
+                'ออฟไลน์อยู่ ฉบับร่างยังอยู่ในเครื่อง เชื่อมต่อแล้วกดส่งอีกครั้ง',
+                'You’re offline. Your draft is still on this device — reconnect and send again.',
+              ),
+        )
       } else if (isApiError(e, 'validation') && Array.isArray((e as ApiError).detail)) {
-        setSubmitError('เซิร์ฟเวอร์พบข้อมูลที่ยังไม่ครบ กรุณาตรวจรายการด้านบน')
+        setSubmitError(tx('เซิร์ฟเวอร์พบข้อมูลที่ยังไม่ครบ กรุณาตรวจรายการด้านบน', 'The server found missing details. Please check the list above.'))
       } else {
-        setSubmitError(`${errorMessage(e)} — ฉบับร่างยังอยู่ครบ ลองอีกครั้งได้`)
+        setSubmitError(`${errorMessage(e)} — ${tx('ฉบับร่างยังอยู่ครบ ลองอีกครั้งได้', 'your draft is safe, you can try again')}`)
       }
-      toast.error('ส่งคำขอไม่สำเร็จ')
+      toast.error(tx('ส่งคำขอไม่สำเร็จ', 'Couldn’t send the request'))
     } finally {
       submitLock.current = false
       setSubmitting(false)
@@ -126,20 +137,26 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
       <div className="mb-5 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="font-display text-sm text-muted">
-            เสนอไอเดียชุดสติกเกอร์
+            {tx('เสนอไอเดียชุดสติกเกอร์', 'Sticker set idea')}
             {draft.serverId && <span className="ml-2 tabular-nums">· {draft.serverId}</span>}
           </p>
           <AutosaveIndicator state={saveState} onRetry={() => void retry()} />
         </div>
         <StepIndicator step={step} onStep={goStep} lockedChannel={channelLocked} />
         {serverStatus === 'clarification_requested' && (
-          <Alert tone="warning" title="ทีมงานขอข้อมูลเพิ่ม">
-            แก้ไขตามที่ทีมงานขอ (ดูข้อความในหน้ารายละเอียดคำขอ) แล้วกดส่งอีกครั้งที่ขั้นตอนสุดท้าย
+          <Alert tone="warning" title={tx('ทีมงานขอข้อมูลเพิ่ม', 'The team needs more information')}>
+            {tx(
+              'แก้ไขตามที่ทีมงานขอ (ดูข้อความในหน้ารายละเอียดคำขอ) แล้วกดส่งอีกครั้งที่ขั้นตอนสุดท้าย',
+              'Make the changes the team asked for (see the message on the request page), then send again at the last step.',
+            )}
           </Alert>
         )}
         {!user && (
-          <Alert tone="info" icon={<LogIn size={18} />} title="กำลังทำแบบไม่เข้าสู่ระบบ">
-            ฉบับร่างบันทึกไว้ในเครื่องนี้เท่านั้น เข้าสู่ระบบเพื่อซิงก์และส่งคำขอ — ฉบับร่างจะย้ายเข้าบัญชีให้อัตโนมัติ
+          <Alert tone="info" icon={<LogIn size={18} />} title={tx('กำลังทำแบบไม่เข้าสู่ระบบ', 'You’re not signed in')}>
+            {tx(
+              'ฉบับร่างบันทึกไว้ในเครื่องนี้เท่านั้น เข้าสู่ระบบเพื่อซิงก์และส่งคำขอ — ฉบับร่างจะย้ายเข้าบัญชีให้อัตโนมัติ',
+              'Your draft is saved on this device only. Sign in to sync and send it — the draft moves into your account automatically.',
+            )}
           </Alert>
         )}
       </div>
@@ -157,7 +174,14 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
         )}
         {step === 2 && <SetInfoStep data={data} issues={issues} showErrors={!!showErrors[2]} onChange={update} />}
         {step === 3 && (
-          <SlotsStep data={data} active={activeSlot} issues={issues} showErrors={!!showErrors[3]} onChange={update} onActive={(p) => setMeta({ activeSlot: p })} />
+          <SlotsStep
+            data={data}
+            active={activeSlot}
+            issues={issues}
+            showErrors={!!showErrors[3]}
+            onChange={update}
+            onActive={(p) => setMeta({ activeSlot: p })}
+          />
         )}
         {step === 4 && <ReferencesStep data={data} onChange={update} />}
         {step === 5 && (
@@ -174,7 +198,7 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
           />
         )}
         {submitError && step === 5 && (
-          <Alert tone="danger" className="mt-4" title="ส่งไม่สำเร็จ">
+          <Alert tone="danger" className="mt-4" title={tx('ส่งไม่สำเร็จ', 'Not sent')}>
             {submitError}
           </Alert>
         )}
@@ -199,7 +223,7 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
             </Button>
           ) : !user ? (
             <Button variant="primary" icon={<LogIn size={18} />} onClick={() => void submit()} className="flex-1 sm:flex-none">
-              เข้าสู่ระบบเพื่อส่ง
+              {tx('เข้าสู่ระบบเพื่อส่ง', 'Sign in to send')}
             </Button>
           ) : (
             <Button
@@ -211,7 +235,11 @@ export function Wizard({ initial, user, serverStatus }: { initial: LocalDraft; u
               onClick={() => void submit()}
               className="flex-1 sm:flex-none"
             >
-              {submitting ? t('wizard.submitting') : serverStatus === 'clarification_requested' ? 'ส่งข้อมูลเพิ่มเติม' : t('wizard.submit')}
+              {submitting
+                ? t('wizard.submitting')
+                : serverStatus === 'clarification_requested'
+                  ? tx('ส่งข้อมูลเพิ่มเติม', 'Send the extra details')
+                  : t('wizard.submit')}
             </Button>
           )}
         </div>

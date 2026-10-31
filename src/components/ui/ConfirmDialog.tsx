@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { create } from 'zustand'
 import { Button } from './Button'
 import { ResponsiveModal } from './Dialog'
+import { pick } from '@/lib/i18n'
 
 interface ConfirmRequest {
   title: string
@@ -38,10 +39,10 @@ export function ConfirmHost() {
       footer={
         <>
           <Button variant="secondary" onClick={() => close(false)}>
-            {req.cancelLabel ?? 'ยกเลิก'}
+            {req.cancelLabel ?? pick({ th: 'ยกเลิก', en: 'Cancel' })}
           </Button>
           <Button variant={req.tone === 'danger' ? 'danger' : 'primary'} onClick={() => close(true)} autoFocus>
-            {req.confirmLabel ?? 'ยืนยัน'}
+            {req.confirmLabel ?? pick({ th: 'ยืนยัน', en: 'Confirm' })}
           </Button>
         </>
       }

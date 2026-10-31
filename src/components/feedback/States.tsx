@@ -2,10 +2,10 @@ import { AlertTriangle, CheckCircle2, Cloud, CloudOff, Info, Loader2, Lock, Refr
 import type { ReactNode } from 'react'
 import { Button } from '@/components/ui/Button'
 import { errorMessage, isApiError } from '@/lib/api/errors'
-import { useT } from '@/lib/i18n'
+import { pick, useT, useTx } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 
-export function Spinner({ className, label = 'กำลังโหลด' }: { className?: string; label?: string }) {
+export function Spinner({ className, label = pick({ th: 'กำลังโหลด', en: 'Loading' }) }: { className?: string; label?: string }) {
   return <Loader2 className={cn('h-5 w-5 animate-spin text-muted', className)} aria-label={label} role="status" />
 }
 
@@ -15,7 +15,7 @@ export function Skeleton({ className }: { className?: string }) {
 
 export function PageSkeleton({ rows = 4 }: { rows?: number }) {
   return (
-    <div className="space-y-4 py-2" role="status" aria-label="กำลังโหลด">
+    <div className="space-y-4 py-2" role="status" aria-label={pick({ th: 'กำลังโหลด', en: 'Loading' })}>
       <Skeleton className="h-8 w-2/3 max-w-sm" />
       <Skeleton className="h-4 w-1/2 max-w-xs" />
       <div className="grid gap-3 pt-2 sm:grid-cols-2">
@@ -54,7 +54,16 @@ export function ErrorState({ error, onRetry, title, className }: { error: unknow
   const forbidden = isApiError(error, 'forbidden')
   const notFound = isApiError(error, 'not_found')
   const offline = isApiError(error, 'network')
-  const heading = title ?? (forbidden ? 'ไม่มีสิทธิ์เข้าถึง' : notFound ? 'ไม่พบหน้านี้' : offline ? 'ออฟไลน์อยู่' : 'โหลดข้อมูลไม่สำเร็จ')
+  const tx = useTx()
+  const heading =
+    title ??
+    (forbidden
+      ? tx('ไม่มีสิทธิ์เข้าถึง', 'No access')
+      : notFound
+        ? tx('ไม่พบหน้านี้', 'Page not found')
+        : offline
+          ? tx('ออฟไลน์อยู่', 'You are offline')
+          : tx('โหลดข้อมูลไม่สำเร็จ', 'Could not load this'))
   return (
     <div className={cn('flex flex-col items-center justify-center px-6 py-12 text-center', className)} role="alert">
       <div
@@ -69,7 +78,7 @@ export function ErrorState({ error, onRetry, title, className }: { error: unknow
       <p className="mt-1 max-w-sm text-sm text-muted">{errorMessage(error)}</p>
       {onRetry && !forbidden && !notFound && (
         <Button className="mt-5" variant="secondary" icon={<RefreshCw size={16} />} onClick={onRetry}>
-          ลองอีกครั้ง
+          {tx('ลองอีกครั้ง', 'Try again')}
         </Button>
       )}
     </div>
@@ -116,7 +125,14 @@ export function Alert({
 export function ProgressIndicator({ value, max, label, className }: { value: number; max: number; label: string; className?: string }) {
   const pct = max === 0 ? 0 : Math.round((value / max) * 100)
   return (
-    <div className={cn('h-2 w-full overflow-hidden rounded-full bg-line', className)} role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={max} aria-label={label}>
+    <div
+      className={cn('h-2 w-full overflow-hidden rounded-full bg-line', className)}
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-label={label}
+    >
       <div className={cn('h-full rounded-full transition-[width] duration-300', pct === 100 ? 'bg-success' : 'bg-sunny')} style={{ width: `${pct}%` }} />
     </div>
   )

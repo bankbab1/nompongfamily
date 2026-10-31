@@ -6,6 +6,7 @@ import { ResponsiveModal } from '@/components/ui/Dialog'
 import { Checkbox } from '@/components/ui/Field'
 import { useCurrentUser, useSignOut } from '@/features/auth/useAuth'
 import { localDrafts } from '@/lib/storage/drafts'
+import { useTx } from '@/lib/i18n'
 
 /**
  * Shared-device policy (spec §6.5): drafts must not stay visible after sign-out unless the
@@ -15,6 +16,7 @@ export function SignOutDialog({ open, onOpenChange }: { open: boolean; onOpenCha
   const user = useCurrentUser()
   const signOut = useSignOut()
   const navigate = useNavigate()
+  const tx = useTx()
   const [clear, setClear] = useState(true)
   const [unsynced, setUnsynced] = useState(0)
 
@@ -27,12 +29,12 @@ export function SignOutDialog({ open, onOpenChange }: { open: boolean; onOpenCha
     <ResponsiveModal
       open={open}
       onOpenChange={onOpenChange}
-      title="ออกจากระบบ"
+      title={tx('ออกจากระบบ', 'Sign out')}
       size="sm"
       footer={
         <>
           <Button variant="secondary" onClick={() => onOpenChange(false)}>
-            ยกเลิก
+            {tx('ยกเลิก', 'Cancel')}
           </Button>
           <Button
             variant="primary"
@@ -49,7 +51,7 @@ export function SignOutDialog({ open, onOpenChange }: { open: boolean; onOpenCha
               )
             }
           >
-            ออกจากระบบ
+            {tx('ออกจากระบบ', 'Sign out')}
           </Button>
         </>
       }
@@ -58,12 +60,18 @@ export function SignOutDialog({ open, onOpenChange }: { open: boolean; onOpenCha
         <Checkbox
           checked={clear}
           onChange={(e) => setClear(e.target.checked)}
-          label="ลบฉบับร่างของฉันออกจากเครื่องนี้"
-          description="แนะนำเมื่อใช้เครื่องร่วมกับผู้อื่น ฉบับร่างที่ซิงก์แล้วยังอยู่ในบัญชีของคุณ"
+          label={tx('ลบฉบับร่างของฉันออกจากเครื่องนี้', 'Remove my drafts from this device')}
+          description={tx(
+            'แนะนำเมื่อใช้เครื่องร่วมกับผู้อื่น ฉบับร่างที่ซิงก์แล้วยังอยู่ในบัญชีของคุณ',
+            'Recommended on a shared device. Synced drafts stay in your account.',
+          )}
         />
         {clear && unsynced > 0 && (
-          <Alert tone="warning" title={`มี ${unsynced} ฉบับร่างที่ยังไม่ได้ซิงก์`}>
-            ถ้าลบตอนนี้ การแก้ไขที่ยังไม่ขึ้นเซิร์ฟเวอร์จะหายไป เชื่อมต่ออินเทอร์เน็ตแล้วเปิดฉบับร่างเพื่อซิงก์ก่อน หรือยกเลิกการติ๊กช่องนี้
+          <Alert tone="warning" title={tx(`มี ${unsynced} ฉบับร่างที่ยังไม่ได้ซิงก์`, `${unsynced} draft(s) not synced yet`)}>
+            {tx(
+              'ถ้าลบตอนนี้ การแก้ไขที่ยังไม่ขึ้นเซิร์ฟเวอร์จะหายไป เชื่อมต่ออินเทอร์เน็ตแล้วเปิดฉบับร่างเพื่อซิงก์ก่อน หรือยกเลิกการติ๊กช่องนี้',
+              'Changes not yet on the server will be lost. Go online and open the draft to sync it first, or untick this box.',
+            )}
           </Alert>
         )}
       </div>

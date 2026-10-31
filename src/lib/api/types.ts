@@ -157,6 +157,8 @@ export interface StickerSet {
   titleTh: string
   titleEn: string
   description: string
+  /** English description; falls back to the Thai one. */
+  descriptionEn?: string
   stickerCount: number
   status: CatalogStatus
   /** Only set after actual publication. */
@@ -171,6 +173,7 @@ export interface StickerSet {
 export interface WallpaperVariant {
   id: string
   label: string
+  labelEn?: string
   device: 'mobile' | 'tablet' | 'desktop'
   width: number
   height: number
@@ -184,6 +187,7 @@ export interface Wallpaper {
   titleTh: string
   titleEn: string
   theme: string
+  themeEn?: string
   palette: [string, string, string]
   variants: WallpaperVariant[]
   free: boolean

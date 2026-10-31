@@ -12,6 +12,7 @@ import { formatRelative } from '@/lib/utils/format'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
 import { completedCount, newDraft, type LocalDraft } from '../model/draft'
 import { Wizard } from '../components/Wizard'
+import { useTx } from '@/lib/i18n'
 
 type Phase = { kind: 'loading' } | { kind: 'choose'; existing: LocalDraft } | { kind: 'missing' } | { kind: 'ready'; draft: LocalDraft }
 
@@ -26,7 +27,8 @@ export default function NewRequestPage() {
   const type: RequestChannel = 'community'
   const draftId = params.get('draft')
   const [phase, setPhase] = useState<Phase>({ kind: 'loading' })
-  usePageMeta('เสนอไอเดียสติกเกอร์', undefined, { noindex: true })
+  const tx = useTx()
+  usePageMeta(tx('เสนอไอเดียสติกเกอร์', 'Share a sticker idea'), undefined, { noindex: true })
 
   useEffect(() => {
     if (isPending) return
@@ -72,11 +74,14 @@ export default function NewRequestPage() {
     return (
       <Page narrow>
         <EmptyState
-          title="ไม่พบฉบับร่างนี้ในเครื่อง"
-          description="ฉบับร่างอาจถูกส่งแล้ว ถูกลบ หรือสร้างจากอุปกรณ์อื่น ฉบับร่างที่ซิงก์แล้วดูได้ที่ “คำขอของฉัน”"
+          title={tx('ไม่พบฉบับร่างนี้ในเครื่อง', 'This draft isn’t on this device')}
+          description={tx(
+            'ฉบับร่างอาจถูกส่งแล้ว ถูกลบ หรือสร้างจากอุปกรณ์อื่น ฉบับร่างที่ซิงก์แล้วดูได้ที่ “คำขอของฉัน”',
+            'It may have been sent, deleted or started on another device. Synced drafts are under “My requests”.',
+          )}
           actions={
             <Button variant="primary" icon={<FilePlus2 size={18} />} onClick={start}>
-              เริ่มฉบับร่างใหม่
+              {tx('เริ่มฉบับร่างใหม่', 'Start a new draft')}
             </Button>
           }
         />
@@ -91,16 +96,17 @@ export default function NewRequestPage() {
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sunny-100">
             <PenLine size={24} aria-hidden />
           </div>
-          <h1 className="mt-4 font-display text-2xl">มีฉบับร่างที่ยังทำไม่เสร็จ</h1>
+          <h1 className="mt-4 font-display text-2xl">{tx('มีฉบับร่างที่ยังทำไม่เสร็จ', 'You have an unfinished draft')}</h1>
           <p className="mt-2 text-muted" lang="th">
-            “{d.data.setName || 'ยังไม่ได้ตั้งชื่อ'}” · กรอกแล้ว {completedCount(d.data)}/{d.data.stickerCount} ภาพ · แก้ล่าสุด {formatRelative(d.updatedAt)}
+            “{d.data.setName || tx('ยังไม่ได้ตั้งชื่อ', 'Untitled')}” · {tx('กรอกแล้ว', 'Filled')} {completedCount(d.data)}/{d.data.stickerCount}{' '}
+            {tx('ภาพ', 'stickers')} · {tx('แก้ล่าสุด', 'Last edited')} {formatRelative(d.updatedAt)}
           </p>
           <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
             <Button variant="primary" size="lg" onClick={() => resume(d)}>
-              ทำต่อจากเดิม
+              {tx('ทำต่อจากเดิม', 'Continue')}
             </Button>
             <Button variant="secondary" size="lg" onClick={start}>
-              เริ่มชุดใหม่
+              {tx('เริ่มชุดใหม่', 'Start a new set')}
             </Button>
           </div>
         </div>

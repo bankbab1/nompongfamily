@@ -4,7 +4,7 @@ import { Link, NavLink, Outlet, ScrollRestoration, useLocation, useMatches } fro
 import { PageSkeleton } from '@/components/feedback/States'
 import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
 import { useCurrentUser } from '@/features/auth/useAuth'
-import { useLocale, useT } from '@/lib/i18n'
+import { pick, useLocale, useT, type Bilingual } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { AccountMenu, Avatar } from './AccountMenu'
 import { DevBanner } from './DevBanner'
@@ -15,7 +15,7 @@ import { Wordmark } from './Wordmark'
 /** Per-route layout hints, set via the route `handle`. */
 export interface RouteHandle {
   /** Mobile header title. */
-  title?: string
+  title?: Bilingual
   /** Explicit back target on mobile (more predictable than history.back for deep links). */
   back?: string
   /** Hide the bottom nav so a page's own sticky action bar owns the bottom edge (builder). */
@@ -36,6 +36,7 @@ const desktopLinks = [
 
 function PublicHeader({ handle }: { handle: RouteHandle }) {
   const t = useT()
+  const locale = useLocale()
   const user = useCurrentUser()
   return (
     <header className="sticky top-0 z-30 border-b border-line/80 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
@@ -51,7 +52,7 @@ function PublicHeader({ handle }: { handle: RouteHandle }) {
               >
                 <ChevronLeft size={24} />
               </Link>
-              <span className="truncate font-display text-lg">{handle.title}</span>
+              <span className="truncate font-display text-lg">{handle.title && pick(handle.title, locale)}</span>
             </>
           ) : (
             <Wordmark />
@@ -111,7 +112,7 @@ function DesktopNav() {
   const ref = useRef<HTMLElement>(null)
   const { pill, ready } = useSlidingPill(ref, '[aria-current="page"]', [pathname, locale])
   return (
-    <nav ref={ref} aria-label="เมนูหลัก" className="relative hidden min-w-0 items-center gap-0.5 justify-self-center lg:flex">
+    <nav ref={ref} aria-label={t('nav.mainMenu')} className="relative hidden min-w-0 items-center gap-0.5 justify-self-center lg:flex">
       <SlidingPill pill={pill} ready={ready} className="rounded-full bg-surface-muted" />
       {desktopLinks.map((l) => (
         <NavLink
@@ -184,7 +185,7 @@ function MobileBottomNav() {
     { to: '/my', label: t('nav.my'), icon: UserRound, active: pathname.startsWith('/my') || pathname === '/login' },
   ]
   return (
-    <nav aria-label="เมนูด้านล่าง" className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-line/80 bg-background/85 backdrop-blur-xl lg:hidden">
+    <nav aria-label={t('nav.bottomMenu')} className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-line/80 bg-background/85 backdrop-blur-xl lg:hidden">
       <ul className="mx-auto grid max-w-lg grid-cols-4">
         {items.map(({ to, label, icon: Icon, active }) => (
           <li key={to}>

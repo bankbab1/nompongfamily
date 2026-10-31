@@ -2,6 +2,7 @@ import * as RDialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 import { useLayoutEffect, useRef, type ReactNode } from 'react'
 import { cn } from '@/lib/utils/cn'
+import { pick } from '@/lib/i18n'
 
 /**
  * Dialogs opened from state would return focus to <body> on close; remember the
@@ -76,7 +77,7 @@ export function ResponsiveModal({
                 <RDialog.Description className="sr-only">{typeof title === 'string' ? title : 'Dialog'}</RDialog.Description>
               )}
             </div>
-            <RDialog.Close className={closeBtn} aria-label="ปิด">
+            <RDialog.Close className={closeBtn} aria-label={pick({ th: 'ปิด', en: 'Close' })}>
               <X size={20} />
             </RDialog.Close>
           </div>
@@ -120,10 +121,10 @@ export function Drawer({
               {description ? (
                 <RDialog.Description className="mt-0.5 text-sm text-muted">{description}</RDialog.Description>
               ) : (
-                <RDialog.Description className="sr-only">รายละเอียด</RDialog.Description>
+                <RDialog.Description className="sr-only">{pick({ th: 'รายละเอียด', en: 'Details' })}</RDialog.Description>
               )}
             </div>
-            <RDialog.Close className={closeBtn} aria-label="ปิด">
+            <RDialog.Close className={closeBtn} aria-label={pick({ th: 'ปิด', en: 'Close' })}>
               <X size={20} />
             </RDialog.Close>
           </div>

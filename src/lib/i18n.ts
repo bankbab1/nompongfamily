@@ -5,7 +5,7 @@ import th from '@/locales/th.json'
 /**
  * Thai-first localisation (spec §4). `th.json` is the source of truth and defines the
  * key type; `en.json` may be partial and falls back to Thai per key. Long-form page
- * copy (About, FAQ, policies) is still inline Thai — extract it when English launches.
+ * copy is written inline with `useTx()` (`tx('ไทย', 'English')`) or as `{ th, en }` values with `pick()`.
  */
 export type Locale = 'th' | 'en'
 
@@ -77,4 +77,23 @@ export function t(key: MessageKey, vars?: Record<string, string | number>, local
 export function useT() {
   const locale = useLocale()
   return (key: MessageKey, vars?: Record<string, string | number>) => t(key, vars, locale)
+}
+
+/* ---------- Inline bilingual text ---------- */
+
+/** A piece of text in both languages. Plain strings are treated as language-neutral. */
+export type Bilingual = string | { th: string; en: string }
+
+/** Picks the right language from a Bilingual value. */
+export function pick(text: Bilingual, locale: Locale = current): string {
+  return typeof text === 'string' ? text : text[locale]
+}
+
+/**
+ * Inline copy without a dictionary key: `tx('ไทย', 'English')`. Re-renders on language change.
+ * Use for page copy; short shared UI labels live in the locale JSON files.
+ */
+export function useTx() {
+  const locale = useLocale()
+  return (thText: string, enText: string) => (locale === 'en' ? enText : thText)
 }

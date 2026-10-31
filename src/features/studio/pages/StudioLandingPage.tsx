@@ -9,20 +9,55 @@ import { track } from '@/lib/analytics'
 import { localDrafts } from '@/lib/storage/drafts'
 import { formatRelative } from '@/lib/utils/format'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
-import { CHANNEL_INFO, PUBLIC_DISCLOSURE } from '../content'
+import { useStudioContent } from '../content'
 import { completedCount, type LocalDraft } from '../model/draft'
+import { pick, useLocale, useTx } from '@/lib/i18n'
 
 const HOW = [
-  { icon: ClipboardList, title: 'กรอกบรีฟ', body: 'ตั้งชื่อชุด เลือก 8–40 ภาพ ใส่ข้อความและท่าทางทีละภาพ บันทึกอัตโนมัติ' },
-  { icon: Eye, title: 'ทีมงานพิจารณา', body: 'ทีมงานอ่านบรีฟ อาจขอข้อมูลเพิ่ม แล้วแจ้งผลในหน้าคำขอ' },
-  { icon: PenLine, title: 'วาดและตรวจงาน', body: 'ไอเดียที่ได้รับเลือกจะวาดในสไตล์นมผง และตรวจทุกภาพก่อนวางขาย' },
-  { icon: Store, title: 'วางขายสาธารณะ', body: 'ชุดที่เสร็จจะส่งให้ LINE พิจารณาและวางขายใน LINE Sticker Store' },
+  {
+    icon: ClipboardList,
+    title: { th: 'กรอกบรีฟ', en: 'Fill in the brief' },
+    body: {
+      th: 'ตั้งชื่อชุด เลือก 8–40 ภาพ ใส่ข้อความและท่าทางทีละภาพ บันทึกอัตโนมัติ',
+      en: 'Name the set, pick 8–40 stickers, add words and poses one by one. Saves automatically.',
+    },
+  },
+  {
+    icon: Eye,
+    title: { th: 'ทีมงานพิจารณา', en: 'The team reviews it' },
+    body: {
+      th: 'ทีมงานอ่านบรีฟ อาจขอข้อมูลเพิ่ม แล้วแจ้งผลในหน้าคำขอ',
+      en: 'The team reads your brief, may ask for more, and posts the result on your request page.',
+    },
+  },
+  {
+    icon: PenLine,
+    title: { th: 'วาดและตรวจงาน', en: 'Drawn and checked' },
+    body: {
+      th: 'ไอเดียที่ได้รับเลือกจะวาดในสไตล์นมผง และตรวจทุกภาพก่อนวางขาย',
+      en: 'Chosen ideas are drawn in Nompong’s style, and every sticker is checked before release.',
+    },
+  },
+  {
+    icon: Store,
+    title: { th: 'วางขายสาธารณะ', en: 'Public release' },
+    body: {
+      th: 'ชุดที่เสร็จจะส่งให้ LINE พิจารณาและวางขายใน LINE Sticker Store',
+      en: 'Finished sets go to LINE for review and on sale in the LINE Sticker Store.',
+    },
+  },
 ]
 
 export default function StudioLandingPage() {
+  const { CHANNEL_INFO, PUBLIC_DISCLOSURE } = useStudioContent()
   const user = useCurrentUser()
   const [drafts, setDrafts] = useState<LocalDraft[]>([])
-  usePageMeta('Nompong Studio', 'เสนอไอเดียชุดสติกเกอร์นมผงฟรี ทีมงานพิจารณาทุกไอเดีย')
+  const locale = useLocale()
+  const tx = useTx()
+  usePageMeta(
+    'Nompong Studio',
+    tx('เสนอไอเดียชุดสติกเกอร์นมผงฟรี ทีมงานพิจารณาทุกไอเดีย', 'Share Nompong sticker set ideas for free. The team reviews every idea.'),
+  )
 
   useEffect(() => {
     track('studio_opened')
@@ -34,8 +69,10 @@ export default function StudioLandingPage() {
       <section>
         <Page className="pt-10 pb-6 sm:pt-16">
           <p className="text-sm font-medium text-muted">Nompong Studio</p>
-          <h1 className="t-page mt-2 max-w-2xl font-display">เสนอไอเดียชุดสติกเกอร์นมผง</h1>
-          <p className="t-lead mt-3 max-w-xl">ฟรี กรอกง่ายบนมือถือ บันทึกอัตโนมัติ และไม่หายแม้รีเฟรชหน้า</p>
+          <h1 className="t-page mt-2 max-w-2xl font-display">{tx('เสนอไอเดียชุดสติกเกอร์นมผง', 'Share a Nompong sticker set idea')}</h1>
+          <p className="t-lead mt-3 max-w-xl">
+            {tx('ฟรี กรอกง่ายบนมือถือ บันทึกอัตโนมัติ และไม่หายแม้รีเฟรชหน้า', 'Free, easy on your phone, saves automatically and survives a page refresh.')}
+          </p>
         </Page>
       </section>
 
@@ -43,7 +80,7 @@ export default function StudioLandingPage() {
         {drafts.length > 0 && (
           <section aria-labelledby="resume" className="mb-8">
             <h2 id="resume" className="mb-3 font-display text-xl">
-              ทำต่อจากที่ค้างไว้
+              {tx('ทำต่อจากที่ค้างไว้', 'Pick up where you left off')}
             </h2>
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {drafts.map((d) => (
@@ -55,10 +92,10 @@ export default function StudioLandingPage() {
                     <PenLine size={20} className="shrink-0 text-muted" aria-hidden />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-medium" lang="th">
-                        {d.data.setName || 'ฉบับร่างยังไม่ตั้งชื่อ'}
+                        {d.data.setName || tx('ฉบับร่างยังไม่ตั้งชื่อ', 'Untitled draft')}
                       </span>
                       <span className="block text-xs text-muted">
-                        {completedCount(d.data)}/{d.data.stickerCount} ภาพ · {formatRelative(d.updatedAt)}
+                        {completedCount(d.data)}/{d.data.stickerCount} {tx('ภาพ', 'stickers')} · {formatRelative(d.updatedAt)}
                       </span>
                     </span>
                     <ArrowRight size={18} aria-hidden />
@@ -88,7 +125,7 @@ export default function StudioLandingPage() {
             iconRight={<ArrowRight size={18} />}
             onClick={() => track('request_type_selected', { channel: 'community' })}
           >
-            เสนอไอเดีย
+            {tx('เสนอไอเดีย', 'Share an idea')}
           </LinkButton>
         </article>
 
@@ -98,17 +135,17 @@ export default function StudioLandingPage() {
 
         <section aria-labelledby="how" className="mt-12">
           <h2 id="how" className="t-section font-display">
-            ขั้นตอนการทำงาน
+            {tx('ขั้นตอนการทำงาน', 'How it works')}
           </h2>
           <ol className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {HOW.map((s, i) => (
-              <li key={s.title} className="rounded-3xl border border-line bg-surface p-5">
+              <li key={s.title.en} className="rounded-3xl border border-line bg-surface p-5">
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sunny font-display">{i + 1}</span>
                   <s.icon size={20} className="text-muted" aria-hidden />
                 </div>
-                <h3 className="mt-3 font-display text-lg">{s.title}</h3>
-                <p className="mt-1 text-sm text-muted">{s.body}</p>
+                <h3 className="mt-3 font-display text-lg">{pick(s.title, locale)}</h3>
+                <p className="mt-1 text-sm text-muted">{pick(s.body, locale)}</p>
               </li>
             ))}
           </ol>

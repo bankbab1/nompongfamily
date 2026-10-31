@@ -12,12 +12,13 @@ import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
 import { RequestCard } from './components'
 import { useLocalOnlyDrafts, useMyRequests } from './useMyRequests'
+import { pick, useLocale, useTx } from '@/lib/i18n'
 
-const TABS: { key: 'all' | RequestGroup; label: string }[] = [
-  { key: 'all', label: 'ทั้งหมด' },
-  { key: 'active', label: 'กำลังดำเนินการ' },
-  { key: 'drafts', label: 'ฉบับร่าง' },
-  { key: 'done', label: 'เสร็จสิ้น' },
+const TABS: { key: 'all' | RequestGroup; label: { th: string; en: string } }[] = [
+  { key: 'all', label: { th: 'ทั้งหมด', en: 'All' } },
+  { key: 'active', label: { th: 'กำลังดำเนินการ', en: 'In progress' } },
+  { key: 'drafts', label: { th: 'ฉบับร่าง', en: 'Drafts' } },
+  { key: 'done', label: { th: 'เสร็จสิ้น', en: 'Done' } },
 ]
 
 export default function MyRequestsPage() {
@@ -25,7 +26,9 @@ export default function MyRequestsPage() {
   const q = useMyRequests()
   const local = useLocalOnlyDrafts(user.id)
   const [tab, setTab] = useState<(typeof TABS)[number]['key']>('all')
-  usePageMeta('คำขอของฉัน', undefined, { noindex: true })
+  const locale = useLocale()
+  const tx = useTx()
+  usePageMeta(tx('คำขอของฉัน', 'My requests'), undefined, { noindex: true })
 
   const rows = (q.data ?? []).filter((r) => tab === 'all' || requestGroup(r.status) === tab)
   const showLocal = tab === 'all' || tab === 'drafts'
@@ -34,25 +37,28 @@ export default function MyRequestsPage() {
   return (
     <Page>
       <PageHeader
-        title="คำขอของฉัน"
-        description="ฉบับร่าง คำขอที่ส่งแล้ว และงานที่รอให้คุณตรวจ"
+        title={tx('คำขอของฉัน', 'My requests')}
+        description={tx('ฉบับร่าง คำขอที่ส่งแล้ว และงานที่รอให้คุณตรวจ', 'Drafts, sent requests and anything waiting for you')}
         actions={
           <LinkButton to="/studio" variant="primary" icon={<FilePlus2 size={18} />}>
-            สร้างคำขอใหม่
+            {tx('สร้างคำขอใหม่', 'New request')}
           </LinkButton>
         }
       />
       <div className="no-scrollbar -mx-4 mb-5 overflow-x-auto px-4">
-        <div role="tablist" aria-label="กรองคำขอ" className="inline-flex gap-1 rounded-2xl bg-surface-muted p-1">
+        <div role="tablist" aria-label={tx('กรองคำขอ', 'Filter requests')} className="inline-flex gap-1 rounded-2xl bg-surface-muted p-1">
           {TABS.map((t) => (
             <button
               key={t.key}
               role="tab"
               aria-selected={tab === t.key}
               onClick={() => setTab(t.key)}
-              className={cn('min-h-10 rounded-xl px-4 text-sm font-medium whitespace-nowrap', tab === t.key ? 'bg-surface shadow-sm' : 'text-muted hover:text-ink')}
+              className={cn(
+                'min-h-10 rounded-xl px-4 text-sm font-medium whitespace-nowrap',
+                tab === t.key ? 'bg-surface shadow-sm' : 'text-muted hover:text-ink',
+              )}
             >
-              {t.label}
+              {pick(t.label, locale)}
               {t.key !== 'all' && <span className="ml-1.5 text-xs text-muted tabular-nums">{counts(t.key)}</span>}
             </button>
           ))}
@@ -66,11 +72,11 @@ export default function MyRequestsPage() {
       ) : rows.length === 0 && (!showLocal || local.length === 0) ? (
         <EmptyState
           icon={<Inbox size={24} />}
-          title={tab === 'all' ? 'ยังไม่มีคำขอ' : 'ไม่มีรายการในหมวดนี้'}
-          description="เริ่มจากเสนอไอเดียชุดสติกเกอร์ฟรี"
+          title={tab === 'all' ? tx('ยังไม่มีคำขอ', 'No requests yet') : tx('ไม่มีรายการในหมวดนี้', 'Nothing here')}
+          description={tx('เริ่มจากเสนอไอเดียชุดสติกเกอร์ฟรี', 'Start by sharing a free sticker set idea')}
           actions={
             <LinkButton to="/studio" variant="primary">
-              ไปที่สตูดิโอ
+              {tx('ไปที่สตูดิโอ', 'Go to the Studio')}
             </LinkButton>
           }
         />
@@ -84,13 +90,13 @@ export default function MyRequestsPage() {
                   className="flex h-full flex-col rounded-3xl border border-dashed border-line-strong bg-surface p-4 hover:border-brown"
                 >
                   <span className="inline-flex items-center gap-1.5 text-xs font-medium text-warning">
-                    <HardDrive size={14} aria-hidden /> ฉบับร่างในเครื่องนี้ (ยังไม่ซิงก์)
+                    <HardDrive size={14} aria-hidden /> {tx('ฉบับร่างในเครื่องนี้ (ยังไม่ซิงก์)', 'Draft on this device (not synced)')}
                   </span>
                   <span className="mt-3 font-display text-lg break-words" lang="th">
-                    {d.data.setName || 'ฉบับร่างยังไม่ตั้งชื่อ'}
+                    {d.data.setName || tx('ฉบับร่างยังไม่ตั้งชื่อ', 'Untitled draft')}
                   </span>
                   <span className="mt-1 text-sm text-muted">
-                    {completedCount(d.data)}/{d.data.stickerCount} ภาพ · แก้ล่าสุด {formatRelative(d.updatedAt)}
+                    {completedCount(d.data)}/{d.data.stickerCount} {tx('ภาพ', 'stickers')} · {tx('แก้ล่าสุด', 'edited')} {formatRelative(d.updatedAt)}
                   </span>
                 </Link>
               </li>

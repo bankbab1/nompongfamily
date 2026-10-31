@@ -2,17 +2,10 @@ import { Briefcase, Lightbulb, Lock } from 'lucide-react'
 import { Alert } from '@/components/feedback/States'
 import { RadioCards } from '@/components/ui/Field'
 import type { RequestChannel } from '@/lib/api/types'
-import { CHANNEL_INFO } from '../content'
+import { useStudioContent } from '../content'
 
-export function ChannelStep({
-  channel,
-  locked,
-  onChange,
-}: {
-  channel: RequestChannel
-  locked: boolean
-  onChange(c: RequestChannel): void
-}) {
+export function ChannelStep({ channel, locked, onChange }: { channel: RequestChannel; locked: boolean; onChange(c: RequestChannel): void }) {
+  const { CHANNEL_INFO } = useStudioContent()
   return (
     <div className="space-y-5">
       <div>

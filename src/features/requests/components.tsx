@@ -5,11 +5,12 @@ import type { StickerRequest, TimelineEvent } from '@/lib/api/types'
 import { awaitingCustomer, MILESTONES, milestoneIndex, statusLabel } from '@/lib/domain/status'
 import { formatDateTime, formatRelative } from '@/lib/utils/format'
 import { cn } from '@/lib/utils/cn'
+import { pick, useTx } from '@/lib/i18n'
 
 export function nextActionLabel(r: StickerRequest): string | null {
-  if (r.status === 'draft') return 'ทำบรีฟต่อ'
-  if (r.status === 'clarification_requested') return 'ส่งข้อมูลเพิ่ม'
-  if (r.status === 'proof_ready') return 'ตรวจงาน'
+  if (r.status === 'draft') return pick({ th: 'ทำบรีฟต่อ', en: 'Continue the brief' })
+  if (r.status === 'clarification_requested') return pick({ th: 'ส่งข้อมูลเพิ่ม', en: 'Send more details' })
+  if (r.status === 'proof_ready') return pick({ th: 'ตรวจงาน', en: 'Review artwork' })
   return null
 }
 
@@ -20,6 +21,7 @@ export function requestHref(r: StickerRequest): string {
 }
 
 export function RequestCard({ request: r }: { request: StickerRequest }) {
+  const tx = useTx()
   const action = nextActionLabel(r)
   return (
     <article className="relative flex h-full flex-col rounded-3xl border border-line bg-surface p-4 transition-colors hover:border-line-strong">
@@ -29,11 +31,11 @@ export function RequestCard({ request: r }: { request: StickerRequest }) {
       </div>
       <h3 className="mt-3 font-display text-lg leading-snug break-words" lang="th">
         <Link to={`/my/requests/${r.id}`} className="after:absolute after:inset-0 after:rounded-3xl">
-          {r.setName || 'ฉบับร่างยังไม่ตั้งชื่อ'}
+          {r.setName || tx('ฉบับร่างยังไม่ตั้งชื่อ', 'Untitled draft')}
         </Link>
       </h3>
       <p className="mt-1 text-sm text-muted">
-        {r.id} · {r.stickerCount} ภาพ · อัปเดต {formatRelative(r.updatedAt)}
+        {r.id} · {r.stickerCount} {tx('ภาพ', 'stickers')} · {tx('อัปเดต', 'updated')} {formatRelative(r.updatedAt)}
       </p>
       {action && awaitingCustomer(r.status) && (
         <Link
@@ -50,6 +52,7 @@ export function RequestCard({ request: r }: { request: StickerRequest }) {
 
 /** Milestone track (spec §7 timeline). Uses icons + text so state is not colour-only. */
 export function MilestoneTrack({ request: r }: { request: StickerRequest }) {
+  const tx = useTx()
   const steps = MILESTONES[r.channel]
   const idx = milestoneIndex(r.channel, r.status)
   const declined = r.status === 'declined'
@@ -58,13 +61,10 @@ export function MilestoneTrack({ request: r }: { request: StickerRequest }) {
       {steps.map((s, i) => {
         const done = i < idx || (i === idx && ['published', 'closed'].includes(r.status))
         const current = i === idx && !done
-        const label =
-          current && r.status !== s ? statusLabel(r.status, r.channel) : statusLabel(s, r.channel)
+        const label = current && r.status !== s ? statusLabel(r.status, r.channel) : statusLabel(s, r.channel)
         return (
           <li key={s} className="relative flex gap-3 pb-5 last:pb-0">
-            {i < steps.length - 1 && (
-              <span className={cn('absolute top-8 bottom-0 left-[15px] w-0.5', done ? 'bg-brown' : 'bg-line')} aria-hidden />
-            )}
+            {i < steps.length - 1 && <span className={cn('absolute top-8 bottom-0 left-[15px] w-0.5', done ? 'bg-brown' : 'bg-line')} aria-hidden />}
             <span
               className={cn(
                 'relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2',
@@ -80,7 +80,9 @@ export function MilestoneTrack({ request: r }: { request: StickerRequest }) {
             <div className="min-w-0 pt-1">
               <p className={cn('text-sm', current ? 'font-semibold text-ink' : done ? 'text-ink' : 'text-muted')}>
                 {current && declined ? statusLabel('declined', r.channel) : label}
-                <span className="sr-only">{done ? ' (เสร็จแล้ว)' : current ? ' (ขั้นตอนปัจจุบัน)' : ' (ยังไม่ถึง)'}</span>
+                <span className="sr-only">
+                  {done ? tx(' (เสร็จแล้ว)', ' (done)') : current ? tx(' (ขั้นตอนปัจจุบัน)', ' (current step)') : tx(' (ยังไม่ถึง)', ' (upcoming)')}
+                </span>
               </p>
             </div>
           </li>
@@ -91,7 +93,8 @@ export function MilestoneTrack({ request: r }: { request: StickerRequest }) {
 }
 
 export function EventLog({ events }: { events: TimelineEvent[] }) {
-  if (!events.length) return <p className="text-sm text-muted">ยังไม่มีความเคลื่อนไหว</p>
+  const tx = useTx()
+  if (!events.length) return <p className="text-sm text-muted">{tx('ยังไม่มีความเคลื่อนไหว', 'No activity yet')}</p>
   return (
     <ol className="space-y-4">
       {[...events].reverse().map((e) => (

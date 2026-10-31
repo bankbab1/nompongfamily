@@ -76,10 +76,10 @@ export function AccountMenu() {
             <LayoutDashboard size={18} aria-hidden /> {t('nav.my')}
           </button>
           <button role="menuitem" className={item} onClick={() => go('/my/requests')}>
-            <FileText size={18} aria-hidden /> คำขอของฉัน
+            <FileText size={18} aria-hidden /> {t('nav.myRequests')}
           </button>
           <button role="menuitem" className={item} onClick={() => go('/my/profile')}>
-            <UserIcon size={18} aria-hidden /> โปรไฟล์
+            <UserIcon size={18} aria-hidden /> {t('nav.profile')}
           </button>
           {user.role === 'admin' && (
             <button role="menuitem" className={item} onClick={() => go('/admin')}>

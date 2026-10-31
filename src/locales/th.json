@@ -1,5 +1,8 @@
 {
-  "brand": { "family": "nompong family", "studio": "Nompong Studio" },
+  "brand": {
+    "family": "nompong family",
+    "studio": "Nompong Studio"
+  },
   "nav": {
     "home": "หน้าแรก",
     "explore": "สำรวจ",
@@ -20,7 +23,11 @@
     "admin": "ผู้ดูแล",
     "back": "ย้อนกลับ",
     "skipToContent": "ข้ามไปยังเนื้อหา",
-    "backToTop": "กลับขึ้นด้านบน"
+    "backToTop": "กลับขึ้นด้านบน",
+    "mainMenu": "เมนูหลัก",
+    "bottomMenu": "เมนูด้านล่าง",
+    "myRequests": "คำขอของฉัน",
+    "profile": "โปรไฟล์"
   },
   "channel": {
     "community": "ไอเดียจากแฟนๆ",

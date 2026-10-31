@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { STICKER_COUNTS, type StickerBriefItem, type StickerCount } from '@/lib/api/types'
+import { getLocale } from '@/lib/i18n'
 
 /**
  * Brief field rules (spec §6.3). Limits are product defaults, NOT claims about LINE's
@@ -39,8 +40,7 @@ const blank = (s: string | undefined) => !s || s.trim().length === 0
 
 /** 13–19 digits, optionally grouped — looks like a payment card. Never accepted (spec §7). */
 
-const maxLen = (max: number, label: string) =>
-  z.string().refine((v) => textLength(v) <= max, { message: `${label}ยาวเกิน ${max} ตัวอักษร` })
+const maxLen = (max: number, label: string) => z.string().refine((v) => textLength(v) <= max, { message: `${label}ยาวเกิน ${max} ตัวอักษร` })
 
 export const itemSchema = z.object({
   id: z.string(),
@@ -57,7 +57,12 @@ export const setInfoSchema = z.object({
   setName: z
     .string()
     .transform((v) => v.trim())
-    .pipe(z.string().min(1, 'กรุณาตั้งชื่อชุดสติกเกอร์').refine((v) => textLength(v) <= LIMITS.setName, `ชื่อชุดยาวเกิน ${LIMITS.setName} ตัวอักษร`)),
+    .pipe(
+      z
+        .string()
+        .min(1, 'กรุณาตั้งชื่อชุดสติกเกอร์')
+        .refine((v) => textLength(v) <= LIMITS.setName, `ชื่อชุดยาวเกิน ${LIMITS.setName} ตัวอักษร`),
+    ),
   stickerCount: z.union(STICKER_COUNTS.map((n) => z.literal(n)) as [z.ZodLiteral<8>, ...z.ZodLiteral<StickerCount>[]], {
     message: 'จำนวนต้องเป็น 8, 16, 24, 32 หรือ 40',
   }),
@@ -93,7 +98,34 @@ export interface BriefInput {
   items: StickerBriefItem[]
 }
 
-/** Every problem preventing submission, in display order. */
+/* Messages are written in Thai (the source language) and translated when English is chosen. */
+const MESSAGE_EN: Record<string, string> = {
+  กรุณาใส่ข้อความบนสติกเกอร์: 'Please add the word on the sticker',
+  'กรุณาอธิบายท่าทาง/อารมณ์': 'Please describe the pose / mood',
+  กรุณาเลือกประเภทคำขอ: 'Please choose a request type',
+  กรุณาตั้งชื่อชุดสติกเกอร์: 'Please name the sticker set',
+  'จำนวนต้องเป็น 8, 16, 24, 32 หรือ 40': 'The count must be 8, 16, 24, 32 or 40',
+  จำนวนช่องสติกเกอร์ไม่ครบ: 'Some sticker slots are missing',
+  กรุณายอมรับข้อกำหนดก่อนส่ง: 'Please accept the terms before sending',
+}
+const LABEL_EN: Record<string, string> = {
+  ข้อความ: 'The word',
+  ท่าทาง: 'The pose',
+  เครื่องแต่งกาย: 'The outfit',
+  โน้ตสี: 'The colour notes',
+  ธีม: 'The theme',
+  โน้ต: 'The notes',
+  ชื่อชุด: 'The set name',
+}
+function localize(message: string): string {
+  if (getLocale() !== 'en') return message
+  if (MESSAGE_EN[message]) return MESSAGE_EN[message]
+  const m = message.match(/^(.+?)ยาวเกิน (\d+) ตัวอักษร$/)
+  if (m) return `${LABEL_EN[m[1]] ?? m[1]} is longer than ${m[2]} characters`
+  return message
+}
+
+/** Every problem preventing submission, in display order and the chosen language. */
 export function validateBrief(input: BriefInput, opts: { termsAccepted?: boolean; checkTerms?: boolean } = {}): BriefIssue[] {
   const issues: BriefIssue[] = []
   const set = setInfoSchema.safeParse(input)
@@ -113,7 +145,7 @@ export function validateBrief(input: BriefInput, opts: { termsAccepted?: boolean
   if (opts.checkTerms && !opts.termsAccepted) {
     issues.push({ scope: 'terms', field: 'terms', message: 'กรุณายอมรับข้อกำหนดก่อนส่ง' })
   }
-  return issues
+  return issues.map((i) => ({ ...i, message: localize(i.message) }))
 }
 
 /** Positions of visible slots that block submission. */

@@ -13,6 +13,7 @@ import type { Wallpaper, WallpaperVariant } from '@/lib/api/types'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
+import { useLocale, useTx } from '@/lib/i18n'
 
 const DEVICE_ICON = { mobile: Smartphone, tablet: Tablet, desktop: Laptop }
 const isIOS = typeof navigator !== 'undefined' && /iP(hone|ad|od)/.test(navigator.userAgent)
@@ -37,7 +38,9 @@ export default function WallpaperDetailPage() {
   const q = useQuery({ queryKey: qk.wallpaper(slug), queryFn: () => api.catalog.getWallpaper(slug) })
   const [variantId, setVariantId] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
-  usePageMeta(q.data?.titleTh ?? 'วอลเปเปอร์')
+  const locale = useLocale()
+  const tx = useTx()
+  usePageMeta((locale === 'en' ? q.data?.titleEn : q.data?.titleTh) ?? tx('วอลเปเปอร์', 'Wallpaper'))
 
   if (q.isPending)
     return (
@@ -67,7 +70,7 @@ export default function WallpaperDetailPage() {
       setTimeout(() => URL.revokeObjectURL(url), 30_000)
       track('wallpaper_downloaded', { wallpaper: w.slug, variant: `${v.width}x${v.height}` })
     } catch {
-      toast.error('ดาวน์โหลดไม่สำเร็จ ลองอีกครั้ง')
+      toast.error(tx('ดาวน์โหลดไม่สำเร็จ ลองอีกครั้ง', 'Download failed. Please try again.'))
     } finally {
       setBusy(false)
     }
@@ -79,17 +82,20 @@ export default function WallpaperDetailPage() {
         <div className="flex items-start justify-center rounded-3xl bg-surface-muted p-4 sm:p-8">
           <img
             src={wallpaperArt({ palette: w.palette, width: v.width / 4, height: v.height / 4, title: w.titleEn })}
-            alt={`ตัวอย่าง ${w.titleTh} ขนาด ${v.width}×${v.height}`}
-            className={cn('max-h-[70vh] w-auto rounded-2xl border-4 border-brown shadow-lg', v.device === 'desktop' || v.width > v.height ? 'w-full' : 'max-w-[18rem]')}
+            alt={`${tx('ตัวอย่าง', 'Preview of')} ${locale === 'en' ? w.titleEn : w.titleTh} ${v.width}×${v.height}`}
+            className={cn(
+              'max-h-[70vh] w-auto rounded-2xl border-4 border-brown shadow-lg',
+              v.device === 'desktop' || v.width > v.height ? 'w-full' : 'max-w-[18rem]',
+            )}
           />
         </div>
         <div>
-          <h1 className="font-display text-3xl">{w.titleTh}</h1>
+          <h1 className="t-page font-display">{locale === 'en' ? w.titleEn : w.titleTh}</h1>
           <p className="text-muted">
-            {w.titleEn} · {w.theme}
+            {locale === 'en' ? w.titleTh : w.titleEn} · {(locale === 'en' && w.themeEn) || w.theme}
           </p>
           <fieldset className="mt-6">
-            <legend className="mb-2 font-medium">เลือกขนาด</legend>
+            <legend className="mb-2 font-medium">{tx('เลือกขนาด', 'Choose a size')}</legend>
             <div className="grid gap-2 sm:grid-cols-2">
               {w.variants.map((x) => {
                 const Icon = DEVICE_ICON[x.device]
@@ -105,7 +111,7 @@ export default function WallpaperDetailPage() {
                     <input type="radio" name="variant" className="sr-only" checked={on} onChange={() => setVariantId(x.id)} />
                     <Icon size={20} aria-hidden />
                     <span className="min-w-0">
-                      <span className="block text-sm font-medium">{x.label}</span>
+                      <span className="block text-sm font-medium">{(locale === 'en' && x.labelEn) || x.label}</span>
                       <span className="block text-xs text-muted">
                         {x.width}×{x.height} · {x.format} · ~{(x.sizeKb / 1024).toFixed(1)} MB
                       </span>
@@ -116,15 +122,21 @@ export default function WallpaperDetailPage() {
             </div>
           </fieldset>
           <Button variant="primary" size="lg" block className="mt-5" icon={<Download size={18} />} loading={busy} onClick={() => void download()}>
-            ดาวน์โหลด {v.width}×{v.height}
+            {tx('ดาวน์โหลด', 'Download')} {v.width}×{v.height}
           </Button>
           {isIOS && (
-            <Alert tone="info" className="mt-4" title="สำหรับ iPhone / iPad">
-              ภาพจะเปิดในแท็บใหม่ กดค้างที่ภาพแล้วเลือก “บันทึกลงในรูปภาพ”
+            <Alert tone="info" className="mt-4" title={tx('สำหรับ iPhone / iPad', 'On iPhone / iPad')}>
+              {tx(
+                'ภาพจะเปิดในแท็บใหม่ กดค้างที่ภาพแล้วเลือก “บันทึกลงในรูปภาพ”',
+                'The image opens in a new tab. Press and hold it, then choose “Save to Photos”.',
+              )}
             </Alert>
           )}
           <p className="mt-5 text-sm text-muted">
-            ใช้ได้ฟรีเพื่อการส่วนตัวเท่านั้น ห้ามนำไปขาย ดัดแปลงเพื่อการค้า หรืออ้างเป็นผลงานของตนเอง · ภาพออกแบบให้มีพื้นที่ปลอดภัยสำหรับนาฬิกาและไอคอน
+            {tx(
+              'ใช้ได้ฟรีเพื่อการส่วนตัวเท่านั้น ห้ามนำไปขาย ดัดแปลงเพื่อการค้า หรืออ้างเป็นผลงานของตนเอง · ภาพออกแบบให้มีพื้นที่ปลอดภัยสำหรับนาฬิกาและไอคอน',
+              'Free for personal use only. Don’t sell it, adapt it commercially or claim it as your own. Each image leaves safe space for the clock and icons.',
+            )}
           </p>
         </div>
       </div>
