@@ -3,7 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#FFF9EF" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <script>
+      // Apply the saved theme and language before first paint (see src/lib/theme.ts, src/lib/i18n.ts).
+      (function () {
+        var d = document.documentElement, t, l;
+        try { t = localStorage.getItem('nompong.theme'); l = localStorage.getItem('nompong.locale'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        d.dataset.theme = t;
+        if (l === 'th' || l === 'en') d.lang = l;
+      })();
+    </script>
     <title>Nompong Family — Nompong Studio</title>
     <meta name="description" content="บ้านอย่างเป็นทางการของ nompong family — สติกเกอร์ LINE วอลเปเปอร์ และ Nompong Studio สำหรับเสนอไอเดียหรือสั่งทำชุดสติกเกอร์" />
     <meta property="og:type" content="website" />
@@ -16,10 +26,10 @@
     <link rel="manifest" href="/nompongfamily/manifest.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/nompongfamily/assets/index-uPyOkyvj.js"></script>
-    <link rel="modulepreload" crossorigin href="/nompongfamily/assets/States-B7Ga0FUf.js">
-    <link rel="stylesheet" crossorigin href="/nompongfamily/assets/index-vh6qRVrm.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/nompongfamily/assets/index-lp8khVFr.js"></script>
+    <link rel="modulepreload" crossorigin href="/nompongfamily/assets/States-DWiXo1q_.js">
+    <link rel="stylesheet" crossorigin href="/nompongfamily/assets/index-BEG222eG.css">
   </head>
   <body>
     <div id="root"></div>

@@ -1,0 +1,1 @@
+import{N as e,i as t}from"./States-DWiXo1q_.js";import{t as n}from"./hourglass-OMY8Tk_S.js";var r=e();function i({title:e,phase:i}){return(0,r.jsx)(`div`,{className:`mx-auto max-w-3xl`,children:(0,r.jsx)(t,{icon:(0,r.jsx)(n,{size:24}),title:`${e} — ระยะ ${i}`,description:`หน้านี้อยู่ในแผนพัฒนาระยะถัดไปตามสเปก`})})}export{i as default};
