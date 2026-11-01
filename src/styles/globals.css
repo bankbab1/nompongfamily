@@ -436,3 +436,16 @@ input[type='search']::-webkit-search-decoration {
   20%, 60% { transform: translateX(-4px); }
   40%, 80% { transform: translateX(4px); }
 }
+
+/* Gentle mascot motion; never runs while offscreen or in a background tab. */
+@keyframes mascot-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.018,1.025); } }
+@keyframes mascot-sleep { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(1.025); } }
+@keyframes mascot-react { 0%,100% { transform: translateY(0) rotate(0); } 28% { transform: translateY(-12px) rotate(-4deg); } 62% { transform: translateY(-4px) rotate(3deg); } }
+@keyframes mascot-celebrate { 0%,100% { transform: translateY(0); } 35% { transform: translateY(-12px) rotate(-3deg); } 70% { transform: translateY(-5px) rotate(3deg); } }
+.mascot-breathe { transform-origin: center 88%; animation: mascot-breathe 4.5s ease-in-out infinite; }
+.mascot-sleep { transform-origin: center 85%; animation: mascot-sleep 5.5s ease-in-out infinite; }
+.mascot-reaction { animation: mascot-react 650ms ease-out; }
+.mascot-celebrate { animation: mascot-celebrate 800ms ease-out 2; }
+@media (prefers-reduced-motion: reduce) {
+  .mascot-breathe,.mascot-sleep,.mascot-reaction,.mascot-celebrate { animation: none; }
+}

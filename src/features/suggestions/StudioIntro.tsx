@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NompongArt } from '@/features/nompong/art'
+import { NompongMascot } from '@/features/nompong/Mascot'
 import { pick } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 
@@ -48,7 +48,7 @@ export function StudioIntro({ onDone }: { onDone: () => void }) {
       style={{ transitionDuration: `${FADE_MS}ms` }}
     >
       <div className="studio-intro-disc flex h-40 w-40 items-center justify-center rounded-full bg-sunny-100" aria-hidden>
-        <NompongArt pose="wave" className="studio-intro-pop h-32 w-auto" decorative />
+        <NompongMascot pose="studio" className="studio-intro-pop h-32 w-auto" decorative />
       </div>
       <div className="mt-6 flex gap-1.5" aria-hidden>
         {['bg-sunny', 'bg-brown-400', 'bg-brown'].map((c, i) => (

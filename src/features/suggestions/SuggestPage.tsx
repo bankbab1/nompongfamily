@@ -6,7 +6,7 @@ import { toast } from '@/components/feedback/Toast'
 import { Page } from '@/components/layout/AppShell'
 import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
 import { TypingText } from '@/components/ui/TypingText'
-import { NompongArt } from '@/features/nompong/art'
+import { NompongMascot } from '@/features/nompong/Mascot'
 import { useCopy } from '@/lib/copy'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
@@ -62,7 +62,7 @@ export default function SuggestPage() {
           style={{ '--d': '80ms' } as React.CSSProperties}
           aria-hidden
         >
-          <NompongArt pose="wave" className={cn('h-28 w-auto', !hold && 'studio-intro-pop')} decorative />
+          <NompongMascot pose="studio" className={cn('h-28 w-auto', !hold && 'studio-intro-pop')} decorative />
         </div>
       </Page>
 
@@ -83,6 +83,10 @@ export default function SuggestPage() {
               </p>
             )}
           </div>
+          {justAdded && <div role="status" className="mb-6 flex items-center gap-4 rounded-2xl bg-sunny-50 p-4">
+            <NompongMascot pose="success" className="h-24 w-24 shrink-0" decorative />
+            <p className="font-display text-lg">{c.suggest.sent}</p>
+          </div>}
           <StickerSetBuilder
             submitting={create.isPending}
             onSubmit={async (input) => {

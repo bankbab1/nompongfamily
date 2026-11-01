@@ -88,7 +88,7 @@ export default function AboutPage() {
 
       <article className="mt-8 grid overflow-hidden rounded-3xl border border-line bg-surface grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
         <div className="flex aspect-[4/3] items-center justify-center bg-sunny-100 p-6 md:aspect-auto md:min-h-full" aria-hidden>
-          <NompongArt pose="sit" className="h-full max-h-80 w-auto" decorative />
+          <NompongArt pose="curious" className="h-full max-h-80 w-auto" decorative />
         </div>
         <div className="min-w-0 p-5 [overflow-wrap:anywhere] sm:p-8">
           <h2 className="font-display text-2xl">

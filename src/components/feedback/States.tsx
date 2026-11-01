@@ -1,5 +1,6 @@
 import { AlertTriangle, CheckCircle2, Cloud, CloudOff, Info, Loader2, Lock, RefreshCw, SearchX, XCircle } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { NompongMascot } from '@/features/nompong/Mascot'
 import { Button } from '@/components/ui/Button'
 import { errorMessage, isApiError } from '@/lib/api/errors'
 import { pick, useT, useTx } from '@/lib/i18n'
@@ -16,6 +17,7 @@ export function Skeleton({ className, style }: { className?: string; style?: Rea
 export function PageSkeleton({ rows = 4 }: { rows?: number }) {
   return (
     <div className="space-y-4 py-2" role="status" aria-label={pick({ th: 'กำลังโหลด', en: 'Loading' })}>
+      <NompongMascot pose="sleep" className="mx-auto h-28 w-28" decorative />
       <Skeleton className="h-8 w-2/3 max-w-sm" />
       <Skeleton className="h-4 w-1/2 max-w-xs" />
       <div className="grid gap-3 pt-2 sm:grid-cols-2">

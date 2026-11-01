@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { Page } from '@/components/layout/AppShell'
 import { LinkButton } from '@/components/ui/LinkButton'
 import { TypingText } from '@/components/ui/TypingText'
-import { NompongArt } from '@/features/nompong/art'
+import { NompongMascot } from '@/features/nompong/Mascot'
 import { LineSetCard } from '@/features/stickers/LineSetCard'
 import { LINE_SERIES, LINE_SETS, versionName, VERSIONS } from '@/features/stickers/lineStore'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
@@ -28,10 +28,10 @@ const SHORTCUTS = [
 /** Nompong on a soft yellow disc. */
 function HeroArt() {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[22rem]" aria-hidden>
+    <div className="relative mx-auto aspect-square w-full max-w-[22rem]">
       <div className="absolute inset-[6%] rounded-full bg-sunny-100" />
       <div className="absolute inset-[12%] flex items-center justify-center">
-        <NompongArt pose="sit" className="h-full w-auto max-w-full" decorative />
+        <NompongMascot pose="greeting" interactive className="h-full w-auto max-w-full" />
       </div>
     </div>
   )

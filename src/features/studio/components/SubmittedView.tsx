@@ -1,5 +1,6 @@
-import { CheckCircle2, Copy } from 'lucide-react'
+import { Copy } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import { NompongMascot } from '@/features/nompong/Mascot'
 import { toast } from '@/components/feedback/Toast'
 import { StatusBadge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
@@ -26,9 +27,7 @@ export function SubmittedView({ request }: { request: StickerRequest }) {
   useEffect(() => headingRef.current?.focus(), [])
   return (
     <div className="mx-auto max-w-xl py-6 text-center">
-      <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-success-soft text-success">
-        <CheckCircle2 size={44} aria-hidden />
-      </div>
+      <NompongMascot pose="success" className="mx-auto h-40 w-40" decorative />
       <h1 ref={headingRef} tabIndex={-1} className="mt-5 font-display text-3xl text-ink focus:outline-none">
         {tx('ส่งคำขอเรียบร้อย!', 'Request sent!')}
       </h1>
