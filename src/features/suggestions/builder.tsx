@@ -192,7 +192,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
         setErrors(errs)
         setBlockedStep((previous) => ({ step: s, attempt: (previous?.attempt ?? 0) + 1 }))
         goTo(s)
-        // Focus the first field with a problem (the Thai name is optional now, so not always the first box).
+        // Focus the first incomplete or invalid field.
         if (s === 1)
           requestAnimationFrame(() => {
             const bad = topRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')
@@ -297,7 +297,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                 ref={nameRef}
                 lang="th"
                 label={b.nameTh}
-                optional
+                required
                 placeholder={b.namePhTh}
                 value={draft.nameTh}
                 onChange={(e) => set('nameTh', e.target.value)}
@@ -308,6 +308,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
               <TextField
                 lang="en"
                 label={b.nameEn}
+                required
                 placeholder={b.namePhEn}
                 value={draft.nameEn}
                 onChange={(e) => set('nameEn', e.target.value)}
@@ -318,7 +319,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
               <TextArea
                 lang="th"
                 label={b.descTh}
-                optional
+                required
                 hint={b.thHint}
                 placeholder={b.descPhTh}
                 value={draft.descTh}
@@ -330,6 +331,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
               <TextArea
                 lang="en"
                 label={b.descEn}
+                required
                 hint={b.enHint}
                 placeholder={b.descPhEn}
                 value={draft.descEn}

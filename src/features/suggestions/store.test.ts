@@ -102,8 +102,8 @@ describe('local suggestions', () => {
 })
 
 describe('validation', () => {
-  it('needs an English name; Thai can be left out entirely', () => {
-    expect(validateSuggestion(input({ nameTh: '', descTh: '', nameEn: 'Beach' })).fields.nameTh).toBeUndefined()
+  it('requires names in both languages', () => {
+    expect(validateSuggestion(input({ nameTh: '', descTh: '', nameEn: 'Beach' })).fields.nameTh).toBe('nameThRequired')
     expect(validateSuggestion(input({ nameTh: '', nameEn: '' })).fields.nameEn).toBe('nameEnRequired')
   })
 
@@ -174,8 +174,8 @@ describe('LINE Creators Market text rules', () => {
     expect(errs({ nameTh: 'นมผงไปทะเล 🌊' }).nameTh).toBe('thaiEnglishOnly')
   })
 
-  it('treats Thai as optional but all-or-nothing', () => {
-    expect(Object.keys(errs({ nameTh: '', descTh: '' }))).toHaveLength(0)
+  it('requires both Thai fields even when both are blank', () => {
+    expect(errs({ nameTh: '', descTh: '' })).toMatchObject({ nameTh: 'nameThRequired', descTh: 'descThRequired' })
     expect(errs({ nameTh: 'นมผงไปทะเล', descTh: '' }).descTh).toBe('descThRequired')
     expect(errs({ nameTh: '', descTh: 'ไปเที่ยวกัน' }).nameTh).toBe('nameThRequired')
   })
@@ -208,5 +208,23 @@ describe('idea status (admin)', () => {
     const created = await svc.create(input())
     expect((await svc.setStatus(created.id, { status: 'published', note: '', lineSetId: '37670699' })).lineSetId).toBe('37670699')
     expect((await svc.setStatus(created.id, { status: 'drawing', note: '', lineSetId: '37670699' })).lineSetId).toBeUndefined()
+  })
+})
+
+
+describe('required bilingual set details', () => {
+  it.each([
+    ['nameTh', 'nameThRequired'],
+    ['nameEn', 'nameEnRequired'],
+    ['descTh', 'descThRequired'],
+    ['descEn', 'descEnRequired'],
+  ] as const)('rejects blank or whitespace-only %s', (field, error) => {
+    for (const value of ['', '  \n  ']) {
+      expect(validateSuggestion(input({ [field]: value })).fields[field]).toBe(error)
+    }
+  })
+
+  it('accepts complete Thai and English details', () => {
+    expect(validateSuggestion(input()).fields).toEqual({})
   })
 })
