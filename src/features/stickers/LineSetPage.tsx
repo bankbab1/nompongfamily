@@ -154,7 +154,7 @@ export default function LineSetPage({ id }: { id: string }) {
   )
 }
 
-/** Share actions with a display-only URL: opening the sheet never focuses a text field. */
+/** Share actions only: opening the sheet never focuses a text field. */
 function ShareButton({ title }: { title: string }) {
   const tx = useTx()
   const [open, setOpen] = useState(false)
@@ -200,9 +200,6 @@ function ShareButton({ title }: { title: string }) {
           <Button variant="secondary" size="lg" block className="justify-start" icon={<Copy size={20} />} onClick={() => void copy()}>
             {tx('คัดลอกลิงก์', 'Copy link')}
           </Button>
-          <p className="rounded-2xl border border-line bg-surface-muted px-3 py-3 text-sm text-muted [overflow-wrap:anywhere]" dir="ltr">
-            {url}
-          </p>
         </div>
       </ResponsiveModal>
     </>
