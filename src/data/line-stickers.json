@@ -1,6 +1,6 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-01T06:54:16.631Z",
+  "syncedAt": "2026-11-01T06:56:35.261Z",
   "sets": [
     {
       "id": "37684740",
@@ -649,6 +649,78 @@
       "series": "A",
       "url": "https://store.line.me/stickershop/product/37554329/th",
       "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554329/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554324",
+      "title": "นมผง ขอกอดหน่อยคับ (A3)",
+      "name": "ขอกอดหน่อยคับ",
+      "code": "A3",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37554324/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554324/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554320",
+      "title": "นมผง จอมป่วน ไม่ต้องพูด (A2)",
+      "name": "จอมป่วน ไม่ต้องพูด",
+      "code": "A2",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37554320/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554320/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554325",
+      "title": "นมผง ตัวจิ๋ว อารมณ์ใหญ่ (A1)",
+      "name": "ตัวจิ๋ว อารมณ์ใหญ่",
+      "code": "A1",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37554325/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554325/LINEStorePC/main.png"
+    },
+    {
+      "id": "37549962",
+      "title": "นมผง สระผมหน่อยคับบ (v102)",
+      "name": "สระผมหน่อยคับบ",
+      "code": "v102",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37549962/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37549962/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554075",
+      "title": "นมผง ซื้ออาหารให้น้องคับ (v110)",
+      "name": "ซื้ออาหารให้น้องคับ",
+      "code": "v110",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37554075/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554075/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554053",
+      "title": "นมผง ของใช้น้องมีมั๊ยคับ (v111)",
+      "name": "ของใช้น้องมีมั๊ยคับ",
+      "code": "v111",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37554053/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554053/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554048",
+      "title": "นมผง ขนมน้องมีมั๊ยคับ (v114)",
+      "name": "ขนมน้องมีมั๊ยคับ",
+      "code": "v114",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37554048/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554048/LINEStorePC/main.png"
+    },
+    {
+      "id": "37554045",
+      "title": "นมผง จองคิวให้น้องคับ (v112)",
+      "name": "จองคิวให้น้องคับ",
+      "code": "v112",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37554045/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37554045/LINEStorePC/main.png"
     },
     {
       "id": "37554044",
