@@ -95,6 +95,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
   const nameRef = useRef<HTMLInputElement>(null)
   const topRef = useRef<HTMLDivElement>(null)
   const [step, setStep] = useState<Step>(1)
+  const [blockedStep, setBlockedStep] = useState<{ step: Step; attempt: number } | null>(null)
   const countTrack = useRef<HTMLDivElement>(null)
   const countPill = useSlidingPill(countTrack, '[aria-checked="true"]', [draft.stickerCount, step])
 
@@ -189,6 +190,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
       const errs = errorsFor(s, all)
       if (hasErrors(errs)) {
         setErrors(errs)
+        setBlockedStep((previous) => ({ step: s, attempt: (previous?.attempt ?? 0) + 1 }))
         goTo(s)
         // Focus the first field with a problem (the Thai name is optional now, so not always the first box).
         if (s === 1)
@@ -207,6 +209,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
       }
     }
     setErrors(EMPTY_ERRORS)
+    setBlockedStep(null)
     goTo(target)
     return true
   }
@@ -248,7 +251,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
     <form onSubmit={submit} noValidate>
       {/* Progress stays in view under the header while you work through a long step. */}
       <div className="sticky top-16 z-20 -mx-5 -mt-2 border-b border-line bg-surface/95 px-5 py-3 backdrop-blur supports-[backdrop-filter]:bg-surface/85 sm:-mx-8 sm:px-8">
-        <StepMilestones steps={milestones} current={step} onStep={(s) => (s < step ? goTo(s) : advanceTo(s))} />
+        <StepMilestones steps={milestones} current={step} blockedStep={blockedStep} onStep={(s) => (s < step ? goTo(s) : advanceTo(s))} />
       </div>
 
       <div ref={topRef} tabIndex={-1} className="scroll-mt-40 pt-8 focus:outline-none">
@@ -506,7 +509,12 @@ const STEP_FIELDS: Record<Step, FieldKey[]> = {
 const reduceMotion = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
 /** 1 —— 2 —— 3 progress bar. Done steps show a check; any step can be clicked. */
-function StepMilestones({ steps, current, onStep }: { steps: Milestone[]; current: Step; onStep: (s: Step) => void }) {
+function StepMilestones({ steps, current, onStep, blockedStep }: {
+  steps: Milestone[]
+  current: Step
+  onStep: (s: Step) => void
+  blockedStep: { step: Step; attempt: number } | null
+}) {
   const b = useCopy().builder
   return (
     <nav aria-label={b.stepsLabel}>
@@ -529,9 +537,14 @@ function StepMilestones({ steps, current, onStep }: { steps: Milestone[]; curren
               )}
               <button
                 type="button"
+                // Remount only the blocked milestone to replay feedback on repeated attempts.
+                key={blockedStep?.step === n ? `${n}-${blockedStep.attempt}` : n}
                 onClick={() => onStep(n)}
                 aria-current={on ? 'step' : undefined}
-                className="group flex w-full flex-col items-center gap-2 rounded-xl px-1 text-center"
+                className={cn(
+                  'group flex w-full flex-col items-center gap-2 rounded-xl px-1 text-center',
+                  blockedStep?.step === n && 'motion-safe:animate-[step-shake_420ms_ease-in-out]',
+                )}
               >
                 <span
                   className={cn(

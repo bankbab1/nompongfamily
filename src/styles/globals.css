@@ -429,3 +429,10 @@ input[type='search']::-webkit-search-decoration {
 .animate-skeleton {
   animation: skeleton-pulse 1.4s ease-in-out infinite;
 }
+
+/* Point to the incomplete milestone after a blocked attempt to skip ahead. */
+@keyframes step-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
