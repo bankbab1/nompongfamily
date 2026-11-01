@@ -1,4 +1,4 @@
-import { Check, ChevronLeft, ChevronRight, ListPlus, Pencil, RotateCcw, Send, Sparkles } from 'lucide-react'
+import { Check, ChevronLeft, ChevronRight, ListPlus, Pencil, RotateCcw, Send, Sparkles, MessageCircleOff } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from '@/components/feedback/Toast'
 import { Button } from '@/components/ui/Button'
@@ -104,7 +104,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
   const count = draft.stickerCount
   const visible = draft.stickers.slice(0, count)
   // What gets checked and sent: a sticker left to the creator drops any half-typed word or pose.
-  const outgoing = visible.map((s) => (s.creatorPicks ? { word: '', style: '', creatorPicks: true } : { word: s.word, style: s.style }))
+  const outgoing = visible.map((s) => (s.creatorPicks ? { word: '', style: '', creatorPicks: true } : { word: s.noText ? '' : s.word, style: s.style, noText: !!s.noText }))
   const filled = visible.filter(isFilled).length
   const byCreator = visible.filter((s) => s.creatorPicks).length
   const hiddenFilled = draft.stickers.slice(count).some(isFilled)
@@ -137,7 +137,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
     const stickers = [...draft.stickers]
     let used = 0
     for (let i = 0; i < draft.stickerCount && used < words.length; i++) {
-      if (!stickers[i].word.trim() && !stickers[i].creatorPicks) stickers[i] = { ...stickers[i], word: words[used++] }
+      if (!stickers[i].word.trim() && !stickers[i].creatorPicks && !stickers[i].noText) stickers[i] = { ...stickers[i], word: words[used++] }
     }
     if (used) setDraft({ ...draft, stickers })
     return used
@@ -443,7 +443,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                           </span>
                         ) : (
                           <span className="min-w-0">
-                            <span className={cn('block font-medium', !s.word.trim() && 'font-normal text-muted')}>{s.word.trim() || c.card.noWord}</span>
+                            <span className={cn('block font-medium', !s.word.trim() && 'font-normal text-muted')}>{s.noText ? <span className="inline-flex items-center gap-1.5"><MessageCircleOff size={16} aria-hidden />{b.noText}</span> : s.word.trim() || c.card.noWord}</span>
                             {s.style.trim() && <span className="block truncate text-muted">{s.style}</span>}
                           </span>
                         )}

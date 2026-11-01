@@ -1,4 +1,4 @@
-import { ChevronLeft, Heart, Sparkles } from 'lucide-react'
+import { ChevronLeft, Heart, Sparkles, MessageCircleOff } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { AdminIdeaDetailSkeleton } from '@/components/feedback/Skeletons'
@@ -121,7 +121,7 @@ export default function IdeaDetailPage() {
                     </span>
                   ) : isFilled(s) ? (
                     <span className="min-w-0">
-                      <span className={cn('block font-medium', !s.word.trim() && 'font-normal text-muted')}>{s.word.trim() || '(ไม่มีคำ)'}</span>
+                      <span className={cn('block font-medium', !s.word.trim() && 'font-normal text-muted')}>{s.noText ? <span className="inline-flex items-center gap-1.5"><MessageCircleOff size={16} aria-hidden />{c.builder.noText}</span> : s.word.trim() || '(ไม่มีคำ)'}</span>
                       {s.style.trim() && <span className="block text-muted">{s.style}</span>}
                     </span>
                   ) : (

@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Eraser, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Eraser, Sparkles, MessageCircleOff } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { TextArea, TextField } from '@/components/ui/Field'
@@ -72,7 +72,7 @@ export function StickerStrip({
               type="button"
               onClick={() => onSelect(i)}
               aria-current={on ? 'true' : undefined}
-              aria-label={`${fill(b.sticker, { n: i + 1 })}: ${s.creatorPicks ? b.creatorBadge : s.word || (done ? s.style : b.empty)}`}
+              aria-label={`${fill(b.sticker, { n: i + 1 })}: ${s.creatorPicks ? b.creatorBadge : s.noText ? b.noText : s.word || (done ? s.style : b.empty)}`}
               className={cn(
                 'relative flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold tabular-nums transition-colors',
                 'sm:h-14 sm:w-full sm:flex-col sm:items-start sm:justify-start sm:rounded-xl sm:px-2 sm:py-1.5',
@@ -87,7 +87,7 @@ export function StickerStrip({
             >
               <span className="sm:text-xs">{i + 1}</span>
               <span className={cn('hidden w-full truncate text-left text-[13px] leading-tight font-medium sm:block', on ? 'text-cream' : 'text-ink')}>
-                {s.creatorPicks ? <Sparkles size={13} className="inline -mt-0.5" aria-hidden /> : s.word}
+                {s.creatorPicks ? <Sparkles size={13} className="inline -mt-0.5" aria-hidden /> : s.noText ? <MessageCircleOff size={13} aria-label={b.noText} /> : s.word}
               </span>
               {done && !on && (
                 <span
@@ -236,7 +236,7 @@ export function StickerCarousel({
               <div className={cn('rounded-3xl border bg-surface p-4 sm:p-5', 'border-line', err && 'border-danger')}>
                 <div className="mb-3 flex items-center justify-between">
                   <h3 className="font-display text-base">{fill(b.sticker, { n: i + 1 })}</h3>
-                  <Button size="sm" variant="ghost" icon={<Eraser size={16} />} disabled={!isFilled(s)} onClick={() => onChange(i, emptySticker())}>
+                  <Button size="sm" variant="ghost" icon={<Eraser size={16} />} disabled={!isFilled(s)} onClick={() => onChange(i, { ...emptySticker(), noText: false, creatorPicks: false })}>
                     {b.clear}
                   </Button>
                 </div>
@@ -255,7 +255,7 @@ export function StickerCarousel({
                     <span className="absolute inset-x-3 bottom-3 flex items-center justify-center gap-1.5 rounded-xl bg-sunny px-3 py-1.5 font-display text-base text-[#26221f] sm:text-lg">
                       <Sparkles size={18} aria-hidden /> {b.creatorBadge}
                     </span>
-                  ) : (
+                  ) : !s.noText && (
                     <span
                       className={cn(
                         'absolute inset-x-3 bottom-3 truncate rounded-xl px-3 py-1.5 text-center font-display text-xl sm:text-2xl',
@@ -270,16 +270,30 @@ export function StickerCarousel({
                 <CreatorToggle checked={!!s.creatorPicks} onChange={(v) => onChange(i, { creatorPicks: v })} />
 
                 <div className={cn('mt-4 space-y-4', s.creatorPicks && 'hidden')}>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={!!s.noText}
+                    onClick={() => onChange(i, { noText: !s.noText })}
+                    className="flex min-h-11 w-full items-center gap-3 rounded-xl border border-line px-3 py-2 text-left"
+                  >
+                    <MessageCircleOff size={20} className="shrink-0" aria-hidden />
+                    <span className="min-w-0 flex-1"><span className="block text-sm font-medium">{b.noText}</span><span className="block text-xs text-muted">{b.noTextHint}</span></span>
+                    <span className={cn('flex h-6 w-10 shrink-0 items-center rounded-full p-0.5 transition-colors', s.noText ? 'bg-brown' : 'bg-line')} aria-hidden>
+                      <span className={cn('h-5 w-5 rounded-full bg-white transition-transform motion-reduce:transition-none', s.noText && 'translate-x-4')} />
+                    </span>
+                  </button>
                   <TextField
+                    disabled={!!s.noText}
                     ref={(el) => {
                       wordRefs.current[i] = el
                     }}
                     label={b.word}
                     placeholder={b.wordPh}
-                    value={s.word}
+                    value={s.noText ? '' : s.word}
                     onChange={(e) => onChange(i, { word: e.target.value })}
                     maxChars={LIMITS.word}
-                    error={errText(err?.word)}
+                    error={s.noText ? undefined : errText(err?.word)}
                     autoComplete="off"
                     enterKeyHint="next"
                     onKeyDown={(e) => {

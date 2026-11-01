@@ -228,3 +228,20 @@ describe('required bilingual set details', () => {
     expect(validateSuggestion(input()).fields).toEqual({})
   })
 })
+
+
+describe('no-text stickers', () => {
+  beforeEach(() => localStorage.clear())
+  it('accepts an explicit character-only sticker with no words or pose notes', () => {
+    const stickers = blankStickers(8)
+    stickers[0] = { word: '', style: '', noText: true }
+    expect(validateSuggestion(input({ stickers })).fields).toEqual({})
+  })
+  it('keeps the no-text choice after submitting and reopening saved ideas', async () => {
+    const stickers = blankStickers(8)
+    stickers[0] = { word: '', style: 'นั่งยิ้ม', noText: true }
+    const created = await createLocalSuggestions(localStorage).create(input({ stickers }))
+    const saved = (await createLocalSuggestions(localStorage).list()).find((s) => s.id === created.id)!
+    expect(saved.stickers[0]).toMatchObject({ noText: true, word: '', style: 'นั่งยิ้ม' })
+  })
+})

@@ -35,14 +35,15 @@ export interface StickerIdea {
   /** Nompong's pose, expression and style for this sticker. */
   style: string
   /** "No idea for this one": the creator picks the word and pose. Word and style are ignored. */
+  noText?: boolean
   creatorPicks?: boolean
 }
 
 export const emptySticker = (): StickerIdea => ({ word: '', style: '' })
 /** Something to send for this sticker: the visitor's own idea, or a hand-off to the creator. */
-export const isFilled = (s: StickerIdea) => !!s.creatorPicks || s.word.trim().length > 0 || s.style.trim().length > 0
+export const isFilled = (s: StickerIdea) => !!s.creatorPicks || !!s.noText || s.word.trim().length > 0 || s.style.trim().length > 0
 /** The visitor wrote this one themselves. */
-export const isOwnIdea = (s: StickerIdea) => !s.creatorPicks && (s.word.trim().length > 0 || s.style.trim().length > 0)
+export const isOwnIdea = (s: StickerIdea) => !s.creatorPicks && (!!s.noText || s.word.trim().length > 0 || s.style.trim().length > 0)
 
 /** Validation messages are codes; pages turn them into Thai or English text. */
 export type SuggestionErrorCode =
@@ -108,6 +109,7 @@ export const suggestionInputSchema = z
           word: maxText(LIMITS.word, 'wordTooLong'),
           style: maxText(LIMITS.style, 'styleTooLong'),
           creatorPicks: z.boolean().optional(),
+          noText: z.boolean().optional(),
         }),
       )
       .max(MAX_STICKERS),

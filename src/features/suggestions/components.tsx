@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight, Heart, MessageSquareText, Sparkles } from 'lucide-react'
+import { MessageCircleOff, ChevronDown, ChevronRight, Heart, MessageSquareText, Sparkles } from 'lucide-react'
 import { useId, useState } from 'react'
 import { Link } from 'react-router'
 import { fill, useCopy } from '@/lib/copy'
@@ -86,7 +86,7 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
                       </span>
                     ) : (
                       <span className="min-w-0">
-                        <span className={cn('block font-medium', !x.word.trim() && 'font-normal text-muted')}>{x.word.trim() || c.card.noWord}</span>
+                        <span className={cn('block font-medium', !x.word.trim() && 'font-normal text-muted')}>{x.noText ? <span className="inline-flex items-center gap-1.5"><MessageCircleOff size={16} aria-hidden />{c.builder.noText}</span> : x.word.trim() || c.card.noWord}</span>
                         {x.style.trim() && <span className="block text-muted">{x.style}</span>}
                       </span>
                     )}
