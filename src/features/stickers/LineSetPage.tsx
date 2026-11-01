@@ -75,7 +75,7 @@ export default function LineSetPage({ id }: { id: string }) {
               href={buyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonBase, buttonVariants.primary, buttonSizes.lg, 'flex-1 sm:flex-none')}
+              className={cn(buttonBase, buttonVariants.primary, buttonSizes.lg, 'min-w-0 flex-1 whitespace-normal px-3 text-sm leading-snug sm:flex-none sm:px-6 sm:text-base')}
             >
               {tx('ซื้อใน LINE STORE', 'Buy on the LINE STORE')}
               <ArrowUpRight size={18} aria-hidden />
@@ -155,7 +155,7 @@ export default function LineSetPage({ id }: { id: string }) {
 }
 
 /** Share actions with a display-only URL: opening the sheet never focuses a text field. */
-function ShareButton({ title, compact }: { title: string; compact?: boolean }) {
+function ShareButton({ title }: { title: string }) {
   const tx = useTx()
   const [open, setOpen] = useState(false)
   const url = window.location.href
@@ -186,13 +186,7 @@ function ShareButton({ title, compact }: { title: string; compact?: boolean }) {
   }
   return (
     <>
-      {compact ? (
-        <Button variant="secondary" iconOnly label={tx('แชร์', 'Share')} icon={<Share2 size={18} />} onClick={() => setOpen(true)} />
-      ) : (
-        <Button variant="secondary" size="lg" icon={<Share2 size={18} />} onClick={() => setOpen(true)}>
-          {tx('แชร์', 'Share')}
-        </Button>
-      )}
+      <Button variant="secondary" iconOnly label={tx('แชร์', 'Share')} icon={<Share2 size={18} />} onClick={() => setOpen(true)} />
       <ResponsiveModal open={open} onOpenChange={setOpen} title={tx('แชร์ชุดนี้', 'Share this set')} description={title} size="sm">
         <div className="space-y-3">
           <a
@@ -299,7 +293,7 @@ function StickerZoom({
       size="sm"
       footer={
         <div className="flex w-full items-center justify-between gap-2">
-          <ShareButton title={set.title} compact />
+          <ShareButton title={set.title} />
           <a href={buyUrl} target="_blank" rel="noopener noreferrer" className={cn(buttonBase, buttonVariants.primary, buttonSizes.md, 'flex-1 sm:flex-none')}>
             {tx('ซื้อชุดนี้ใน LINE', 'Buy this set on LINE')}
             <ArrowUpRight size={16} aria-hidden />
