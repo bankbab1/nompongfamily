@@ -10,8 +10,6 @@ const ExplorePage = lazy(() => import('@/features/home/ExplorePage'))
 const AboutPage = lazy(() => import('@/features/about/AboutPage'))
 const CatalogPage = lazy(() => import('@/features/stickers/CatalogPage'))
 const SetDetailPage = lazy(() => import('@/features/stickers/SetDetailPage'))
-const StudioLandingPage = lazy(() => import('@/features/studio/pages/StudioLandingPage'))
-const NewRequestPage = lazy(() => import('@/features/studio/pages/NewRequestPage'))
 const EditRequestPage = lazy(() => import('@/features/studio/pages/EditRequestPage'))
 const WallpapersPage = lazy(() => import('@/features/wallpapers/WallpapersPage'))
 const WallpaperDetailPage = lazy(() => import('@/features/wallpapers/WallpaperDetailPage'))
@@ -53,8 +51,9 @@ export const router = createBrowserRouter(
         { path: 'about', element: <AboutPage />, handle: h({ title: { th: 'รู้จักนมผง', en: 'Meet Nompong' }, back: '/explore' }) },
         { path: 'stickers', element: <CatalogPage />, handle: h({ title: { th: 'สติกเกอร์', en: 'Stickers' }, back: '/explore' }) },
         { path: 'stickers/:slug', element: <SetDetailPage />, handle: h({ title: { th: 'ชุดสติกเกอร์', en: 'Sticker set' }, back: '/stickers' }) },
-        { path: 'studio', element: <StudioLandingPage /> },
-        { path: 'studio/new', element: <NewRequestPage />, handle: h({ title: { th: 'สร้างคำขอ', en: 'New idea' }, back: '/studio', hideBottomNav: true }) },
+        // One way to send an idea: the sticker builder. The old Studio pages point there.
+        { path: 'studio', element: <Navigate to="/suggest" replace /> },
+        { path: 'studio/new', element: <Navigate to="/suggest" replace /> },
         { path: 'wallpapers', element: <WallpapersPage />, handle: h({ title: { th: 'วอลเปเปอร์', en: 'Wallpapers' }, back: '/explore' }) },
         { path: 'wallpapers/:slug', element: <WallpaperDetailPage />, handle: h({ title: { th: 'วอลเปเปอร์', en: 'Wallpapers' }, back: '/wallpapers' }) },
         { path: 'shop', element: <ShopPage />, handle: h({ title: { th: 'ร้านค้า', en: 'Shop' }, back: '/explore' }) },
@@ -122,5 +121,5 @@ export const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: '/nompongfamily' },
+  { basename: import.meta.env.BASE_URL.replace(/\/$/, '') || '/' },
 )

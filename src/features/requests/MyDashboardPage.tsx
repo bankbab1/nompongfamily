@@ -1,4 +1,4 @@
-import { ChevronRight, CreditCard, FileText, Lightbulb, LogOut, Package, Palette, Shield, UserRound } from 'lucide-react'
+import { ChevronRight, CreditCard, FileText, LogOut, Package, Palette, Shield, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { Alert, PageSkeleton } from '@/components/feedback/States'
@@ -35,14 +35,10 @@ export default function MyDashboardPage() {
       <p className="text-muted">{tx('สวัสดี', 'Hello')}</p>
       <h1 className="font-display text-3xl">{user.displayName}</h1>
 
-      <div className="mt-6 grid grid-cols-2 gap-3">
+      <div className="mt-6">
         <Link to="/suggest" className="flex min-h-24 flex-col justify-between rounded-3xl bg-sunny-100 p-4 hover:brightness-[0.98]">
           <Palette size={22} aria-hidden />
           <span className="font-display text-lg leading-tight">{tx('ออกแบบชุดสติกเกอร์', 'Design a sticker set')}</span>
-        </Link>
-        <Link to="/studio/new" className="flex min-h-24 flex-col justify-between rounded-3xl border border-line bg-surface p-4 hover:border-line-strong">
-          <Lightbulb size={22} aria-hidden />
-          <span className="font-display text-lg leading-tight">{tx('เสนอไอเดีย', 'Share an idea')}</span>
         </Link>
       </div>
 

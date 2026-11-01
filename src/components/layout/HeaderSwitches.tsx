@@ -1,9 +1,9 @@
-import { Moon, Sun } from 'lucide-react'
-import { useRef } from 'react'
+import { Moon, SlidersHorizontal, Sun } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { useCopy } from '@/lib/copy'
-import { setLocale, useLocale, type Locale } from '@/lib/i18n'
+import { setLocale, useLocale, useTx, type Locale } from '@/lib/i18n'
 import { setTheme, useTheme } from '@/lib/theme'
 import { cn } from '@/lib/utils/cn'
 
@@ -73,5 +73,93 @@ export function ThemeSwitch() {
         {dark ? <Sun size={17} aria-hidden /> : <Moon size={17} aria-hidden />}
       </button>
     </Tooltip>
+  )
+}
+
+/**
+ * Phones: one quiet button in the header instead of a row of switches. It opens a small panel
+ * with language and light/dark. Closes on outside tap, Escape, or after a choice is made elsewhere.
+ */
+export function MobileSettings() {
+  const tx = useTx()
+  const locale = useLocale()
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
+  const root = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: PointerEvent) => {
+      if (!root.current?.contains(e.target as Node)) setOpen(false)
+    }
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('pointerdown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('pointerdown', onDown)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  const row = 'flex items-center justify-between gap-4 py-2'
+  const seg = (on: boolean) =>
+    cn('h-8 min-w-11 rounded-full px-3 text-xs font-semibold transition-colors', on ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink')
+
+  return (
+    <div ref={root} className="relative">
+      <button
+        type="button"
+        aria-label={tx('ตั้งค่าการแสดงผล', 'Display settings')}
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className={cn(
+          'flex h-10 w-10 items-center justify-center rounded-full text-ink transition-[background-color,transform] active:scale-90',
+          open ? 'bg-surface-muted' : 'hover:bg-surface-muted',
+        )}
+      >
+        <SlidersHorizontal size={19} aria-hidden />
+      </button>
+      {open && (
+        <div
+          role="dialog"
+          aria-label={tx('ตั้งค่าการแสดงผล', 'Display settings')}
+          className="animate-toast-in absolute top-12 right-0 z-40 w-60 rounded-2xl border border-line bg-surface p-3 shadow-lg"
+        >
+          <div className={row}>
+            <span className="text-sm">{tx('ภาษา', 'Language')}</span>
+            <div className="inline-flex rounded-full bg-surface-muted p-0.5">
+              {(['th', 'en'] as const).map((l) => (
+                <button key={l} type="button" lang={l} aria-pressed={locale === l} onClick={() => setLocale(l)} className={seg(locale === l)}>
+                  {l.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className={row}>
+            <span className="text-sm">{tx('ธีม', 'Theme')}</span>
+            <div className="inline-flex rounded-full bg-surface-muted p-0.5">
+              <button
+                type="button"
+                aria-pressed={theme !== 'dark'}
+                aria-label={tx('สว่าง', 'Light')}
+                onClick={() => setTheme('light')}
+                className={seg(theme !== 'dark')}
+              >
+                <Sun size={15} className="mx-auto" aria-hidden />
+              </button>
+              <button
+                type="button"
+                aria-pressed={theme === 'dark'}
+                aria-label={tx('มืด', 'Dark')}
+                onClick={() => setTheme('dark')}
+                className={seg(theme === 'dark')}
+              >
+                <Moon size={15} className="mx-auto" aria-hidden />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }

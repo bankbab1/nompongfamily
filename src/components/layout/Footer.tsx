@@ -9,14 +9,12 @@ const groups = [
       ['/about', { th: 'รู้จักนมผง', en: 'Meet Nompong' }],
       ['/stickers', { th: 'สติกเกอร์ LINE', en: 'LINE stickers' }],
       ['/wallpapers', { th: 'วอลเปเปอร์', en: 'Wallpapers' }],
-      ['/suggest', { th: 'ออกแบบสติกเกอร์ LINE', en: 'Design LINE stickers' }],
     ],
   },
   {
     title: 'Nompong Studio',
     links: [
-      ['/studio', { th: 'เกี่ยวกับสตูดิโอ', en: 'About the Studio' }],
-      ['/studio/new', { th: 'เสนอไอเดีย', en: 'Share an idea' }],
+      ['/suggest', { th: 'ออกแบบชุดสติกเกอร์', en: 'Design a sticker set' }],
       ['/my/requests', { th: 'ติดตามคำขอ', en: 'Track requests' }],
     ],
   },

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ArrowRight, Factory, History, Lock, StickyNote } from 'lucide-react'
+import { ChevronRight, Factory, History, Lock, StickyNote } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { Card, ErrorState, PageSkeleton } from '@/components/feedback/States'
@@ -19,15 +19,7 @@ import { formatBytes, formatDateTime } from '@/lib/utils/format'
 import { pad2 } from '@/lib/utils/id'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
 
-function TransitionDialog({
-  row,
-  transition,
-  onClose,
-}: {
-  row: AdminRequestRow
-  transition: Transition | null
-  onClose(): void
-}) {
+function TransitionDialog({ row, transition, onClose }: { row: AdminRequestRow; transition: Transition | null; onClose(): void }) {
   const qc = useQueryClient()
   const [message, setMessage] = useState('')
   const [url, setUrl] = useState('')
@@ -77,9 +69,20 @@ function TransitionDialog({
           lang="th"
         />
         {transition.needsUrl && (
-          <TextField label="ลิงก์ทางการใน LINE Store" required value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://store.line.me/stickershop/product/…" inputMode="url" />
+          <TextField
+            label="ลิงก์ทางการใน LINE Store"
+            required
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://store.line.me/stickershop/product/…"
+            inputMode="url"
+          />
         )}
-        {error && <p className="text-sm text-danger" role="alert">{error}</p>}
+        {error && (
+          <p className="text-sm text-danger" role="alert">
+            {error}
+          </p>
+        )}
       </div>
     </ResponsiveModal>
   )
@@ -160,10 +163,18 @@ export default function AdminRequestPage() {
               <table className="w-full min-w-[34rem] text-sm">
                 <thead className="bg-surface-muted text-left text-xs text-muted">
                   <tr>
-                    <th scope="col" className="px-5 py-2 font-medium">#</th>
-                    <th scope="col" className="px-3 py-2 font-medium">ข้อความ</th>
-                    <th scope="col" className="px-3 py-2 font-medium">ท่าทาง</th>
-                    <th scope="col" className="px-3 py-2 font-medium">เครื่องแต่งกาย/สี</th>
+                    <th scope="col" className="px-5 py-2 font-medium">
+                      #
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      ข้อความ
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      ท่าทาง
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      เครื่องแต่งกาย/สี
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line">
@@ -220,7 +231,13 @@ export default function AdminRequestPage() {
                     {i > 0 && (
                       <span className="text-muted">
                         {' '}
-                        · เปลี่ยน {s.items.filter((it, j) => it.caption !== r.meta.snapshots[i - 1].items[j]?.caption || it.pose !== r.meta.snapshots[i - 1].items[j]?.pose).length} ภาพจากฉบับก่อน
+                        · เปลี่ยน{' '}
+                        {
+                          s.items.filter(
+                            (it, j) => it.caption !== r.meta.snapshots[i - 1].items[j]?.caption || it.pose !== r.meta.snapshots[i - 1].items[j]?.pose,
+                          ).length
+                        }{' '}
+                        ภาพจากฉบับก่อน
                       </span>
                     )}
                   </li>
@@ -252,7 +269,7 @@ export default function AdminRequestPage() {
             )}
             {hasJob && (
               <Link to={`/admin/production/${r.id}`} className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-medium">
-                <Factory size={16} aria-hidden /> ไปที่งานผลิต <ArrowRight size={14} aria-hidden />
+                <Factory size={16} aria-hidden /> ไปที่งานผลิต <ChevronRight size={14} aria-hidden />
               </Link>
             )}
           </Card>
@@ -294,7 +311,8 @@ export default function AdminRequestPage() {
                 </li>
               ))}
             </ul>
-            <form noValidate
+            <form
+              noValidate
               onSubmit={(e) => {
                 e.preventDefault()
                 if (note.trim()) addNote.mutate()

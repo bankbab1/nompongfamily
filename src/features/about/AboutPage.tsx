@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ChevronRight, Sparkles } from 'lucide-react'
 import { Link } from 'react-router'
 import { Page } from '@/components/layout/AppShell'
 import { NompongArt } from '@/features/nompong/art'
@@ -84,7 +84,7 @@ export default function AboutPage() {
               <SetStatusBadge set={intro.data} />
               <StoreLink set={intro.data} />
               <Link to={`/stickers/${intro.data.slug}`} className="inline-flex min-h-11 items-center gap-1 font-medium">
-                {tx('ดูรายละเอียด', 'See details')} <ArrowRight size={16} aria-hidden />
+                {tx('ดูรายละเอียด', 'See details')} <ChevronRight size={16} aria-hidden />
               </Link>
             </div>
           </div>

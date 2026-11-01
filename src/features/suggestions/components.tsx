@@ -1,4 +1,4 @@
-import { ChevronDown, Heart } from 'lucide-react'
+import { ChevronDown, Heart, Sparkles } from 'lucide-react'
 import { useId, useState } from 'react'
 import { fill, useCopy } from '@/lib/copy'
 import { useLocale } from '@/lib/i18n'
@@ -14,7 +14,10 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
   const listId = useId()
   const name = localName(s, locale)
   const desc = localDesc(s, locale)
-  const words = s.stickers.map((x) => x.word.trim()).filter(Boolean)
+  const words = s.stickers
+    .filter((x) => !x.creatorPicks)
+    .map((x) => x.word.trim())
+    .filter(Boolean)
   const detailed = s.stickers.filter(isFilled).length
   const date = new Intl.DateTimeFormat(locale === 'th' ? 'th-TH' : 'en-GB', { day: 'numeric', month: 'short' }).format(new Date(s.createdAt))
 
@@ -75,10 +78,16 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
                 isFilled(x) ? (
                   <li key={i} className="flex gap-3 px-3 py-2 text-sm">
                     <span className="w-6 shrink-0 pt-px text-right text-xs font-semibold text-muted tabular-nums">{i + 1}</span>
-                    <span className="min-w-0">
-                      <span className={cn('block font-medium', !x.word.trim() && 'font-normal text-muted')}>{x.word.trim() || c.card.noWord}</span>
-                      {x.style.trim() && <span className="block text-muted">{x.style}</span>}
-                    </span>
+                    {x.creatorPicks ? (
+                      <span className="inline-flex items-center gap-1.5 text-muted">
+                        <Sparkles size={13} aria-hidden /> {c.builder.creatorBadge}
+                      </span>
+                    ) : (
+                      <span className="min-w-0">
+                        <span className={cn('block font-medium', !x.word.trim() && 'font-normal text-muted')}>{x.word.trim() || c.card.noWord}</span>
+                        {x.style.trim() && <span className="block text-muted">{x.style}</span>}
+                      </span>
+                    )}
                   </li>
                 ) : null,
               )}

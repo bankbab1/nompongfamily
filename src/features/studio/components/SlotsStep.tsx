@@ -92,7 +92,7 @@ export function SlotsStep({
     const onKey = (e: KeyboardEvent) => {
       if (!window.matchMedia('(min-width: 1024px)').matches) return
       if (isTyping(document.activeElement) || e.altKey || e.ctrlKey || e.metaKey) return
-      if (e.key === ']' || e.key === 'ArrowRight') {
+      if (e.key === ']' || e.key === 'ChevronRight') {
         e.preventDefault()
         go(active + 1)
       } else if (e.key === '[' || e.key === 'ArrowLeft') {

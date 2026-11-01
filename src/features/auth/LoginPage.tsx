@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, FlaskConical, Shield, Sparkles, UserRound } from 'lucide-react'
+import { ChevronRight, Shield, Sparkles, UserRound } from 'lucide-react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router'
 import { Alert } from '@/components/feedback/States'
 import { toast } from '@/components/feedback/Toast'
@@ -64,10 +64,8 @@ export default function LoginPage() {
         </Alert>
       )}
 
-      <div className="mt-6 rounded-3xl border border-sunny-200 bg-sunny-50 p-4">
-        <p className="flex items-center gap-2 text-sm font-semibold">
-          <FlaskConical size={16} aria-hidden /> {tx('โหมดทดสอบ: เลือกบัญชีตัวอย่าง', 'Test mode: choose a sample account')}
-        </p>
+      <div className="mt-6">
+        <p className="text-sm font-semibold">{tx('เลือกบัญชี', 'Choose an account')}</p>
         <ul className="mt-3 space-y-2">
           {(personas.data ?? []).map((p) => {
             const info = ROLE_INFO[p.role]
@@ -94,19 +92,13 @@ export default function LoginPage() {
                       <info.icon size={12} aria-hidden /> {pick(info.label, locale)} — {pick(info.body, locale)}
                     </span>
                   </span>
-                  <ArrowRight size={18} aria-hidden />
+                  <ChevronRight size={18} aria-hidden />
                 </button>
               </li>
             )
           })}
         </ul>
       </div>
-      <p className="mt-4 text-xs text-muted">
-        {tx(
-          'เวอร์ชันจริงจะเข้าสู่ระบบผ่านผู้ให้บริการยืนยันตัวตน (เช่น LINE Login) โดยเว็บนี้ไม่เก็บรหัสผ่าน',
-          'The real version signs in through an identity provider (such as LINE Login); this site never stores passwords.',
-        )}
-      </p>
     </Page>
   )
 }

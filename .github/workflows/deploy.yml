@@ -6,6 +6,9 @@ on:
     paths-ignore:
       - 'docs/**'
   workflow_dispatch:
+  # Once a day, so new LINE sticker sets show up on the site without a code change.
+  schedule:
+    - cron: '0 1 * * *'
 
 permissions:
   contents: write
@@ -26,9 +29,20 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - run: npm run build
+      - name: Sync sticker sets from the LINE Store
+        run: node scripts/sync-line-stickers.mjs
+      # Custom domain: set the repository variable CUSTOM_DOMAIN (Settings → Secrets and variables →
+      # Actions → Variables), e.g. www.nompongfamily.com. Then the site is served from the root (/).
+      # Without it the site stays at bankbab1.github.io/nompongfamily/.
+      - name: Build
+        env:
+          BASE_PATH: ${{ vars.CUSTOM_DOMAIN && '/' || '/nompongfamily/' }}
+        run: npm run build
       - name: Prepare GitHub Pages files
+        env:
+          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
         run: |
+          if [ -n "$CUSTOM_DOMAIN" ]; then echo "$CUSTOM_DOMAIN" > dist/CNAME; fi
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
           mkdir -p docs
@@ -37,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A docs
+          git add -A docs src/data/line-stickers.json
           if git diff --cached --quiet; then
             echo "No generated changes"
           else

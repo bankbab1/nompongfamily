@@ -1,22 +1,20 @@
-import { ChevronLeft, ChevronUp, Compass, Home, Palette, UserRound } from 'lucide-react'
+import { ChevronUp, Compass, Home, Palette, UserRound } from 'lucide-react'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation, useMatches } from 'react-router'
 import { PageSkeleton } from '@/components/feedback/States'
 import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
-import { useCurrentUser } from '@/features/auth/useAuth'
-import { pick, useLocale, useT, type Bilingual } from '@/lib/i18n'
+import { useLocale, useT, type Bilingual } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
-import { AccountMenu, Avatar } from './AccountMenu'
-import { DevBanner } from './DevBanner'
+import { AccountMenu } from './AccountMenu'
 import { Footer } from './Footer'
-import { LanguageSwitch, LanguageToggle, ThemeSwitch } from './HeaderSwitches'
+import { LanguageSwitch, MobileSettings, ThemeSwitch } from './HeaderSwitches'
 import { Wordmark } from './Wordmark'
 
 /** Per-route layout hints, set via the route `handle`. */
 export interface RouteHandle {
-  /** Mobile header title. */
+  /** Page name. The mobile header no longer shows it (it always shows the wordmark); kept as route metadata. */
   title?: Bilingual
-  /** Explicit back target on mobile (more predictable than history.back for deep links). */
+  /** The page one level up. Not shown in the header any more; kept as route metadata. */
   back?: string
   /** Hide the bottom nav so a page's own sticky action bar owns the bottom edge (builder). */
   hideBottomNav?: boolean
@@ -31,49 +29,28 @@ const desktopLinks = [
   { to: '/about', key: 'nav.about' },
   { to: '/stickers', key: 'nav.stickers' },
   { to: '/wallpapers', key: 'nav.wallpapers' },
-  { to: '/suggest', key: 'nav.design' },
 ] as const
 
-function PublicHeader({ handle }: { handle: RouteHandle }) {
-  const t = useT()
-  const locale = useLocale()
-  const user = useCurrentUser()
+function PublicHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-line/80 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
       <div className="flex h-16 w-full items-center gap-2 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6 lg:px-10">
-        {/* Mobile: back button or wordmark */}
-        <div className="flex min-w-0 flex-1 items-center gap-1 lg:hidden">
-          {handle.back ? (
-            <>
-              <Link
-                to={handle.back}
-                className="-ml-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl hover:bg-surface-muted"
-                aria-label={t('nav.back')}
-              >
-                <ChevronLeft size={24} />
-              </Link>
-              <span className="truncate font-display text-lg">{handle.title && pick(handle.title, locale)}</span>
-            </>
-          ) : (
-            <Wordmark />
-          )}
+        {/* Mobile: always the wordmark. Moving between pages is the bottom nav's job (and the phone's own back gesture). */}
+        <div className="flex min-w-0 flex-1 items-center lg:hidden">
+          <Wordmark />
         </div>
         <div className="hidden justify-self-start lg:block">
           <Wordmark />
         </div>
         <DesktopNav />
         <div className="flex items-center gap-1 justify-self-end">
-          <div className="mr-1 flex items-center gap-1">
-            <div className="hidden sm:block">
-              <LanguageSwitch />
-            </div>
-            <div className="sm:hidden">
-              <LanguageToggle />
-            </div>
+          {/* Desktop: language, theme, Studio and account. Phones: one settings button (account lives in the bottom nav). */}
+          <div className="mr-1 hidden items-center gap-1 lg:flex">
+            <LanguageSwitch />
             <ThemeSwitch />
           </div>
           <NavLink
-            to="/studio"
+            to="/suggest"
             className={({ isActive }) =>
               cn(
                 'hidden h-10 items-center gap-2 rounded-full px-4 text-sm font-medium whitespace-nowrap transition-colors lg:inline-flex',
@@ -87,16 +64,8 @@ function PublicHeader({ handle }: { handle: RouteHandle }) {
           <div className="hidden lg:block">
             <AccountMenu />
           </div>
-          <div className="lg:hidden">
-            {user ? (
-              <Link to="/my" className="flex h-11 w-11 items-center justify-center rounded-xl" aria-label={t('nav.account')}>
-                <Avatar name={user.displayName} />
-              </Link>
-            ) : (
-              <Link to="/login" className="inline-flex h-10 items-center rounded-full px-3 text-sm font-medium hover:bg-surface-muted">
-                {t('nav.signIn')}
-              </Link>
-            )}
+          <div className="-mr-2 lg:hidden">
+            <MobileSettings />
           </div>
         </div>
       </div>
@@ -169,7 +138,7 @@ function ScrollTopButton({ raised }: { raised: boolean }) {
   )
 }
 
-/** Mobile: Home / Explore / Studio / My Nompong (spec §4). Tapping the tab you are on scrolls to the top. */
+/** Mobile: Home / Explore / Studio (design a sticker set) / My Nompong. Tapping the tab you are on scrolls to the top. */
 function MobileBottomNav() {
   const t = useT()
   const { pathname } = useLocation()
@@ -179,9 +148,10 @@ function MobileBottomNav() {
       to: '/explore',
       label: t('nav.explore'),
       icon: Compass,
-      active: ['/explore', '/stickers', '/wallpapers', '/about', '/shop', '/cards', '/suggest'].some((p) => pathname.startsWith(p)),
+      active: ['/explore', '/stickers', '/wallpapers', '/about', '/shop', '/cards'].some((p) => pathname.startsWith(p)),
     },
-    { to: '/studio', label: t('nav.studio'), icon: Palette, active: pathname.startsWith('/studio') },
+    // Studio = designing a sticker set (the builder).
+    { to: '/suggest', label: t('nav.studio'), icon: Palette, active: pathname.startsWith('/suggest') || pathname.startsWith('/studio') },
     { to: '/my', label: t('nav.my'), icon: UserRound, active: pathname.startsWith('/my') || pathname === '/login' },
   ]
   return (
@@ -233,8 +203,7 @@ export function AppShell() {
       <a href="#main" className="sr-only z-50 rounded-xl bg-brown px-4 py-2 text-cream focus:not-sr-only focus:fixed focus:top-2 focus:left-2">
         {t('nav.skipToContent')}
       </a>
-      <DevBanner />
-      <PublicHeader handle={handle} />
+      <PublicHeader />
       <main ref={mainRef} id="main" tabIndex={-1} className={cn('flex-1 focus:outline-none', !handle.hideBottomNav && 'pb-24 lg:pb-0')}>
         <Suspense
           fallback={

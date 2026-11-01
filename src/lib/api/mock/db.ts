@@ -8,7 +8,7 @@ import { createSeed, type MockDb } from './seed'
  */
 
 const DB_KEY = 'nompong-mock-db-v7' // v7: English set descriptions, wallpaper themes and sizes
-const DEV_KEY = 'nompong-dev'
+const DEV_KEY = 'nompong-dev-v2' // v2: the on-screen test tools are gone; drop any saved "offline" switch
 
 export interface DevSettings {
   /** Simulate the backend being unreachable. */

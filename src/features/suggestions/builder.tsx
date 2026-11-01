@@ -1,4 +1,4 @@
-import { Check, ChevronLeft, ChevronRight, ListPlus, Pencil, RotateCcw, Send } from 'lucide-react'
+import { Check, ChevronLeft, ChevronRight, ListPlus, Pencil, RotateCcw, Send, Sparkles } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from '@/components/feedback/Toast'
 import { Button } from '@/components/ui/Button'
@@ -100,7 +100,10 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
 
   const count = draft.stickerCount
   const visible = draft.stickers.slice(0, count)
+  // What gets checked and sent: a sticker left to the creator drops any half-typed word or pose.
+  const outgoing = visible.map((s) => (s.creatorPicks ? { word: '', style: '', creatorPicks: true } : { word: s.word, style: s.style }))
   const filled = visible.filter(isFilled).length
+  const byCreator = visible.filter((s) => s.creatorPicks).length
   const hiddenFilled = draft.stickers.slice(count).some(isFilled)
 
   const set = <K extends keyof Draft>(k: K, v: Draft[K]) => {
@@ -131,10 +134,25 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
     const stickers = [...draft.stickers]
     let used = 0
     for (let i = 0; i < draft.stickerCount && used < words.length; i++) {
-      if (!stickers[i].word.trim()) stickers[i] = { ...stickers[i], word: words[used++] }
+      if (!stickers[i].word.trim() && !stickers[i].creatorPicks) stickers[i] = { ...stickers[i], word: words[used++] }
     }
     if (used) setDraft({ ...draft, stickers })
     return used
+  }
+
+  /** Hands every still-empty sticker to the creator. Returns how many changed. */
+  const creatorForRest = () => {
+    let n = 0
+    const stickers = draft.stickers.map((s, i) => {
+      if (i >= count || isFilled(s)) return s
+      n++
+      return { ...s, creatorPicks: true }
+    })
+    if (n) {
+      setDraft({ ...draft, stickers })
+      setErrors((e) => ({ ...e, fields: { ...e.fields, stickers: undefined } }))
+      toast.success(fill(b.creatorRestDone, { n }))
+    } else toast.info(b.creatorRestNone)
   }
 
   const reset = async () => {
@@ -164,7 +182,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
 
   /** Checks every step before `target`; stops on the first one with a problem. */
   const advanceTo = (target: Step) => {
-    const all = validateSuggestion({ ...draft, stickers: visible })
+    const all = validateSuggestion({ ...draft, stickers: outgoing })
     for (let s = 1 as Step; s < target; s = (s + 1) as Step) {
       const errs = errorsFor(s, all)
       if (hasErrors(errs)) {
@@ -192,7 +210,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
       advanceTo((step + 1) as Step)
       return
     }
-    const input: SuggestionInput = { ...draft, stickers: visible }
+    const input: SuggestionInput = { ...draft, stickers: outgoing }
     const errs = validateSuggestion(input)
     if (hasErrors(errs)) {
       if (hasErrors(errorsFor(3, errs)) && !hasErrors(errorsFor(1, errs)) && !hasErrors(errorsFor(2, errs))) {
@@ -346,6 +364,16 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                 <StickerStrip stickers={visible} active={active} onSelect={setActive} errorAt={errors.stickers} />
                 {errors.fields.stickers && <p className="mt-2 text-sm text-danger">{errText(errors.fields.stickers)}</p>}
                 {hiddenFilled && <p className="mt-2 text-xs text-muted">{fill(b.hiddenNote, { from: count + 1, to: MAX_STICKERS })}</p>}
+                <Button
+                  variant="secondary"
+                  block
+                  className="mt-4 justify-start"
+                  icon={<Sparkles size={17} />}
+                  onClick={creatorForRest}
+                  disabled={filled === count}
+                >
+                  {b.creatorRest}
+                </Button>
                 <BulkWords onApply={bulkFill} />
               </div>
             </div>
@@ -374,7 +402,10 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
 
             <section className="rounded-2xl border border-line">
               <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3">
-                <h3 className="text-sm font-semibold">{fill(b.filled, { n: filled, total: count })}</h3>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-semibold">{fill(b.filled, { n: filled, total: count })}</h3>
+                  {byCreator > 0 && <p className="text-xs text-muted">{fill(b.filledSplit, { own: filled - byCreator, creator: byCreator })}</p>}
+                </div>
                 <Button size="sm" variant="ghost" icon={<Pencil size={15} />} onClick={() => goTo(2)}>
                   {b.edit}
                 </Button>
@@ -392,10 +423,16 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                         className="flex w-full gap-3 px-5 py-2.5 text-left text-sm hover:bg-surface-muted"
                       >
                         <span className="w-6 shrink-0 pt-px text-right text-xs font-semibold text-muted tabular-nums">{i + 1}</span>
-                        <span className="min-w-0">
-                          <span className={cn('block font-medium', !s.word.trim() && 'font-normal text-muted')}>{s.word.trim() || c.card.noWord}</span>
-                          {s.style.trim() && <span className="block truncate text-muted">{s.style}</span>}
-                        </span>
+                        {s.creatorPicks ? (
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-sunny-100 px-2.5 py-0.5 text-xs font-medium text-ink">
+                            <Sparkles size={13} aria-hidden /> {b.creatorBadge}
+                          </span>
+                        ) : (
+                          <span className="min-w-0">
+                            <span className={cn('block font-medium', !s.word.trim() && 'font-normal text-muted')}>{s.word.trim() || c.card.noWord}</span>
+                            {s.style.trim() && <span className="block truncate text-muted">{s.style}</span>}
+                          </span>
+                        )}
                       </button>
                     </li>
                   ) : null,

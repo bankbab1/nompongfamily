@@ -40,7 +40,7 @@ export default function MyRequestsPage() {
         title={tx('คำขอของฉัน', 'My requests')}
         description={tx('ฉบับร่าง คำขอที่ส่งแล้ว และงานที่รอให้คุณตรวจ', 'Drafts, sent requests and anything waiting for you')}
         actions={
-          <LinkButton to="/studio" variant="primary" icon={<FilePlus2 size={18} />}>
+          <LinkButton to="/suggest" variant="primary" icon={<FilePlus2 size={18} />}>
             {tx('สร้างคำขอใหม่', 'New request')}
           </LinkButton>
         }
@@ -75,7 +75,7 @@ export default function MyRequestsPage() {
           title={tab === 'all' ? tx('ยังไม่มีคำขอ', 'No requests yet') : tx('ไม่มีรายการในหมวดนี้', 'Nothing here')}
           description={tx('เริ่มจากเสนอไอเดียชุดสติกเกอร์ฟรี', 'Start by sharing a free sticker set idea')}
           actions={
-            <LinkButton to="/studio" variant="primary">
+            <LinkButton to="/suggest" variant="primary">
               {tx('ไปที่สตูดิโอ', 'Go to the Studio')}
             </LinkButton>
           }

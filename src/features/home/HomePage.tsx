@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, ArrowUpRight, CreditCard, Heart, Image, ShoppingBag, Sticker } from 'lucide-react'
+import { ChevronRight, CreditCard, Heart, Image, ShoppingBag, Sticker } from 'lucide-react'
 import { Link } from 'react-router'
 import { Skeleton } from '@/components/feedback/States'
 import { Page } from '@/components/layout/AppShell'
@@ -72,7 +72,7 @@ export default function HomePage() {
             )}
           </p>
           <div className="mt-8 flex flex-col gap-2 sm:flex-row">
-            <LinkButton to="/suggest" variant="primary" size="lg" iconRight={<ArrowRight size={18} />}>
+            <LinkButton to="/suggest" variant="primary" size="lg" iconRight={<ChevronRight size={18} />}>
               {tx('ออกแบบชุดสติกเกอร์', 'Design a sticker set')}
             </LinkButton>
             <LinkButton to="/stickers" variant="secondary" size="lg">
@@ -106,7 +106,7 @@ export default function HomePage() {
               {tx('ชุดล่าสุด', 'Latest sets')}
             </h2>
             <Link to="/stickers" className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-muted hover:text-ink">
-              {tx('ดูทั้งหมด', 'See all')} <ArrowRight size={16} aria-hidden />
+              {tx('ดูทั้งหมด', 'See all')} <ChevronRight size={16} aria-hidden />
             </Link>
           </div>
           <ul className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-4">
@@ -135,10 +135,7 @@ export default function HomePage() {
             </p>
             <div className="mt-auto flex flex-wrap gap-2 pt-6">
               <Link to="/suggest" className="inline-flex h-11 items-center gap-2 rounded-full bg-sunny px-5 font-medium text-[#26221f] hover:brightness-95">
-                {tx('ออกแบบชุดสติกเกอร์', 'Design a sticker set')} <ArrowRight size={18} aria-hidden />
-              </Link>
-              <Link to="/studio" className="inline-flex h-11 items-center gap-2 rounded-full px-4 font-medium text-cream/80 hover:text-cream">
-                Nompong Studio <ArrowUpRight size={18} aria-hidden />
+                {tx('ออกแบบชุดสติกเกอร์', 'Design a sticker set')} <ChevronRight size={18} aria-hidden />
               </Link>
             </div>
           </div>
@@ -151,7 +148,7 @@ export default function HomePage() {
               <h2 className="mt-1 font-display text-2xl">{setName(community, locale).main}</h2>
               <p className="mt-2 text-muted">{setDesc(community, locale)}</p>
               <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-medium">
-                {tx('ดูชุด', 'See set')} {community.code} <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
+                {tx('ดูชุด', 'See set')} {community.code} <ChevronRight size={16} aria-hidden />
               </span>
             </Link>
           )}

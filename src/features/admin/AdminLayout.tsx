@@ -18,7 +18,6 @@ import { Suspense, useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from 'react-router'
 import { PageSkeleton } from '@/components/feedback/States'
 import { AccountMenu } from '@/components/layout/AccountMenu'
-import { DevBanner } from '@/components/layout/DevBanner'
 import { Wordmark } from '@/components/layout/Wordmark'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { cn } from '@/lib/utils/cn'
@@ -117,7 +116,6 @@ export function AdminLayout() {
       <a href="#main" className="sr-only z-50 rounded-xl bg-brown px-4 py-2 text-cream focus:not-sr-only focus:fixed focus:top-2 focus:left-2">
         ข้ามไปยังเนื้อหา
       </a>
-      <DevBanner />
       <div className="flex min-h-0 flex-1">
         <aside className={cn('sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-line bg-surface lg:flex', collapsed ? 'w-[72px]' : 'w-64')}>
           <div className={cn('flex h-16 items-center border-b border-line px-3', collapsed ? 'justify-center' : 'justify-between')}>
@@ -125,14 +123,20 @@ export function AdminLayout() {
           </div>
           <SidebarNav collapsed={collapsed} />
           <div className="border-t border-line p-2">
-            <Link to="/" className={cn('flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm text-muted hover:bg-surface-muted', collapsed && 'justify-center px-0')}>
+            <Link
+              to="/"
+              className={cn('flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm text-muted hover:bg-surface-muted', collapsed && 'justify-center px-0')}
+            >
               <ExternalLink size={17} aria-hidden />
               {!collapsed ? 'ดูหน้าเว็บสาธารณะ' : <span className="sr-only">ดูหน้าเว็บสาธารณะ</span>}
             </Link>
             <button
               type="button"
               onClick={() => setCollapsed((c) => !c)}
-              className={cn('flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-sm text-muted hover:bg-surface-muted', collapsed && 'justify-center px-0')}
+              className={cn(
+                'flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-sm text-muted hover:bg-surface-muted',
+                collapsed && 'justify-center px-0',
+              )}
               aria-label={collapsed ? 'ขยายเมนู' : 'ย่อเมนู'}
             >
               {collapsed ? <ChevronsRight size={17} /> : <ChevronsLeft size={17} />}

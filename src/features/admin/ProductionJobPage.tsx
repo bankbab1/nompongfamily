@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ArrowRight, Send, Sparkles, Upload } from 'lucide-react'
+import { ChevronRight, Send, Sparkles, Upload } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { Alert, Card, ErrorState, PageSkeleton } from '@/components/feedback/States'
@@ -120,11 +120,18 @@ export default function ProductionJobPage() {
             {r.setName}
           </h1>
           <Link to={`/admin/requests/${r.id}`} className="inline-flex min-h-11 items-center gap-1 text-sm font-medium">
-            {r.id} — ดูบรีฟและสถานะ <ArrowRight size={14} aria-hidden />
+            {r.id} — ดูบรีฟและสถานะ <ChevronRight size={14} aria-hidden />
           </Link>
         </div>
         {canRelease && (
-          <Button variant="accent" size="lg" icon={<Send size={18} />} loading={release.isPending} disabled={needsNew.length > 0 || !qaDone} onClick={() => void confirmRelease()}>
+          <Button
+            variant="accent"
+            size="lg"
+            icon={<Send size={18} />}
+            loading={release.isPending}
+            disabled={needsNew.length > 0 || !qaDone}
+            onClick={() => void confirmRelease()}
+          >
             ปล่อยงานให้ลูกค้าตรวจ
           </Button>
         )}
@@ -152,13 +159,22 @@ export default function ProductionJobPage() {
               <li key={it.itemId} className={cn('rounded-3xl border bg-surface p-3', p?.state === 'revision_requested' ? 'border-danger/40' : 'border-line')}>
                 <div className="flex gap-3">
                   {latest ? (
-                    <img src={latest.imageUrl} alt={`ภาพ ${pad2(it.position)} v${latest.version}`} className="h-24 w-24 shrink-0 rounded-2xl border border-line object-cover" />
+                    <img
+                      src={latest.imageUrl}
+                      alt={`ภาพ ${pad2(it.position)} v${latest.version}`}
+                      className="h-24 w-24 shrink-0 rounded-2xl border border-line object-cover"
+                    />
                   ) : (
-                    <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-line-strong text-xs text-muted">ยังไม่มีไฟล์</div>
+                    <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl border-2 border-dashed border-line-strong text-xs text-muted">
+                      ยังไม่มีไฟล์
+                    </div>
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="font-display">
-                      {pad2(it.position)} <span className="font-sans text-sm" lang="th">{it.caption}</span>
+                      {pad2(it.position)}{' '}
+                      <span className="font-sans text-sm" lang="th">
+                        {it.caption}
+                      </span>
                     </p>
                     <p className="line-clamp-2 text-xs text-muted" lang="th">
                       {it.pose}
@@ -177,7 +193,12 @@ export default function ProductionJobPage() {
                   </p>
                 )}
                 <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <InlineSelect aria-label={`ขั้นตอนของภาพ ${pad2(it.position)}`} value={it.stage} className="min-w-36 flex-1" onChange={(e) => stage.mutate({ itemId: it.itemId, stage: e.target.value as ProductionStage })}>
+                  <InlineSelect
+                    aria-label={`ขั้นตอนของภาพ ${pad2(it.position)}`}
+                    value={it.stage}
+                    className="min-w-36 flex-1"
+                    onChange={(e) => stage.mutate({ itemId: it.itemId, stage: e.target.value as ProductionStage })}
+                  >
                     {STAGES.map((s) => (
                       <option key={s.value} value={s.value}>
                         {s.label}
@@ -186,15 +207,22 @@ export default function ProductionJobPage() {
                   </InlineSelect>
                   {p?.state !== 'approved' && (
                     <>
-                      <Button size="sm" variant="secondary" iconOnly label={`อัปโหลดไฟล์ภาพ ${pad2(it.position)}`} icon={<Upload size={16} />} onClick={() => {
-                        setUploadFor(it)
-                        fileRef.current?.click()
-                      }} />
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        iconOnly
+                        label={`อัปโหลดไฟล์ภาพ ${pad2(it.position)}`}
+                        icon={<Upload size={16} />}
+                        onClick={() => {
+                          setUploadFor(it)
+                          fileRef.current?.click()
+                        }}
+                      />
                       <Button
                         size="sm"
                         variant="ghost"
                         iconOnly
-                        label="สร้างภาพตัวอย่าง (mock)"
+                        label="สร้างภาพตัวอย่าง"
                         icon={<Sparkles size={16} />}
                         onClick={() =>
                           upload.mutate({

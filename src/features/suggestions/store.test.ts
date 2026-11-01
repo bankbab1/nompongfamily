@@ -41,6 +41,15 @@ describe('local suggestions', () => {
     expect(again[0].id).toBe(created.id)
   })
 
+  it('keeps stickers handed to the creator', async () => {
+    const stickers = blankStickers(40)
+    stickers[0] = { word: 'สวัสดี', style: '' }
+    stickers[1] = { word: '', style: '', creatorPicks: true }
+    const created = await createLocalSuggestions(localStorage).create(input({ stickers }))
+    expect(created.stickers[1].creatorPicks).toBe(true)
+    expect(created.stickers[0].creatorPicks).toBeUndefined()
+  })
+
   it('toggles a vote on and off', async () => {
     const svc = createLocalSuggestions(localStorage)
     const [first] = await svc.list()
@@ -123,5 +132,16 @@ describe('display helpers', () => {
     const items = [a, b] as never[]
     expect(sortSuggestions(items, 'popular').map((s: { id: string }) => s.id)).toEqual(['b', 'a'])
     expect(sortSuggestions(items, 'newest').map((s: { id: string }) => s.id)).toEqual(['a', 'b'])
+  })
+})
+
+describe('creator picks', () => {
+  it('accepts a set where every sticker is left to the creator', () => {
+    const stickers = blankStickers(40).map((x) => ({ ...x, creatorPicks: true }))
+    expect(validateSuggestion(input({ stickers })).fields.stickers).toBeUndefined()
+  })
+
+  it('still needs at least one sticker filled or handed off', () => {
+    expect(validateSuggestion(input({ stickers: blankStickers(40) })).fields.stickers).toBe('stickerRequired')
   })
 })

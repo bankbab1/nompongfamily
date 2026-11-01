@@ -46,9 +46,8 @@ const iconSizes: Record<ButtonSize, string> = {
 export const buttonBase =
   'group/btn inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-full font-medium transition-[color,background-color,border-color,opacity,transform,filter] duration-150 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50'
 
-/** Wraps a trailing icon so it nudges forward on hover/focus/press ("go on" affordance). */
-export const iconRightClass =
-  'inline-flex shrink-0 transition-transform duration-200 ease-out motion-safe:group-hover/btn:translate-x-0.5 motion-safe:group-focus-visible/btn:translate-x-0.5 motion-safe:group-active/btn:translate-x-1'
+/** Wraps a trailing icon. A trailing chevron slides right on hover (see globals.css, "Go-on chevron"). */
+export const iconRightClass = 'inline-flex shrink-0'
 
 export function Button({
   variant = 'secondary',

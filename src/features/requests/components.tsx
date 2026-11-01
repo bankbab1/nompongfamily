@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Circle, MessageSquare, PenLine, XCircle } from 'lucide-react'
+import { ChevronRight, Check, Circle, MessageSquare, PenLine, XCircle } from 'lucide-react'
 import { Link } from 'react-router'
 import { ChannelBadge, StatusBadge } from '@/components/ui/Badge'
 import type { StickerRequest, TimelineEvent } from '@/lib/api/types'
@@ -43,7 +43,7 @@ export function RequestCard({ request: r }: { request: StickerRequest }) {
           className="relative z-10 mt-4 inline-flex min-h-11 items-center justify-between gap-2 rounded-xl bg-sunny px-4 text-sm font-medium text-brown hover:bg-sunny-200"
         >
           {action}
-          <ArrowRight size={16} aria-hidden />
+          <ChevronRight size={16} aria-hidden />
         </Link>
       )}
     </article>

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, Clock, Factory, Inbox, Store } from 'lucide-react'
+import { ChevronRight, Clock, Factory, Inbox, Store } from 'lucide-react'
 import { Link } from 'react-router'
 import { Card, ErrorState, PageSkeleton } from '@/components/feedback/States'
 import { PageHeader } from '@/components/layout/AppShell'
@@ -52,7 +52,7 @@ export default function OverviewPage() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-xl">คิวงานของสตูดิโอ ({work.length})</h2>
             <Link to="/admin/requests" className="inline-flex min-h-11 items-center gap-1 text-sm font-medium">
-              กล่องคำขอ <ArrowRight size={16} aria-hidden />
+              กล่องคำขอ <ChevronRight size={16} aria-hidden />
             </Link>
           </div>
           {work.length === 0 ? (

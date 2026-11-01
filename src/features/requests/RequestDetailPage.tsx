@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, ExternalLink, HelpCircle, Inbox, Lock, PenLine } from 'lucide-react'
+import { ChevronRight, ExternalLink, HelpCircle, Inbox, Lock, PenLine } from 'lucide-react'
 import { useParams } from 'react-router'
 import { Alert, Card, ErrorState, PageSkeleton } from '@/components/feedback/States'
 import { Page } from '@/components/layout/AppShell'
@@ -94,7 +94,7 @@ export default function RequestDetailPage() {
             icon={<Inbox size={18} />}
             title={tx('งานพร้อมให้ตรวจแล้ว', 'Artwork ready to review')}
             actions={
-              <LinkButton to={`/my/requests/${r.id}/proof`} variant="primary" size="sm" iconRight={<ArrowRight size={16} />}>
+              <LinkButton to={`/my/requests/${r.id}/proof`} variant="primary" size="sm" iconRight={<ChevronRight size={16} />}>
                 {tx('ตรวจงาน', 'Review')}
               </LinkButton>
             }

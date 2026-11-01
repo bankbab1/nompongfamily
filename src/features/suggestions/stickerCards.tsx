@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Eraser } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Eraser, Sparkles } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { TextArea, TextField } from '@/components/ui/Field'
@@ -72,7 +72,7 @@ export function StickerStrip({
               type="button"
               onClick={() => onSelect(i)}
               aria-current={on ? 'true' : undefined}
-              aria-label={`${fill(b.sticker, { n: i + 1 })}: ${s.word || (done ? s.style : b.empty)}`}
+              aria-label={`${fill(b.sticker, { n: i + 1 })}: ${s.creatorPicks ? b.creatorBadge : s.word || (done ? s.style : b.empty)}`}
               className={cn(
                 'relative flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold tabular-nums transition-colors',
                 'sm:h-14 sm:w-full sm:flex-col sm:items-start sm:justify-start sm:rounded-xl sm:px-2 sm:py-1.5',
@@ -87,10 +87,16 @@ export function StickerStrip({
             >
               <span className="sm:text-xs">{i + 1}</span>
               <span className={cn('hidden w-full truncate text-left text-[13px] leading-tight font-medium sm:block', on ? 'text-cream' : 'text-ink')}>
-                {s.word}
+                {s.creatorPicks ? <Sparkles size={13} className="inline -mt-0.5" aria-hidden /> : s.word}
               </span>
               {done && !on && (
-                <span className="absolute top-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-surface bg-success sm:top-1.5 sm:right-1.5" aria-hidden />
+                <span
+                  className={cn(
+                    'absolute top-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-surface sm:top-1.5 sm:right-1.5',
+                    s.creatorPicks ? 'bg-sunny' : 'bg-success',
+                  )}
+                  aria-hidden
+                />
               )}
             </button>
           </li>
@@ -240,18 +246,30 @@ export function StickerCarousel({
                   className="relative mx-auto mb-4 flex aspect-square w-full max-w-[17rem] items-start justify-center overflow-hidden rounded-2xl bg-sunny-50 pt-[9%] sm:max-w-[19rem]"
                   aria-hidden
                 >
-                  <NompongArt pose={PREVIEW_POSES[i % PREVIEW_POSES.length]} className="h-[68%] w-auto" decorative />
-                  <span
-                    className={cn(
-                      'absolute inset-x-3 bottom-3 truncate rounded-xl px-3 py-1.5 text-center font-display text-xl sm:text-2xl',
-                      s.word.trim() ? 'bg-surface text-ink' : 'bg-surface/70 text-muted/70',
-                    )}
-                  >
-                    {s.word.trim() || b.wordPh}
-                  </span>
+                  <NompongArt
+                    pose={PREVIEW_POSES[i % PREVIEW_POSES.length]}
+                    className={cn('h-[68%] w-auto transition-opacity duration-300', s.creatorPicks && 'opacity-40')}
+                    decorative
+                  />
+                  {s.creatorPicks ? (
+                    <span className="absolute inset-x-3 bottom-3 flex items-center justify-center gap-1.5 rounded-xl bg-sunny px-3 py-1.5 font-display text-base text-[#26221f] sm:text-lg">
+                      <Sparkles size={18} aria-hidden /> {b.creatorBadge}
+                    </span>
+                  ) : (
+                    <span
+                      className={cn(
+                        'absolute inset-x-3 bottom-3 truncate rounded-xl px-3 py-1.5 text-center font-display text-xl sm:text-2xl',
+                        s.word.trim() ? 'bg-surface text-ink' : 'bg-surface/70 text-muted/70',
+                      )}
+                    >
+                      {s.word.trim() || b.wordPh}
+                    </span>
+                  )}
                 </div>
 
-                <div className="space-y-4">
+                <CreatorToggle checked={!!s.creatorPicks} onChange={(v) => onChange(i, { creatorPicks: v })} />
+
+                <div className={cn('mt-4 space-y-4', s.creatorPicks && 'hidden')}>
                   <TextField
                     ref={(el) => {
                       wordRefs.current[i] = el
@@ -287,5 +305,34 @@ export function StickerCarousel({
         })}
       </div>
     </div>
+  )
+}
+
+/** "No idea for this one": hands the sticker to the creator. A switch, so it reads as on/off at a glance. */
+function CreatorToggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+  const b = useCopy().builder
+  return (
+    <label
+      className={cn(
+        'flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
+        checked ? 'border-sunny-200 bg-sunny-50' : 'border-line hover:border-line-strong',
+      )}
+    >
+      <Sparkles size={18} className={cn('shrink-0', checked ? 'text-ink' : 'text-muted')} aria-hidden />
+      <span className="min-w-0 flex-1">
+        <span className="block text-sm font-medium">{b.creatorPicks}</span>
+        {checked && <span className="block text-xs text-muted">{b.creatorPicksHint}</span>}
+      </span>
+      <input type="checkbox" role="switch" checked={checked} onChange={(e) => onChange(e.target.checked)} className="peer sr-only" />
+      <span
+        aria-hidden
+        className={cn(
+          'relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200',
+          checked ? 'bg-brown' : 'bg-line-strong',
+          "after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:bg-surface after:shadow-sm after:transition-transform after:duration-200 after:content-['']",
+          checked && 'after:translate-x-5',
+        )}
+      />
+    </label>
   )
 }
