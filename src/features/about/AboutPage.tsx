@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ChevronRight, Heart, PawPrint, Sparkles } from 'lucide-react'
 import { Link } from 'react-router'
 import { Page } from '@/components/layout/AppShell'
-import { NompongArt } from '@/features/nompong/art'
+import { NompongMascot } from '@/features/nompong/Mascot'
 import { setCover, setName, SetStatusBadge, StoreLink } from '@/features/stickers/components'
 import { api } from '@/lib/api'
 import { qk } from '@/lib/api/queryKeys'
@@ -87,8 +87,8 @@ export default function AboutPage() {
       </header>
 
       <article className="mt-8 grid overflow-hidden rounded-3xl border border-line bg-surface grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
-        <div className="flex aspect-[4/3] items-center justify-center bg-sunny-100 p-6 md:aspect-auto md:min-h-full" aria-hidden>
-          <NompongArt pose="curious" className="h-full max-h-80 w-auto" decorative />
+        <div className="flex aspect-[4/3] items-center justify-center bg-sunny-100 p-6 md:aspect-auto md:min-h-full">
+          <NompongMascot pose="curious" className="h-full max-h-80 w-auto" interactive />
         </div>
         <div className="min-w-0 p-5 [overflow-wrap:anywhere] sm:p-8">
           <h2 className="font-display text-2xl">

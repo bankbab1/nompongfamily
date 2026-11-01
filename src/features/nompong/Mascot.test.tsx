@@ -31,3 +31,19 @@ it('restarts the greeting reaction on repeated taps', () => {
   fireEvent.click(getByRole('button'))
   expect(container.querySelector('.mascot-reaction')).not.toBe(first)
 })
+
+it.each([['curious', 'mascot-curious-reaction'], ['studio', 'mascot-studio-reaction']] as const)('gives %s its own tap reaction', (pose, className) => {
+  const { getByRole, container } = render(<NompongMascot pose={pose} interactive />)
+  fireEvent.click(getByRole('button'))
+  expect(container.querySelector(`.${className}`)).toBeTruthy()
+})
+
+it('pauses both idle motion and a tap reaction in background tabs', () => {
+  const { getByRole, container } = render(<NompongMascot interactive />)
+  fireEvent.click(getByRole('button'))
+  vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden')
+  fireEvent(document, new Event('visibilitychange'))
+  expect(container.querySelector('img')!.style.animationPlayState).toBe('paused')
+  expect((container.querySelector('.mascot-reaction') as HTMLElement).style.animationPlayState).toBe('paused')
+  vi.restoreAllMocks()
+})

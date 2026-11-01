@@ -449,3 +449,19 @@ input[type='search']::-webkit-search-decoration {
 @media (prefers-reduced-motion: reduce) {
   .mascot-breathe,.mascot-sleep,.mascot-reaction,.mascot-celebrate { animation: none; }
 }
+
+@keyframes mascot-curious-reaction {
+  0%, 100% { transform: rotate(0); }
+  35% { transform: rotate(-8deg); }
+  70% { transform: rotate(4deg); }
+}
+@keyframes mascot-studio-reaction {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25%, 65% { transform: translateY(-5px) rotate(-4deg); }
+  45%, 85% { transform: translateY(-3px) rotate(4deg); }
+}
+.mascot-curious-reaction { transform-origin: center 85%; animation: mascot-curious-reaction 850ms ease-in-out; }
+.mascot-studio-reaction { transform-origin: center 85%; animation: mascot-studio-reaction 750ms ease-in-out; }
+@media (prefers-reduced-motion: reduce) {
+  .mascot-curious-reaction, .mascot-studio-reaction { animation: none; }
+}

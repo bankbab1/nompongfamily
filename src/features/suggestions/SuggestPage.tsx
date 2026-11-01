@@ -60,9 +60,8 @@ export default function SuggestPage() {
         <div
           className="studio-rise hidden h-36 w-36 shrink-0 items-center justify-center rounded-full bg-sunny-100 sm:flex"
           style={{ '--d': '80ms' } as React.CSSProperties}
-          aria-hidden
         >
-          <NompongMascot pose="studio" className={cn('h-28 w-auto', !hold && 'studio-intro-pop')} decorative />
+          <NompongMascot pose="studio" className={cn('h-28 w-auto', !hold && 'studio-intro-pop')} interactive />
         </div>
       </Page>
 
