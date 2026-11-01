@@ -47,6 +47,8 @@ function useSwipeToClose(
   useEffect(() => {
     const el = sheet
     if (!open || !enabled || !el) return
+    el.style.removeProperty('--sheet-exit-y')
+    overlay.current?.style.removeProperty('--sheet-exit-opacity')
     let start: { x: number; y: number; t: number } | null = null
     let dragging = false
     let dy = 0
@@ -100,8 +102,17 @@ function useSwipeToClose(
       if (!dragging) return
       dragging = false
       if (dy > el.offsetHeight * 0.3 || (dy > 40 && velocity > 0.5)) {
-        setY(el.offsetHeight, true)
-        window.setTimeout(close, reduceMotion() ? 0 : 200)
+        // Let Radix Presence keep the sheet mounted for the same exit animation used by
+        // backdrop taps, Escape and the close button. Continue from the finger's position.
+        el.style.setProperty('--sheet-exit-y', `${dy}px`)
+        overlay.current?.style.setProperty('--sheet-exit-opacity', String(Math.max(0.15, 1 - dy / el.offsetHeight)))
+        el.style.transform = ''
+        el.style.transition = ''
+        if (overlay.current) {
+          overlay.current.style.opacity = ''
+          overlay.current.style.transition = ''
+        }
+        close()
       } else setY(0, true)
     }
 
@@ -176,7 +187,7 @@ export function ResponsiveModal({
   return (
     <RDialog.Root open={open} onOpenChange={onOpenChange}>
       <RDialog.Portal>
-        <RDialog.Overlay ref={overlay} className="fixed inset-0 z-50 bg-brown-800/40 backdrop-blur-[1px] max-sm:motion-safe:animate-[fade-in_200ms_ease-out]" />
+        <RDialog.Overlay ref={overlay} className="fixed inset-0 z-50 bg-brown-800/40 backdrop-blur-[1px] max-sm:motion-safe:data-[state=open]:animate-[fade-in_200ms_ease-out] max-sm:motion-safe:data-[state=closed]:animate-[sheet-backdrop-out_240ms_ease-out_forwards]" />
         <RDialog.Content
           ref={setSheet}
           onPointerDownOutside={(e) => !closeOnBackdrop && e.preventDefault()}
@@ -184,7 +195,7 @@ export function ResponsiveModal({
           onCloseAutoFocus={onCloseAutoFocus}
           className={cn(
             'fixed z-50 flex flex-col border-line bg-surface shadow-2xl focus:outline-none',
-            'max-sm:motion-safe:animate-[sheet-in_260ms_cubic-bezier(.2,.8,.2,1)]',
+            'max-sm:motion-safe:data-[state=open]:animate-[sheet-in_260ms_cubic-bezier(.2,.8,.2,1)] max-sm:motion-safe:data-[state=closed]:animate-[sheet-out_240ms_cubic-bezier(.2,.8,.2,1)_forwards]',
             'inset-x-0 bottom-0 max-h-[92dvh] rounded-t-3xl border-t',
             'sm:inset-auto sm:top-1/2 sm:left-1/2 sm:max-h-[85vh] sm:w-[calc(100vw-2rem)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:border',
             widths[size],

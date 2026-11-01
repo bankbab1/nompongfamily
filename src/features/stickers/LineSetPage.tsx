@@ -273,7 +273,10 @@ function StickerZoom({
   const tx = useTx()
   const open = index !== null
   const swipe = useRef<{ x: number; y: number } | null>(null)
-  const i = index ?? 0
+  // Keep the selected sticker visible while Radix plays the closing animation.
+  const [lastIndex, setLastIndex] = useState(index ?? 0)
+  if (index !== null && index !== lastIndex) setLastIndex(index)
+  const i = index ?? lastIndex
   const prev = () => onIndex(Math.max(0, i - 1))
   const next = () => onIndex(Math.min(stickers.length - 1, i + 1))
 
@@ -304,7 +307,7 @@ function StickerZoom({
         </div>
       }
     >
-      {open && (
+      {(
         <div className="flex items-center gap-2">
           <Button variant="ghost" iconOnly label={tx('ภาพก่อนหน้า', 'Previous sticker')} icon={<ChevronLeft size={22} />} disabled={i === 0} onClick={prev} />
           {/* Swipe left/right on the sticker to step through the set (down still closes the sheet). */}
@@ -340,7 +343,7 @@ function StickerZoom({
           />
         </div>
       )}
-      {open && (
+      {(
         <div className="mx-auto mt-4 max-w-56">
           <p className="text-center text-sm font-medium text-muted tabular-nums" aria-live="polite">
             <span className="sr-only">{tx('ภาพที่', 'Sticker')} </span>

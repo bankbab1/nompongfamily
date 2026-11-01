@@ -144,6 +144,23 @@ body {
     transform: none;
   }
 }
+/* Radix waits for these exits before unmounting and restoring focus. */
+@keyframes sheet-out {
+  from {
+    transform: translateY(var(--sheet-exit-y, 0px));
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes sheet-backdrop-out {
+  from {
+    opacity: var(--sheet-exit-opacity, 1);
+  }
+  to {
+    opacity: 0;
+  }
+}
 @keyframes fade-in {
   from {
     opacity: 0;
