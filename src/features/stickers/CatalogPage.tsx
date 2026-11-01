@@ -1,6 +1,6 @@
 import { ArrowUpRight, Search } from 'lucide-react'
 import { useDeferredValue, useMemo, useRef } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import { EmptyState } from '@/components/feedback/States'
 import { Page, PageHeader } from '@/components/layout/AppShell'
 import { buttonBase, buttonSizes, buttonVariants } from '@/components/ui/Button'
@@ -9,6 +9,7 @@ import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
 import { useLocale, useTx } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
+import { LineSetCard } from './LineSetCard'
 import { LINE_AUTHOR_URL, LINE_SERIES, LINE_SETS, lineUrl, versionName, VERSIONS, type LineSet } from './lineStore'
 
 /** Every Nompong set on the LINE Store. Each card opens that set's own store page. */
@@ -167,27 +168,5 @@ function StoreButton({ locale, label, className }: { locale: 'th' | 'en'; label:
       {label}
       <ArrowUpRight size={16} aria-hidden />
     </a>
-  )
-}
-
-function LineSetCard({ set }: { set: LineSet }) {
-  return (
-    <Link to={`/stickers/${set.id}`} className="group block rounded-2xl focus-visible:outline-offset-4">
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-surface-muted transition-colors group-hover:bg-sunny-100">
-        <img
-          src={set.image}
-          alt=""
-          width={240}
-          height={240}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-contain p-3 transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transition-none"
-        />
-      </div>
-      <p className="mt-2 line-clamp-2 text-sm leading-snug font-medium text-ink" lang="th">
-        {set.name}
-      </p>
-      <p className="t-meta">{set.code}</p>
-    </Link>
   )
 }

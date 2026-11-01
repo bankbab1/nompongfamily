@@ -1,14 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
 import { ChevronRight, CreditCard, Heart, Image, ShoppingBag, Sticker } from 'lucide-react'
 import { Link } from 'react-router'
-import { Skeleton } from '@/components/feedback/States'
 import { Page } from '@/components/layout/AppShell'
 import { LinkButton } from '@/components/ui/LinkButton'
 import { TypingText } from '@/components/ui/TypingText'
 import { NompongArt } from '@/features/nompong/art'
-import { setDesc, setName, StickerSetCard } from '@/features/stickers/components'
-import { api } from '@/lib/api'
-import { qk } from '@/lib/api/queryKeys'
+import { LineSetCard } from '@/features/stickers/LineSetCard'
+import { LINE_SERIES, LINE_SETS, versionName, VERSIONS } from '@/features/stickers/lineStore'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
 import { pick, useLocale, useTx } from '@/lib/i18n'
 
@@ -48,10 +45,8 @@ export default function HomePage() {
       'The official home of Nompong: LINE stickers, wallpapers and Nompong Studio',
     ),
   )
-  const featured = useQuery({ queryKey: qk.sets({ liveOnly: true }), queryFn: () => api.catalog.listSets({ liveOnly: true }) })
-  const sets = featured.data ?? []
-  const latest = [...sets].sort((a, b) => (b.releasedAt ?? '').localeCompare(a.releasedAt ?? '')).slice(0, 4)
-  const community = sets.find((s) => s.series === 'CR')
+  // Straight from the LINE Store sync: the store lists newest first, so new sets show up here on their own.
+  const latest = LINE_SETS.slice(0, 6)
 
   return (
     <>
@@ -109,18 +104,12 @@ export default function HomePage() {
               {tx('ดูทั้งหมด', 'See all')} <ChevronRight size={16} aria-hidden />
             </Link>
           </div>
-          <ul className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-4">
-            {featured.isPending
-              ? Array.from({ length: 4 }).map((_, i) => (
-                  <li key={i}>
-                    <Skeleton className="h-72" />
-                  </li>
-                ))
-              : latest.map((s) => (
-                  <li key={s.id}>
-                    <StickerSetCard set={s} />
-                  </li>
-                ))}
+          <ul className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
+            {latest.map((s) => (
+              <li key={s.id}>
+                <LineSetCard set={s} />
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -139,19 +128,23 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          {community && (
-            <Link
-              to={`/stickers/${community.slug}`}
-              className="group flex flex-col rounded-3xl border border-line bg-surface p-6 transition-colors hover:border-line-strong sm:p-8"
-            >
-              <p className="text-sm text-muted">{tx('ชุดจากไอเดียของแฟนๆ', 'A set from fans’ ideas')}</p>
-              <h2 className="mt-1 font-display text-2xl">{setName(community, locale).main}</h2>
-              <p className="mt-2 text-muted">{setDesc(community, locale)}</p>
-              <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-medium">
-                {tx('ดูชุด', 'See set')} {community.code} <ChevronRight size={16} aria-hidden />
-              </span>
-            </Link>
-          )}
+          {/* Every version with its live set count; the numbers follow the LINE Store sync. */}
+          <div className="flex flex-col rounded-3xl border border-line bg-surface p-6 sm:p-8">
+            <p className="text-sm text-muted">{tx(`สติกเกอร์นมผงใน LINE ทั้งหมด ${LINE_SETS.length} ชุด`, `${LINE_SETS.length} Nompong sets on LINE`)}</p>
+            <h2 className="mt-1 font-display text-2xl">{tx('เลือกดูตามเวอร์ชัน', 'Browse by version')}</h2>
+            <ul className="mt-4 divide-y divide-line">
+              {LINE_SERIES.map((v) => (
+                <li key={v.id}>
+                  <Link to={`/stickers?series=${v.id}`} className="flex min-h-12 items-center gap-3 py-2 hover:text-ink">
+                    <span className="font-medium">{versionName(v.id)}</span>
+                    <span className="min-w-0 flex-1 truncate text-sm text-muted">{VERSIONS[v.id] ? tx(VERSIONS[v.id].th, VERSIONS[v.id].en) : ''}</span>
+                    <span className="text-sm text-muted tabular-nums">{v.count}</span>
+                    <ChevronRight size={16} className="text-muted" aria-hidden />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       </Page>
     </>

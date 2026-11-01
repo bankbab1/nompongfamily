@@ -24,6 +24,7 @@ import {
   type SuggestionErrors,
   type SuggestionInput,
 } from './model'
+import { MoodIcon } from './MoodIcon'
 import { StickerCarousel, StickerPager, StickerStrip } from './stickerCards'
 
 /* ---------- Draft kept on this device so a refresh never loses 40 stickers of work ---------- */
@@ -188,7 +189,12 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
       if (hasErrors(errs)) {
         setErrors(errs)
         goTo(s)
-        if (s === 1) requestAnimationFrame(() => nameRef.current?.focus())
+        // Focus the first field with a problem (the Thai name is optional now, so not always the first box).
+        if (s === 1)
+          requestAnimationFrame(() => {
+            const bad = topRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')
+            ;(bad ?? nameRef.current)?.focus()
+          })
         if (s === 2) {
           const firstBad = Object.keys(errs.stickers)
             .map(Number)
@@ -287,12 +293,13 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                 ref={nameRef}
                 lang="th"
                 label={b.nameTh}
+                optional
                 placeholder={b.namePhTh}
                 value={draft.nameTh}
                 onChange={(e) => set('nameTh', e.target.value)}
                 maxChars={LIMITS.name}
                 error={errText(errors.fields.nameTh)}
-                hint={b.nameHint}
+                hint={b.thHint}
               />
               <TextField
                 lang="en"
@@ -302,12 +309,13 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                 onChange={(e) => set('nameEn', e.target.value)}
                 maxChars={LIMITS.name}
                 error={errText(errors.fields.nameEn)}
-                hint={b.nameHint}
+                hint={b.enHint}
               />
               <TextArea
                 lang="th"
                 label={b.descTh}
                 optional
+                hint={b.thHint}
                 placeholder={b.descPhTh}
                 value={draft.descTh}
                 onChange={(e) => set('descTh', e.target.value)}
@@ -318,7 +326,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
               <TextArea
                 lang="en"
                 label={b.descEn}
-                optional
+                hint={b.enHint}
                 placeholder={b.descPhEn}
                 value={draft.descEn}
                 onChange={(e) => set('descEn', e.target.value)}
@@ -341,7 +349,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                     )}
                   >
                     <input type="radio" name="mood" value={m.id} checked={draft.mood === m.id} onChange={() => set('mood', m.id)} className="sr-only" />
-                    <span aria-hidden>{m.emoji}</span>
+                    <MoodIcon id={m.id} />
                     {c.moods[m.id]}
                   </label>
                 ))}
@@ -388,7 +396,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-muted">
-                    {fill(b.countUnit, { n: count })} · {MOODS.find((m) => m.id === draft.mood)?.emoji} {c.moods[draft.mood]}
+                    {fill(b.countUnit, { n: count })} · <MoodIcon id={draft.mood} size={13} className="inline -mt-0.5" /> {c.moods[draft.mood]}
                   </p>
                   <h3 className="mt-1 font-display text-lg leading-snug">{nameMain || b.reviewNoName}</h3>
                   {draft.nameTh.trim() && draft.nameEn.trim() && <p className="text-sm text-muted">{draft.nameEn}</p>}

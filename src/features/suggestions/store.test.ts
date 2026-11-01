@@ -12,8 +12,8 @@ const input = (over: Partial<SuggestionInput> = {}): SuggestionInput => {
     mood: 'cute',
     nameTh: 'นมผงไปทะเล',
     nameEn: 'Nompong at the Beach',
-    descTh: '',
-    descEn: '',
+    descTh: 'นมผงไปเที่ยวทะเลกับเพื่อนๆ',
+    descEn: 'Nompong goes to the beach with friends.',
     stickers,
     nickname: '',
     ...over,
@@ -64,7 +64,16 @@ describe('local suggestions', () => {
       LEGACY_KEY,
       JSON.stringify({
         items: [
-          { id: 'mine-1', title: 'นมผงไปตลาด', mood: 'daily', description: 'ซื้อของ', captions: ['ซื้ออะไรดี', 'แพงจัง'], nickname: 'บี', createdAt: '2026-10-28T00:00:00Z', baseVotes: 0 },
+          {
+            id: 'mine-1',
+            title: 'นมผงไปตลาด',
+            mood: 'daily',
+            description: 'ซื้อของ',
+            captions: ['ซื้ออะไรดี', 'แพงจัง'],
+            nickname: 'บี',
+            createdAt: '2026-10-28T00:00:00Z',
+            baseVotes: 0,
+          },
           { id: 'ex-1', title: 'old example', mood: 'work', captions: [], createdAt: '2026-10-01T00:00:00Z', baseVotes: 5, isExample: true },
         ],
         myVotes: ['mine-1', 'ex-1'],
@@ -93,9 +102,9 @@ describe('local suggestions', () => {
 })
 
 describe('validation', () => {
-  it('needs a name in at least one language', () => {
-    expect(validateSuggestion(input({ nameTh: '', nameEn: 'Beach' })).fields.nameTh).toBeUndefined()
-    expect(validateSuggestion(input({ nameTh: '', nameEn: '' })).fields.nameTh).toBe('nameRequired')
+  it('needs an English name; Thai can be left out entirely', () => {
+    expect(validateSuggestion(input({ nameTh: '', descTh: '', nameEn: 'Beach' })).fields.nameTh).toBeUndefined()
+    expect(validateSuggestion(input({ nameTh: '', nameEn: '' })).fields.nameEn).toBe('nameEnRequired')
   })
 
   it('needs at least one sticker with a word or a style', () => {
@@ -143,5 +152,31 @@ describe('creator picks', () => {
 
   it('still needs at least one sticker filled or handed off', () => {
     expect(validateSuggestion(input({ stickers: blankStickers(40) })).fields.stickers).toBe('stickerRequired')
+  })
+})
+
+describe('LINE Creators Market text rules', () => {
+  const errs = (over: Partial<SuggestionInput>) => validateSuggestion(input(over)).fields
+
+  it('needs an English name and description', () => {
+    expect(errs({ nameEn: '' }).nameEn).toBe('nameEnRequired')
+    expect(errs({ descEn: '  ' }).descEn).toBe('descEnRequired')
+  })
+
+  it('allows English only in the English fields', () => {
+    expect(errs({ nameEn: 'นมผง Beach' }).nameEn).toBe('englishOnly')
+    expect(errs({ descEn: 'Fun at the beach 🏖️' }).descEn).toBe('englishOnly')
+    expect(errs({ nameEn: "Nompong's Day-Off! (v2)" }).nameEn).toBeUndefined()
+  })
+
+  it('lets Thai fields mix Thai and English, but not emoji', () => {
+    expect(errs({ nameTh: 'นมผง Beach Day' }).nameTh).toBeUndefined()
+    expect(errs({ nameTh: 'นมผงไปทะเล 🌊' }).nameTh).toBe('thaiEnglishOnly')
+  })
+
+  it('treats Thai as optional but all-or-nothing', () => {
+    expect(Object.keys(errs({ nameTh: '', descTh: '' }))).toHaveLength(0)
+    expect(errs({ nameTh: 'นมผงไปทะเล', descTh: '' }).descTh).toBe('descThRequired')
+    expect(errs({ nameTh: '', descTh: 'ไปเที่ยวกัน' }).nameTh).toBe('nameThRequired')
   })
 })

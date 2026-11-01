@@ -29,6 +29,8 @@
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
+  --color-sticker-tile: var(--sticker-tile);
+  --color-sticker-tile-hover: var(--sticker-tile-hover);
   --color-ink: var(--text-primary);
   --color-muted: var(--text-muted);
   --color-line: var(--border);
@@ -48,6 +50,13 @@
   --background: #fbfaf7;
   --surface: #ffffff;
   --surface-muted: #f4f2ee;
+  /* Selected pill in the top nav: a raised chip with a hairline edge. */
+  --nav-pill: #ffffff;
+  --nav-pill-edge: rgb(38 34 31 / 0.1);
+  /* Behind LINE sticker images. Stickers are drawn for a light chat background (dark-brown
+     lettering, transparent edges), so this stays light in dark mode too, only dimmed a little. */
+  --sticker-tile: #f4f2ee;
+  --sticker-tile-hover: #faf2d6;
   --text-primary: #26221f; /* ~15:1 on background */
   --text-muted: #6b645d; /* ~5.6:1 on background */
   --border: #ebe7e1;
@@ -88,6 +97,10 @@
   --background: #141311;
   --surface: #1c1b19;
   --surface-muted: #262421;
+  --nav-pill: #34312c;
+  --nav-pill-edge: rgb(255 255 255 / 0.08);
+  --sticker-tile: #e8e3d9;
+  --sticker-tile-hover: #f0e7cd;
   --text-primary: #f2efe9; /* ~16:1 on background */
   --text-muted: #a8a198; /* ~7:1 on background */
   --border: #2e2b27;

@@ -10,18 +10,18 @@ export type StickerCount = (typeof STICKER_COUNTS)[number]
 export const MAX_STICKERS = 40
 
 export const MOODS = [
-  { id: 'cute', emoji: '🥰' },
-  { id: 'funny', emoji: '😆' },
-  { id: 'daily', emoji: '☀️' },
-  { id: 'work', emoji: '💼' },
-  { id: 'love', emoji: '💕' },
-  { id: 'family', emoji: '🏡' },
-  { id: 'festival', emoji: '🎉' },
-  { id: 'other', emoji: '✨' },
+  // Each mood's icon lives in MoodIcon.tsx.
+  { id: 'cute' },
+  { id: 'funny' },
+  { id: 'daily' },
+  { id: 'work' },
+  { id: 'love' },
+  { id: 'family' },
+  { id: 'festival' },
+  { id: 'other' },
 ] as const
 
 export type MoodId = (typeof MOODS)[number]['id']
-export const moodEmoji = (id: MoodId) => MOODS.find((m) => m.id === id)?.emoji ?? '✨'
 
 /**
  * Name and description limits follow the LINE Creators Market store listing
@@ -45,11 +45,28 @@ export const isFilled = (s: StickerIdea) => !!s.creatorPicks || s.word.trim().le
 export const isOwnIdea = (s: StickerIdea) => !s.creatorPicks && (s.word.trim().length > 0 || s.style.trim().length > 0)
 
 /** Validation messages are codes; pages turn them into Thai or English text. */
-export type SuggestionErrorCode = 'nameRequired' | 'nameTooLong' | 'descTooLong' | 'wordTooLong' | 'styleTooLong' | 'stickerRequired' | 'nicknameTooLong'
+export type SuggestionErrorCode =
+  | 'nameEnRequired'
+  | 'descEnRequired'
+  | 'nameThRequired'
+  | 'descThRequired'
+  | 'englishOnly'
+  | 'thaiEnglishOnly'
+  | 'nameTooLong'
+  | 'descTooLong'
+  | 'wordTooLong'
+  | 'styleTooLong'
+  | 'stickerRequired'
+  | 'nicknameTooLong'
 
 /** The number each error message mentions. */
 export const ERROR_LIMIT: Record<SuggestionErrorCode, number> = {
-  nameRequired: LIMITS.name,
+  nameEnRequired: LIMITS.name,
+  descEnRequired: LIMITS.desc,
+  nameThRequired: LIMITS.name,
+  descThRequired: LIMITS.desc,
+  englishOnly: 0,
+  thaiEnglishOnly: 0,
   nameTooLong: LIMITS.name,
   descTooLong: LIMITS.desc,
   wordTooLong: LIMITS.word,
@@ -61,14 +78,30 @@ export const ERROR_LIMIT: Record<SuggestionErrorCode, number> = {
 const maxText = (max: number, code: SuggestionErrorCode) => z.string().refine((v) => textLength(v) <= max, code)
 const blank = (v: string) => v.trim().length === 0
 
+/*
+ * Set name and description follow the LINE Creators Market rules:
+ * - English name and description are required for every set, in English letters, numbers and symbols only.
+ * - Thai is an extra language: optional, but once you add it both its name and description are needed.
+ *   Thai text may mix in English.
+ * - No emoji or other device-specific characters anywhere.
+ * Re-check against the Creators Market guidelines before release.
+ */
+/** Printable ASCII: English letters, digits, spaces and keyboard symbols. */
+export const isEnglishText = (v: string) => /^[\x20-\x7E\n]*$/.test(v)
+/** Thai letters plus everything isEnglishText allows. */
+export const isThaiEnglishText = (v: string) => /^[฀-๿\x20-\x7E\n]*$/.test(v)
+
+const enText = (max: number, tooLong: SuggestionErrorCode) => maxText(max, tooLong).refine(isEnglishText, 'englishOnly')
+const thText = (max: number, tooLong: SuggestionErrorCode) => maxText(max, tooLong).refine(isThaiEnglishText, 'thaiEnglishOnly')
+
 export const suggestionInputSchema = z
   .object({
     stickerCount: z.union(STICKER_COUNTS.map((n) => z.literal(n)) as [z.ZodLiteral<8>, ...z.ZodLiteral<StickerCount>[]]),
     mood: z.enum(MOODS.map((m) => m.id) as [MoodId, ...MoodId[]]),
-    nameTh: maxText(LIMITS.name, 'nameTooLong'),
-    nameEn: maxText(LIMITS.name, 'nameTooLong'),
-    descTh: maxText(LIMITS.desc, 'descTooLong'),
-    descEn: maxText(LIMITS.desc, 'descTooLong'),
+    nameTh: thText(LIMITS.name, 'nameTooLong'),
+    nameEn: enText(LIMITS.name, 'nameTooLong'),
+    descTh: thText(LIMITS.desc, 'descTooLong'),
+    descEn: enText(LIMITS.desc, 'descTooLong'),
     stickers: z
       .array(
         z.object({
@@ -80,7 +113,11 @@ export const suggestionInputSchema = z
       .max(MAX_STICKERS),
     nickname: maxText(LIMITS.nickname, 'nicknameTooLong'),
   })
-  .refine((v) => !blank(v.nameTh) || !blank(v.nameEn), { message: 'nameRequired', path: ['nameTh'] })
+  .refine((v) => !blank(v.nameEn), { message: 'nameEnRequired', path: ['nameEn'] })
+  .refine((v) => !blank(v.descEn), { message: 'descEnRequired', path: ['descEn'] })
+  // Thai is all-or-nothing, like adding a language in the Creators Market.
+  .refine((v) => blank(v.descTh) || !blank(v.nameTh), { message: 'nameThRequired', path: ['nameTh'] })
+  .refine((v) => blank(v.nameTh) || !blank(v.descTh), { message: 'descThRequired', path: ['descTh'] })
   // A sticker counts once it has an idea or is handed to the creator.
   .refine((v) => v.stickers.some(isFilled), { message: 'stickerRequired', path: ['stickers'] })
 

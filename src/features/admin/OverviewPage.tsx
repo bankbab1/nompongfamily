@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ChevronRight, Clock, Factory, Inbox, Store } from 'lucide-react'
+import { ChevronRight, Clock, Factory, Inbox, PartyPopper, Store } from 'lucide-react'
 import { Link } from 'react-router'
 import { Card, ErrorState, PageSkeleton } from '@/components/feedback/States'
 import { PageHeader } from '@/components/layout/AppShell'
@@ -56,7 +56,9 @@ export default function OverviewPage() {
             </Link>
           </div>
           {work.length === 0 ? (
-            <p className="text-sm text-muted">ไม่มีงานค้าง 🎉</p>
+            <p className="inline-flex items-center gap-1.5 text-sm text-muted">
+              ไม่มีงานค้าง <PartyPopper size={15} aria-hidden />
+            </p>
           ) : (
             <ul className="divide-y divide-line">
               {work.slice(0, 8).map((r) => (

@@ -46,7 +46,7 @@ export default function LineSetPage({ id }: { id: string }) {
 
       {/* Set header: cover, name, version, count and price, and the way to buy it. */}
       <header className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
-        <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-3xl bg-surface-muted sm:h-40 sm:w-40">
+        <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-3xl bg-sticker-tile sm:h-40 sm:w-40">
           <img src={set.image} alt="" width={240} height={240} className="h-full w-full object-contain p-3" />
         </div>
         <div className="min-w-0 flex-1">
@@ -107,7 +107,7 @@ export default function LineSetPage({ id }: { id: string }) {
                   type="button"
                   onClick={() => setZoom(i)}
                   aria-label={tx(`ดูภาพที่ ${i + 1} แบบขยาย`, `View sticker ${i + 1} larger`)}
-                  className="group block aspect-square w-full overflow-hidden rounded-2xl bg-surface-muted transition-colors hover:bg-sunny-100"
+                  className="group block aspect-square w-full overflow-hidden rounded-2xl bg-sticker-tile transition-colors hover:bg-sticker-tile-hover"
                 >
                   <img
                     src={stickerImage(sid)}
@@ -158,7 +158,7 @@ function BackLink() {
 function RelatedCard({ set }: { set: LineSet }) {
   return (
     <Link to={`/stickers/${set.id}`} className="group block">
-      <div className="aspect-square overflow-hidden rounded-2xl bg-surface-muted transition-colors group-hover:bg-sunny-100">
+      <div className="aspect-square overflow-hidden rounded-2xl bg-sticker-tile transition-colors group-hover:bg-sticker-tile-hover">
         <img
           src={set.image}
           alt=""
@@ -209,7 +209,7 @@ function StickerZoom({ stickers, index, onIndex, buyUrl }: { stickers: number[];
       {open && (
         <div className="flex items-center gap-2">
           <Button variant="ghost" iconOnly label={tx('ภาพก่อนหน้า', 'Previous sticker')} icon={<ChevronLeft size={22} />} disabled={i === 0} onClick={prev} />
-          <div className="flex aspect-square min-w-0 flex-1 items-center justify-center rounded-2xl bg-surface-muted">
+          <div className="flex aspect-square min-w-0 flex-1 items-center justify-center rounded-2xl bg-sticker-tile">
             <img key={stickers[i]} src={stickerImage(stickers[i], true)} alt="" className="h-full w-full object-contain p-4" />
           </div>
           <Button

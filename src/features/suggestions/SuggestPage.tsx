@@ -9,6 +9,7 @@ import { NompongArt } from '@/features/nompong/art'
 import { useCopy } from '@/lib/copy'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
+import { MoodIcon } from './MoodIcon'
 import { StickerSetBuilder } from './builder'
 import { SuggestionCard } from './components'
 import { MOODS, sortSuggestions, type MoodId, type SuggestionSort } from './model'
@@ -32,10 +33,7 @@ export default function SuggestPage() {
     return sortSuggestions(mood === 'all' ? list : list.filter((s) => s.mood === mood), sort)
   }, [q.data, sort, mood])
 
-  const filters: { id: MoodId | 'all'; label: string; emoji: string }[] = [
-    { id: 'all', label: c.suggest.all, emoji: '' },
-    ...MOODS.map((m) => ({ id: m.id, label: c.moods[m.id], emoji: m.emoji })),
-  ]
+  const filters: { id: MoodId | 'all'; label: string }[] = [{ id: 'all', label: c.suggest.all }, ...MOODS.map((m) => ({ id: m.id, label: c.moods[m.id] }))]
 
   return (
     <>
@@ -120,7 +118,7 @@ export default function SuggestPage() {
                     mood === m.id ? 'border-brown bg-brown font-medium text-cream' : 'border-line text-muted hover:border-line-strong hover:text-ink',
                   )}
                 >
-                  {m.emoji && <span aria-hidden>{m.emoji}</span>}
+                  {m.id !== 'all' && <MoodIcon id={m.id} />}
                   {m.label}
                 </button>
               ))}

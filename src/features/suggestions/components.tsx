@@ -3,7 +3,8 @@ import { useId, useState } from 'react'
 import { fill, useCopy } from '@/lib/copy'
 import { useLocale } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
-import { isFilled, localDesc, localName, moodEmoji, type Suggestion } from './model'
+import { isFilled, localDesc, localName, type Suggestion } from './model'
+import { MoodIcon } from './MoodIcon'
 
 const PREVIEW_WORDS = 6
 
@@ -33,7 +34,7 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
           {fill(c.card.count, { n: s.stickerCount })}
         </span>
         <span className="inline-flex items-center gap-1 rounded-full bg-surface-muted px-2.5 py-0.5 font-medium">
-          <span aria-hidden>{moodEmoji(s.mood)}</span> {c.moods[s.mood]}
+          <MoodIcon id={s.mood} size={13} /> {c.moods[s.mood]}
         </span>
         {s.mine ? (
           <span className="ml-auto rounded-full bg-success-soft px-2.5 py-0.5 text-xs font-medium text-success">{c.card.yours}</span>

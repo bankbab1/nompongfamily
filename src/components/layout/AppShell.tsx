@@ -82,15 +82,20 @@ function DesktopNav() {
   const { pill, ready } = useSlidingPill(ref, '[aria-current="page"]', [pathname, locale])
   return (
     <nav ref={ref} aria-label={t('nav.mainMenu')} className="relative hidden min-w-0 items-center gap-0.5 justify-self-center lg:flex">
-      <SlidingPill pill={pill} ready={ready} className="rounded-full bg-surface-muted" />
+      <SlidingPill
+        pill={pill}
+        ready={ready}
+        className="rounded-full bg-[var(--nav-pill)] shadow-[0_1px_2px_rgb(0_0_0/0.08),inset_0_0_0_1px_var(--nav-pill-edge)]"
+      />
       {desktopLinks.map((l) => (
         <NavLink
           key={l.to}
           to={l.to}
           className={({ isActive }) =>
             cn(
-              'relative rounded-full px-3 py-1.5 text-sm whitespace-nowrap transition-colors duration-300',
-              isActive ? 'font-semibold text-ink' : 'font-medium text-muted hover:text-ink',
+              'relative rounded-full px-3.5 py-1.5 text-sm whitespace-nowrap transition-colors duration-200',
+              // The selected item sits on the sliding pill; the others get a soft wash on hover.
+              isActive ? 'font-semibold text-ink' : 'font-medium text-muted hover:bg-surface-muted hover:text-ink',
             )
           }
         >
