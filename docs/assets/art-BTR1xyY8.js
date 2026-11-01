@@ -1,1 +1,0 @@
-import{C as e,mt as t}from"./Field-c-0ZZjhj.js";var n=t(),r={sit:`greeting`,side:`curious`,back:`curious`,wave:`greeting`,sleep:`sleep`,curious:`curious`,lazy:`sleep`};function i({pose:t=`sit`,className:i,decorative:a}){return(0,n.jsx)(e,{pose:r[t],className:i,decorative:a})}export{i as t};
