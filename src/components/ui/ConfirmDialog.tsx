@@ -47,7 +47,7 @@ export function ConfirmHost() {
         </>
       }
     >
-      <div className="space-y-3 text-[15px] leading-relaxed text-ink">{req.description}</div>
+      {req.description ? <div className="space-y-3 text-[15px] leading-relaxed text-ink">{req.description}</div> : null}
     </ResponsiveModal>
   )
 }

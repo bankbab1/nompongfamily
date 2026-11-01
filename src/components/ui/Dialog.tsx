@@ -147,7 +147,7 @@ export interface ResponsiveModalProps {
   onOpenChange(open: boolean): void
   title: ReactNode
   description?: ReactNode
-  children: ReactNode
+  children?: ReactNode
   footer?: ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xl'
   /** Prevent dismissing on backdrop click (e.g. unsaved comment). */
@@ -172,6 +172,7 @@ export function ResponsiveModal({
   className,
 }: ResponsiveModalProps) {
   const onCloseAutoFocus = useReturnFocus(open)
+  const hasBody = children !== null && children !== undefined && children !== false
   // State, not a ref: the sheet mounts after this component's first effects run, and the swipe
   // listeners need to attach once it exists.
   const [sheet, setSheet] = useState<HTMLDivElement | null>(null)
@@ -219,11 +220,13 @@ export function ResponsiveModal({
               <X size={20} />
             </RDialog.Close>
           </div>
-          <div ref={body} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4">
-            {children}
-          </div>
+          {hasBody && (
+            <div ref={body} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4">
+              {children}
+            </div>
+          )}
           {footer && (
-            <div className="mobile-sticky-actions flex flex-col-reverse gap-2 border-t border-line px-5 pt-3 sm:flex-row sm:items-center sm:justify-end sm:pb-3">
+            <div className={cn('mobile-sticky-actions flex flex-col-reverse gap-2 border-line px-5 pt-3 sm:flex-row sm:items-center sm:justify-end sm:pb-3', hasBody && 'border-t')}>
               {footer}
             </div>
           )}

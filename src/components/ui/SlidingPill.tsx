@@ -26,14 +26,22 @@ export function useSlidingPill(track: RefObject<HTMLElement | null>, selector: s
         setPill((p) => (p ? { ...p, on: false } : null))
         return
       }
-      const r = root.getBoundingClientRect()
-      const b = el.getBoundingClientRect()
-      setPill({ left: b.left - r.left - root.clientLeft, top: b.top - r.top - root.clientTop, width: b.width, height: b.height, on: true })
+      // All tracks are positioned containers. Layout offsets stay stable while an ancestor
+      // scales during entry; viewport bounding boxes would bake that scale into the pill.
+      setPill({ left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight, on: true })
     }
     measure()
     const ro = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
-    if (ro && track.current) ro.observe(track.current)
-    return () => ro?.disconnect()
+    if (ro && track.current) {
+      ro.observe(track.current)
+      for (const item of track.current.children) if (item instanceof HTMLElement && !item.hasAttribute('aria-hidden')) ro.observe(item)
+    }
+    let disposed = false
+    void document.fonts?.ready.then(() => { if (!disposed) measure() })
+    return () => {
+      disposed = true
+      ro?.disconnect()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
