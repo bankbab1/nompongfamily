@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { createBrowserRouter, Navigate } from 'react-router'
+import { createBrowserRouter, Navigate, useParams } from 'react-router'
 import { AppShell, type RouteHandle } from '@/components/layout/AppShell'
 import { RequireAdmin, RequireAuth } from '@/features/auth/guards'
 import { RouteError } from './RouteError'
@@ -10,6 +10,13 @@ const ExplorePage = lazy(() => import('@/features/home/ExplorePage'))
 const AboutPage = lazy(() => import('@/features/about/AboutPage'))
 const CatalogPage = lazy(() => import('@/features/stickers/CatalogPage'))
 const SetDetailPage = lazy(() => import('@/features/stickers/SetDetailPage'))
+const LineSetPage = lazy(() => import('@/features/stickers/LineSetPage'))
+
+/** /stickers/37672065 is a real LINE set (its store id); anything else is an older sample-set slug. */
+function StickerSetRoute() {
+  const { slug = '' } = useParams()
+  return /^\d+$/.test(slug) ? <LineSetPage id={slug} /> : <SetDetailPage />
+}
 const EditRequestPage = lazy(() => import('@/features/studio/pages/EditRequestPage'))
 const WallpapersPage = lazy(() => import('@/features/wallpapers/WallpapersPage'))
 const WallpaperDetailPage = lazy(() => import('@/features/wallpapers/WallpaperDetailPage'))
@@ -50,7 +57,7 @@ export const router = createBrowserRouter(
         { path: 'explore', element: <ExplorePage /> },
         { path: 'about', element: <AboutPage />, handle: h({ title: { th: 'รู้จักนมผง', en: 'Meet Nompong' }, back: '/explore' }) },
         { path: 'stickers', element: <CatalogPage />, handle: h({ title: { th: 'สติกเกอร์', en: 'Stickers' }, back: '/explore' }) },
-        { path: 'stickers/:slug', element: <SetDetailPage />, handle: h({ title: { th: 'ชุดสติกเกอร์', en: 'Sticker set' }, back: '/stickers' }) },
+        { path: 'stickers/:slug', element: <StickerSetRoute />, handle: h({ title: { th: 'ชุดสติกเกอร์', en: 'Sticker set' }, back: '/stickers' }) },
         // One way to send an idea: the sticker builder. The old Studio pages point there.
         { path: 'studio', element: <Navigate to="/suggest" replace /> },
         { path: 'studio/new', element: <Navigate to="/suggest" replace /> },

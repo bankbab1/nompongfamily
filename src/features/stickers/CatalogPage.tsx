@@ -1,6 +1,6 @@
 import { ArrowUpRight, Search } from 'lucide-react'
 import { useDeferredValue, useMemo, useRef } from 'react'
-import { useSearchParams } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import { EmptyState } from '@/components/feedback/States'
 import { Page, PageHeader } from '@/components/layout/AppShell'
 import { buttonBase, buttonSizes, buttonVariants } from '@/components/ui/Button'
@@ -127,7 +127,7 @@ export default function CatalogPage() {
                     <ul className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                       {g.sets.map((s) => (
                         <li key={s.id}>
-                          <LineSetCard set={s} locale={locale} />
+                          <LineSetCard set={s} />
                         </li>
                       ))}
                     </ul>
@@ -170,15 +170,9 @@ function StoreButton({ locale, label, className }: { locale: 'th' | 'en'; label:
   )
 }
 
-function LineSetCard({ set, locale }: { set: LineSet; locale: 'th' | 'en' }) {
+function LineSetCard({ set }: { set: LineSet }) {
   return (
-    <a
-      href={lineUrl(set.url, locale)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block rounded-2xl focus-visible:outline-offset-4"
-      aria-label={`${set.title} — LINE STORE`}
-    >
+    <Link to={`/stickers/${set.id}`} className="group block rounded-2xl focus-visible:outline-offset-4">
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-surface-muted transition-colors group-hover:bg-sunny-100">
         <img
           src={set.image}
@@ -189,14 +183,11 @@ function LineSetCard({ set, locale }: { set: LineSet; locale: 'th' | 'en' }) {
           decoding="async"
           className="h-full w-full object-contain p-3 transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transition-none"
         />
-        <span className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-surface/90 text-muted opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-          <ArrowUpRight size={14} aria-hidden />
-        </span>
       </div>
       <p className="mt-2 line-clamp-2 text-sm leading-snug font-medium text-ink" lang="th">
         {set.name}
       </p>
       <p className="t-meta">{set.code}</p>
-    </a>
+    </Link>
   )
 }

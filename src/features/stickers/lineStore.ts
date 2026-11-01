@@ -56,3 +56,40 @@ export const LINE_SERIES: { id: string; count: number }[] = Object.entries(
 
 /** The store link in the visitor's language. */
 export const lineUrl = (url: string, locale: 'th' | 'en') => url.replace(/\/th$/, `/${locale}`)
+
+/* ---------- One set's stickers (loaded only when a set page opens) ---------- */
+
+export interface LineSetDetails {
+  /** Sticker ids in order. */
+  stickers: number[]
+  animated: boolean
+  /** As LINE shows it, e.g. "31THB". */
+  price: string
+  desc: string
+}
+
+interface RawDetails {
+  first?: number
+  ids?: number[]
+  count: number
+  animated: boolean
+  price: string
+  desc: string
+}
+
+let detailsFile: Promise<Record<string, RawDetails>> | null = null
+
+/** Reads `line-sticker-details.json` (its own small chunk) once, then answers from memory. */
+export async function loadSetDetails(id: string): Promise<LineSetDetails | null> {
+  detailsFile ??= import('@/data/line-sticker-details.json').then((m) => m.default as Record<string, RawDetails>)
+  const raw = (await detailsFile)[id]
+  if (!raw) return null
+  const stickers = raw.ids ?? Array.from({ length: raw.count }, (_, i) => (raw.first ?? 0) + i)
+  return { stickers, animated: raw.animated, price: raw.price, desc: raw.desc }
+}
+
+/** A sticker's image on LINE's image server. `large` is the 2× file for the zoomed view. */
+export const stickerImage = (stickerId: number, large = false) =>
+  `https://stickershop.line-scdn.net/stickershop/v1/sticker/${stickerId}/${large ? 'iPhone/sticker@2x' : 'android/sticker'}.png`
+
+export const findLineSet = (id: string) => LINE_SETS.find((s) => s.id === id)
