@@ -118,8 +118,8 @@ export default function HomePage() {
           </ul>
         </section>
 
-        <section className="mt-16 grid gap-4 md:grid-cols-2">
-          <div className="flex flex-col rounded-3xl bg-brown p-6 text-cream sm:p-8">
+        <section className="mt-16 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="flex min-w-0 flex-col rounded-3xl bg-brown p-6 text-cream sm:p-8">
             <h2 className="font-display text-2xl">{tx('มีไอเดียสติกเกอร์ในใจ?', 'Got a sticker idea?')}</h2>
             <p className="mt-2 max-w-md text-cream/70">
               {tx(
@@ -134,17 +134,17 @@ export default function HomePage() {
             </div>
           </div>
           {/* Every version with its live set count; the numbers follow the LINE Store sync. */}
-          <div className="flex flex-col rounded-3xl border border-line bg-surface p-6 sm:p-8">
+          <div className="flex min-w-0 flex-col rounded-3xl border border-line bg-surface p-6 sm:p-8">
             <p className="text-sm text-muted">{tx(`สติกเกอร์นมผงใน LINE ทั้งหมด ${LINE_SETS.length} ชุด`, `${LINE_SETS.length} Nompong sets on LINE`)}</p>
             <h2 className="mt-1 font-display text-2xl">{tx('เลือกดูตามเวอร์ชัน', 'Browse by version')}</h2>
             <ul className="mt-4 divide-y divide-line">
               {LINE_SERIES.map((v) => (
                 <li key={v.id}>
-                  <Link to={`/stickers?series=${v.id}`} className="flex min-h-12 items-center gap-3 py-2 hover:text-ink">
-                    <span className="font-medium">{versionName(v.id)}</span>
+                  <Link to={`/stickers?series=${v.id}`} className="flex min-h-12 min-w-0 items-center gap-3 py-2 hover:text-ink">
+                    <span className="shrink-0 font-medium">{versionName(v.id)}</span>
                     <span className="min-w-0 flex-1 truncate text-sm text-muted">{VERSIONS[v.id] ? tx(VERSIONS[v.id].th, VERSIONS[v.id].en) : ''}</span>
-                    <span className="text-sm text-muted tabular-nums">{v.count}</span>
-                    <ChevronRight size={16} className="text-muted" aria-hidden />
+                    <span className="shrink-0 text-sm text-muted tabular-nums">{v.count}</span>
+                    <ChevronRight size={16} className="shrink-0 text-muted" aria-hidden />
                   </Link>
                 </li>
               ))}
