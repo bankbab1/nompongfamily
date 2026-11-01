@@ -1,10 +1,11 @@
-import { ArrowUpRight, Search } from 'lucide-react'
-import { useDeferredValue, useMemo, useRef } from 'react'
+import { ArrowUpRight, LayoutGrid, List } from 'lucide-react'
+import { RevealItem } from '@/components/ui/Reveal'
+import { useDeferredValue, useMemo, useRef, useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 import { EmptyState } from '@/components/feedback/States'
 import { Page, PageHeader } from '@/components/layout/AppShell'
 import { buttonBase, buttonSizes, buttonVariants } from '@/components/ui/Button'
-import { inputClass } from '@/components/ui/Field'
+import { SearchField } from '@/components/ui/SearchField'
 import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
 import { useLocale, useTx } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
@@ -41,9 +42,24 @@ export default function CatalogPage() {
     )
   }, [series, deferredQ])
 
+  const [view, setView] = useState<View>(loadView)
+  const changeView = (v: View) => {
+    setView(v)
+    try {
+      localStorage.setItem(VIEW_KEY, v)
+    } catch {
+      /* storage blocked: the choice lasts for this visit */
+    }
+  }
+
   const tabs = [{ id: 'all', count: LINE_SETS.length }, ...LINE_SERIES]
   const track = useRef<HTMLDivElement>(null)
   const pill = useSlidingPill(track, '[aria-pressed="true"]', [series, locale])
+
+  // Fetch the set page's code ahead of time, so the first tap opens (and animates) without a wait.
+  useEffect(() => {
+    void import('./LineSetPage')
+  }, [])
 
   return (
     <Page>
@@ -57,42 +73,53 @@ export default function CatalogPage() {
         actions={<StoreButton locale={locale} className="hidden sm:inline-flex" label={tx('เปิด LINE STORE', 'Open LINE STORE')} />}
       />
 
-      <label className="relative block">
-        <span className="sr-only">{tx('ค้นหาชุดสติกเกอร์', 'Search sticker sets')}</span>
-        <Search size={18} className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" aria-hidden />
-        <input
-          type="search"
+      {/* The home page's "See all stickers" button grows into this row. */}
+      <div className="flex items-center gap-2" style={{ viewTransitionName: 'stickers-entry' }}>
+        <SearchField
+          className="flex-1"
+          inputClassName="sm:h-12"
           value={q}
-          onChange={(e) => set('q', e.target.value || null)}
+          onChange={(v) => set('q', v || null)}
+          label={tx('ค้นหาชุดสติกเกอร์', 'Search sticker sets')}
           placeholder={tx('ค้นหาชื่อชุดหรือรหัส เช่น บิงซู, v140', 'Search a name or code, e.g. v140')}
-          className={cn(inputClass, 'h-11 rounded-full pl-11 sm:h-12')}
           lang="th"
         />
-      </label>
+        <ViewSwitch view={view} onChange={changeView} />
+      </div>
 
       {/* Version tabs stay pinned under the header while scrolling the long list. */}
       <div className="sticky top-16 z-20 -mx-4 mt-3 bg-background/90 px-4 py-2.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/75">
-        <div className="no-scrollbar -mx-4 overflow-x-auto px-4">
-          <div ref={track} role="group" aria-label={tx('เวอร์ชัน', 'Version')} className="relative inline-flex rounded-full bg-surface-muted p-1">
-            <SlidingPill pill={pill.pill} ready={pill.ready} className="rounded-full bg-surface shadow-sm" />
-            {tabs.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                aria-pressed={series === t.id}
-                onClick={() => {
-                  set('series', t.id === 'all' ? null : t.id)
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                }}
-                className={cn(
-                  'relative min-h-9 rounded-full px-3.5 text-sm font-medium whitespace-nowrap transition-colors duration-300 sm:px-4',
-                  series === t.id ? 'text-ink' : 'text-muted hover:text-ink',
-                )}
-              >
-                {t.id === 'all' ? tx('ทั้งหมด', 'All') : versionName(t.id)}
-                <span className="ml-1.5 text-xs text-muted tabular-nums">{t.count}</span>
-              </button>
-            ))}
+        <div>
+          <div className="no-scrollbar -mx-4 overflow-x-auto px-4">
+            <div ref={track} role="group" aria-label={tx('เวอร์ชัน', 'Version')} className="relative inline-flex rounded-full bg-surface-muted p-1">
+              <SlidingPill pill={pill.pill} ready={pill.ready} className="rounded-full bg-surface shadow-sm" />
+              {tabs.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  aria-pressed={series === t.id}
+                  onClick={() => {
+                    set('series', t.id === 'all' ? null : t.id)
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }}
+                  className={cn(
+                    'relative inline-flex min-h-9 items-center gap-1.5 rounded-full py-1 pr-1.5 pl-3.5 text-sm whitespace-nowrap transition-colors duration-300',
+                    series === t.id ? 'font-semibold text-ink' : 'font-medium text-muted hover:text-ink',
+                  )}
+                >
+                  {t.id === 'all' ? tx('ทั้งหมด', 'All') : versionName(t.id)}
+                  {/* The count as its own small chip, so it reads apart from the name. */}
+                  <span
+                    className={cn(
+                      'min-w-7 rounded-full px-1.5 py-0.5 text-center text-[11px] leading-none font-semibold tabular-nums transition-colors duration-300',
+                      series === t.id ? 'bg-brown text-cream' : 'bg-line/70 text-muted',
+                    )}
+                  >
+                    {t.count}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -125,11 +152,16 @@ export default function CatalogPage() {
                       </h2>
                       {info && <p className="t-meta mt-0.5 text-sm">{tx(info.th, info.en)}</p>}
                     </header>
-                    <ul className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                    <ul
+                      className={cn(
+                        'grid sm:grid-cols-3 sm:gap-x-3 sm:gap-y-6 md:grid-cols-4 lg:grid-cols-6',
+                        view === 'list' ? 'grid-cols-1 gap-2' : 'grid-cols-2 gap-x-3 gap-y-6',
+                      )}
+                    >
                       {g.sets.map((s) => (
-                        <li key={s.id}>
-                          <LineSetCard set={s} />
-                        </li>
+                        <RevealItem key={s.id}>
+                          <LineSetCard set={s} list={view === 'list'} />
+                        </RevealItem>
                       ))}
                     </ul>
                   </section>
@@ -144,6 +176,44 @@ export default function CatalogPage() {
         )}
       </div>
     </Page>
+  )
+}
+
+type View = 'grid' | 'list'
+const VIEW_KEY = 'nompong.stickers.view'
+const loadView = (): View => {
+  try {
+    return localStorage.getItem(VIEW_KEY) === 'list' ? 'list' : 'grid'
+  } catch {
+    return 'grid'
+  }
+}
+
+/** Phones only: see the sets as a grid of covers or as a list of rows. */
+function ViewSwitch({ view, onChange }: { view: View; onChange: (v: View) => void }) {
+  const tx = useTx()
+  const options: { id: View; label: string; Icon: typeof LayoutGrid }[] = [
+    { id: 'grid', label: tx('แสดงแบบตาราง', 'Grid view'), Icon: LayoutGrid },
+    { id: 'list', label: tx('แสดงแบบรายการ', 'List view'), Icon: List },
+  ]
+  return (
+    <div role="group" aria-label={tx('มุมมอง', 'View')} className="flex shrink-0 rounded-full bg-surface-muted p-1 sm:hidden">
+      {options.map(({ id, label, Icon }) => (
+        <button
+          key={id}
+          type="button"
+          aria-pressed={view === id}
+          aria-label={label}
+          onClick={() => onChange(id)}
+          className={cn(
+            'flex h-9 w-9 items-center justify-center rounded-full transition-colors',
+            view === id ? 'bg-surface text-ink shadow-sm' : 'text-muted',
+          )}
+        >
+          <Icon size={17} aria-hidden />
+        </button>
+      ))}
+    </div>
   )
 }
 

@@ -1,25 +1,11 @@
-import {
-  Boxes,
-  ChevronsLeft,
-  ChevronsRight,
-  CreditCard,
-  ExternalLink,
-  Factory,
-  Image,
-  Inbox,
-  LayoutDashboard,
-  Menu,
-  Newspaper,
-  Settings,
-  Sticker,
-  type LucideIcon,
-} from 'lucide-react'
+import { ChevronsLeft, ChevronsRight, ExternalLink, LayoutDashboard, Lightbulb, Menu, Settings, type LucideIcon } from 'lucide-react'
 import { Suspense, useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from 'react-router'
 import { PageSkeleton } from '@/components/feedback/States'
 import { AccountMenu } from '@/components/layout/AccountMenu'
 import { Wordmark } from '@/components/layout/Wordmark'
 import { Tooltip } from '@/components/ui/Tooltip'
+import { useSuggestions } from '@/features/suggestions/useSuggestions'
 import { cn } from '@/lib/utils/cn'
 
 interface NavItem {
@@ -27,26 +13,20 @@ interface NavItem {
   label: string
   icon: LucideIcon
   end?: boolean
-  later?: string
+  /** Show a live count next to the item. */
+  badge?: 'pending'
 }
 
+/*
+ * Sticker sets are managed in LINE Creators Market, so the admin here only looks after fans'
+ * design-set ideas (series CR) and their status.
+ */
 const NAV: { group: string; items: NavItem[] }[] = [
   {
     group: 'งานหลัก',
     items: [
       { to: '/admin', label: 'ภาพรวม', icon: LayoutDashboard, end: true },
-      { to: '/admin/requests', label: 'กล่องคำขอ', icon: Inbox },
-      { to: '/admin/production', label: 'งานผลิต', icon: Factory },
-    ],
-  },
-  {
-    group: 'คอนเทนต์',
-    items: [
-      { to: '/admin/stickers', label: 'แคตตาล็อกสติกเกอร์', icon: Sticker },
-      { to: '/admin/content', label: 'หน้าเว็บ & ประกาศ', icon: Newspaper, later: 'P1' },
-      { to: '/admin/wallpapers', label: 'วอลเปเปอร์', icon: Image, later: 'P1' },
-      { to: '/admin/products', label: 'สินค้า', icon: Boxes, later: 'P2' },
-      { to: '/admin/cards', label: 'การ์ดสะสม', icon: CreditCard, later: 'P2' },
+      { to: '/admin/ideas', label: 'ไอเดีย CR', icon: Lightbulb, badge: 'pending' },
     ],
   },
   { group: 'ระบบ', items: [{ to: '/admin/settings', label: 'ตั้งค่า', icon: Settings }] },
@@ -55,6 +35,8 @@ const NAV: { group: string; items: NavItem[] }[] = [
 const COLLAPSE_KEY = 'nompong-admin-sidebar'
 
 function SidebarNav({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () => void }) {
+  const ideas = useSuggestions()
+  const pending = (ideas.data ?? []).filter((i) => i.status === 'pending').length
   return (
     <nav aria-label="เมนูผู้ดูแล" className="flex-1 space-y-5 overflow-y-auto px-2 py-4">
       {NAV.map((g) => (
@@ -78,7 +60,14 @@ function SidebarNav({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?
                 >
                   <it.icon size={19} aria-hidden />
                   {!collapsed && <span className="flex-1 truncate">{it.label}</span>}
-                  {!collapsed && it.later && <span className="rounded-md bg-surface-muted px-1.5 text-[10px] text-muted">{it.later}</span>}
+                  {!collapsed && it.badge === 'pending' && pending > 0 && (
+                    <span
+                      className="min-w-6 rounded-full bg-brown px-1.5 text-center text-xs font-semibold text-cream tabular-nums"
+                      aria-label={`รอพิจารณา ${pending}`}
+                    >
+                      {pending}
+                    </span>
+                  )}
                 </NavLink>
               )
               return <li key={it.to}>{collapsed ? <Tooltip content={it.label}>{link}</Tooltip> : link}</li>

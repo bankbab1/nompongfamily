@@ -1,30 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/components/feedback/States'
 import { PageHeader } from '@/components/layout/AppShell'
-import { StatusBadge } from '@/components/ui/Badge'
+import { IDEA_STATUS_INFO, IdeaStatusBadge } from '@/features/suggestions/IdeaStatus'
+import { IDEA_STATUSES } from '@/features/suggestions/model'
 import { api } from '@/lib/api'
 import { qk } from '@/lib/api/queryKeys'
-import type { RequestStatus } from '@/lib/api/types'
 import { formatDateTime } from '@/lib/utils/format'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
 import { TERMS_VERSION } from '@/lib/validation/brief'
-
-const ALL_STATUSES: RequestStatus[] = [
-  'draft',
-  'submitted',
-  'under_review',
-  'clarification_requested',
-  'accepted',
-  'declined',
-  'brief_approved',
-  'in_production',
-  'proof_ready',
-  'revision_requested',
-  'artwork_approved',
-  'line_submitted',
-  'published',
-  'closed',
-]
 
 export default function SettingsPage() {
   usePageMeta('ตั้งค่า', undefined, { noindex: true })
@@ -33,19 +16,20 @@ export default function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
-      <PageHeader title="ตั้งค่า" description="สถานะ บทบาท และนโยบาย" />
+      <PageHeader title="ตั้งค่า" description="สถานะไอเดีย ทีมงาน และนโยบาย" />
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
-          <h2 className="mb-3 font-display text-xl">สถานะคำขอ</h2>
-          <ul className="flex flex-wrap gap-2">
-            {ALL_STATUSES.map((s) => (
-              <li key={s}>
-                <StatusBadge status={s} />
+          <h2 className="mb-3 font-display text-xl">สถานะไอเดีย</h2>
+          <ul className="space-y-2">
+            {IDEA_STATUSES.map((s) => (
+              <li key={s} className="flex items-center gap-3 text-sm">
+                <IdeaStatusBadge status={s} />
+                <span className="text-muted">{IDEA_STATUS_INFO[s].hint.th}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-muted">ชื่อสถานะมาจาก locales/th.json — การเปลี่ยน state machine ต้องทำที่ backend</p>
+          <p className="mt-3 text-xs text-muted">ผู้ส่งไอเดียเห็นสถานะนี้ในการ์ดไอเดียและ My Nompong</p>
         </Card>
         <Card>
           <h2 className="mb-3 font-display text-xl">ทีมงาน</h2>

@@ -1,9 +1,11 @@
-import { ChevronDown, Heart, Sparkles } from 'lucide-react'
+import { ChevronDown, ChevronRight, Heart, MessageSquareText, Sparkles } from 'lucide-react'
 import { useId, useState } from 'react'
+import { Link } from 'react-router'
 import { fill, useCopy } from '@/lib/copy'
-import { useLocale } from '@/lib/i18n'
+import { pick, useLocale } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { isFilled, localDesc, localName, type Suggestion } from './model'
+import { IdeaStatusBadge } from './IdeaStatus'
 import { MoodIcon } from './MoodIcon'
 
 const PREVIEW_WORDS = 6
@@ -36,14 +38,13 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
         <span className="inline-flex items-center gap-1 rounded-full bg-surface-muted px-2.5 py-0.5 font-medium">
           <MoodIcon id={s.mood} size={13} /> {c.moods[s.mood]}
         </span>
-        {s.mine ? (
-          <span className="ml-auto rounded-full bg-success-soft px-2.5 py-0.5 text-xs font-medium text-success">{c.card.yours}</span>
-        ) : s.isExample ? (
-          <span className="ml-auto text-xs text-muted">{c.card.example}</span>
-        ) : null}
+        <IdeaStatusBadge status={s.status} className="ml-auto" />
       </div>
 
-      <h3 className="mt-3 font-display text-xl leading-snug">{name.main}</h3>
+      <h3 className="mt-3 font-display text-xl leading-snug">
+        {name.main}
+        {s.mine && <span className="ml-2 align-middle rounded-full bg-success-soft px-2 py-0.5 text-xs font-medium text-success">{c.card.yours}</span>}
+      </h3>
       {name.alt && <p className="text-sm text-muted">{name.alt}</p>}
       {desc && <p className="mt-1.5 text-[15px] text-muted">{desc}</p>}
 
@@ -97,8 +98,16 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
         </div>
       )}
 
+      {s.mine && s.statusNote && <TeamNote note={s.statusNote} />}
+      {s.status === 'published' && s.lineSetId && (
+        <Link to={`/stickers/${s.lineSetId}`} className="mt-3 inline-flex min-h-10 items-center gap-1 self-start text-sm font-medium">
+          {pick({ th: 'ดูชุดนี้ใน LINE', en: 'See this set on LINE' }, locale)} <ChevronRight size={16} aria-hidden />
+        </Link>
+      )}
+
       <div className="mt-auto flex items-center justify-between gap-3 pt-4">
         <p className="min-w-0 truncate text-xs text-muted">
+          {s.isExample && `${c.card.example} · `}
           {s.nickname ? fill(c.card.by, { name: s.nickname }) : c.card.anonymous} · {date}
         </p>
         <button
@@ -119,5 +128,19 @@ export function SuggestionCard({ s, onVote, voting, highlight }: { s: Suggestion
         </button>
       </div>
     </article>
+  )
+}
+
+/** A short message from the team to the fan who sent the idea. */
+export function TeamNote({ note, className }: { note: string; className?: string }) {
+  const locale = useLocale()
+  return (
+    <div className={cn('mt-3 flex gap-2 rounded-2xl bg-sunny-50 px-3 py-2.5 text-sm', className)}>
+      <MessageSquareText size={16} className="mt-0.5 shrink-0 text-muted" aria-hidden />
+      <p>
+        <span className="font-medium">{pick({ th: 'ข้อความจากทีม: ', en: 'From the team: ' }, locale)}</span>
+        {note}
+      </p>
+    </div>
   )
 }

@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Download, Laptop, Smartphone, Tablet } from 'lucide-react'
 import { useState } from 'react'
 import { useParams } from 'react-router'
-import { Alert, ErrorState, PageSkeleton } from '@/components/feedback/States'
+import { WallpaperDetailSkeleton } from '@/components/feedback/Skeletons'
+import { Alert, ErrorState } from '@/components/feedback/States'
 import { toast } from '@/components/feedback/Toast'
 import { Page } from '@/components/layout/AppShell'
 import { Button } from '@/components/ui/Button'
@@ -45,7 +46,7 @@ export default function WallpaperDetailPage() {
   if (q.isPending)
     return (
       <Page>
-        <PageSkeleton />
+        <WallpaperDetailSkeleton />
       </Page>
     )
   if (q.isError)
@@ -104,7 +105,7 @@ export default function WallpaperDetailPage() {
                   <label
                     key={x.id}
                     className={cn(
-                      'flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 bg-surface px-3 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
+                      'flex min-h-14 items-center gap-3 rounded-2xl border-2 bg-surface px-3 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
                       on ? 'border-brown bg-sunny-50' : 'border-line',
                     )}
                   >

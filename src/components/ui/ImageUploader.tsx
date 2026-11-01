@@ -113,7 +113,7 @@ export function ImageUploader({
         onDragLeave={() => setDrag(false)}
         onDrop={onDrop}
         className={cn(
-          'flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed px-4 text-center transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
+          'flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed px-4 text-center transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
           compact ? 'min-h-24 py-4' : 'min-h-36 py-6',
           drag ? 'border-brown bg-sunny-50' : 'border-line-strong bg-surface hover:bg-surface-muted',
           (disabled || remaining <= 0) && 'pointer-events-none opacity-50',

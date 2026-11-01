@@ -36,7 +36,7 @@ export default function FaqPage() {
         {FAQ[locale].map(([q, a]) => (
           <li key={q}>
             <details className="group rounded-2xl border border-line bg-surface px-4">
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 font-medium">
+              <summary className="flex min-h-14 list-none items-center justify-between gap-3 font-medium">
                 {q}
                 <ChevronDown size={18} className="shrink-0 transition-transform group-open:rotate-180" aria-hidden />
               </summary>

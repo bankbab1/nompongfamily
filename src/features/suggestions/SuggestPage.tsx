@@ -1,6 +1,7 @@
 import { Info } from 'lucide-react'
 import { useMemo, useRef, useState } from 'react'
-import { EmptyState, ErrorState, Skeleton } from '@/components/feedback/States'
+import { IdeaCardGridSkeleton } from '@/components/feedback/Skeletons'
+import { EmptyState, ErrorState } from '@/components/feedback/States'
 import { toast } from '@/components/feedback/Toast'
 import { Page } from '@/components/layout/AppShell'
 import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
@@ -14,6 +15,7 @@ import { StickerSetBuilder } from './builder'
 import { SuggestionCard } from './components'
 import { MOODS, sortSuggestions, type MoodId, type SuggestionSort } from './model'
 import { SUGGESTIONS_ON_DEVICE_ONLY } from './store'
+import { shouldPlayStudioIntro, StudioIntro } from './StudioIntro'
 import { useCreateSuggestion, useSuggestions, useToggleVote } from './useSuggestions'
 
 export default function SuggestPage() {
@@ -27,6 +29,10 @@ export default function SuggestPage() {
   const [justAdded, setJustAdded] = useState<string>()
   const sortTrack = useRef<HTMLDivElement>(null)
   const sortPill = useSlidingPill(sortTrack, '[aria-pressed="true"]', [sort, c.suggest.popular])
+  // The intro plays each time the Studio opens; the page's entrance waits for it.
+  const [intro] = useState(shouldPlayStudioIntro)
+  const [hold, setHold] = useState(intro)
+  const rise = (ms: number) => ({ className: 'studio-rise', style: { '--d': `${ms}ms` } as React.CSSProperties })
 
   const items = useMemo(() => {
     const list = q.data ?? []
@@ -36,22 +42,36 @@ export default function SuggestPage() {
   const filters: { id: MoodId | 'all'; label: string }[] = [{ id: 'all', label: c.suggest.all }, ...MOODS.map((m) => ({ id: m.id, label: c.moods[m.id] }))]
 
   return (
-    <>
+    <div data-hold={hold ? '' : undefined}>
+      {intro && <StudioIntro onDone={() => setHold(false)} />}
       <Page className="flex items-center gap-5 pt-8 pb-2 sm:gap-8 sm:pt-12 sm:pb-2">
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium text-muted">{c.suggest.eyebrow}</p>
+          <p {...rise(0)}>
+            <span className="text-sm font-medium text-muted">{c.suggest.eyebrow}</span>
+          </p>
           <h1 className="t-page mt-2 font-display">
-            <TypingText phrases={[c.suggest.title]} />
+            {/* The title types itself once the intro has gone. */}
+            {hold ? <span className="invisible">{c.suggest.title}</span> : <TypingText phrases={[c.suggest.title]} />}
           </h1>
-          <p className="t-lead mt-3 max-w-xl">{c.suggest.body}</p>
+          <p {...rise(140)}>
+            <span className="t-lead mt-3 block max-w-xl">{c.suggest.body}</span>
+          </p>
         </div>
-        <div className="hidden h-36 w-36 shrink-0 items-center justify-center rounded-full bg-sunny-100 sm:flex" aria-hidden>
-          <NompongArt pose="wave" className="h-28 w-auto" decorative />
+        <div
+          className="studio-rise hidden h-36 w-36 shrink-0 items-center justify-center rounded-full bg-sunny-100 sm:flex"
+          style={{ '--d': '80ms' } as React.CSSProperties}
+          aria-hidden
+        >
+          <NompongArt pose="wave" className={cn('h-28 w-auto', !hold && 'studio-intro-pop')} decorative />
         </div>
       </Page>
 
       <Page>
-        <section aria-labelledby="form-title" className="rounded-3xl border border-line bg-surface p-5 sm:p-8">
+        <section
+          aria-labelledby="form-title"
+          className="studio-rise rounded-3xl border border-line bg-surface p-5 sm:p-8"
+          style={{ '--d': '220ms' } as React.CSSProperties}
+        >
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <h2 id="form-title" className="t-section font-display">
               {c.builder.title}
@@ -127,11 +147,7 @@ export default function SuggestPage() {
 
           <div className="mt-5">
             {q.isPending ? (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <Skeleton key={i} className="h-56 rounded-3xl" />
-                ))}
-              </div>
+              <IdeaCardGridSkeleton />
             ) : q.isError ? (
               <ErrorState error={q.error} onRetry={() => q.refetch()} />
             ) : items.length === 0 ? (
@@ -153,6 +169,6 @@ export default function SuggestPage() {
           </div>
         </section>
       </Page>
-    </>
+    </div>
   )
 }

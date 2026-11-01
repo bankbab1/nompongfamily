@@ -123,8 +123,31 @@ export const suggestionInputSchema = z
 
 export type SuggestionInput = z.infer<typeof suggestionInputSchema>
 
+/**
+ * Where a design-set idea stands. The admin moves it along; the fan sees it on the ideas wall and in
+ * My Nompong. Order = the usual path an idea takes.
+ */
+export const IDEA_STATUSES = ['pending', 'selected', 'drawing', 'published', 'declined'] as const
+export type IdeaStatus = (typeof IDEA_STATUSES)[number]
+
+/** Max length of the admin's note to the fan. */
+export const NOTE_LIMIT = 200
+
+export interface IdeaStatusUpdate {
+  status: IdeaStatus
+  /** Shown to the fan who sent the idea. Empty for none. */
+  note: string
+  /** The LINE Store set id once the idea is published. */
+  lineSetId?: string
+}
+
 export interface Suggestion extends Omit<SuggestionInput, 'nickname'> {
   id: string
+  status: IdeaStatus
+  statusNote: string
+  /** When the status last changed (ISO). */
+  statusAt?: string
+  lineSetId?: string
   /** Empty when the visitor stayed anonymous. */
   nickname: string
   createdAt: string

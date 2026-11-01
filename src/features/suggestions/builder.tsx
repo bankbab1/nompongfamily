@@ -44,7 +44,8 @@ interface Draft {
 const DRAFT_KEY = 'nompong.builder.draft.v1'
 
 const freshDraft = (): Draft => ({
-  stickerCount: 8,
+  // 32 is the most common LINE set size, so a new design starts there.
+  stickerCount: 32,
   mood: 'cute',
   nameTh: '',
   nameEn: '',
@@ -60,7 +61,7 @@ function loadDraft(): Draft {
     if (!raw) return freshDraft()
     const d = { ...freshDraft(), ...(JSON.parse(raw) as Partial<Draft>) }
     const stickers = Array.from({ length: MAX_STICKERS }, (_, i) => ({ ...emptySticker(), ...d.stickers?.[i] }))
-    return { ...d, stickers, stickerCount: STICKER_COUNTS.includes(d.stickerCount) ? d.stickerCount : 8 }
+    return { ...d, stickers, stickerCount: STICKER_COUNTS.includes(d.stickerCount) ? d.stickerCount : 32 }
   } catch {
     return freshDraft()
   }
@@ -344,7 +345,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                   <label
                     key={m.id}
                     className={cn(
-                      'inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full border px-3 text-sm font-medium transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
+                      'inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3 text-sm font-medium transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
                       draft.mood === m.id ? 'border-brown bg-brown text-cream' : 'border-line bg-surface text-muted hover:border-line-strong hover:text-ink',
                     )}
                   >
@@ -518,7 +519,11 @@ function StepMilestones({ steps, current, onStep }: { steps: Milestone[]; curren
             <li key={n} className="relative min-w-0">
               {/* connector to the next milestone */}
               {i < steps.length - 1 && (
-                <span className="absolute top-4 left-[calc(50%+1.25rem)] h-0.5 w-[calc(100%-2.5rem)] overflow-hidden rounded-full bg-line" aria-hidden>
+                <span
+                  className="studio-line absolute top-4 left-[calc(50%+1.25rem)] h-0.5 w-[calc(100%-2.5rem)] overflow-hidden rounded-full bg-line"
+                  style={{ '--d': `${400 + i * 150}ms` } as React.CSSProperties}
+                  aria-hidden
+                >
                   <span className={cn('block h-full bg-brown transition-[width] duration-300', done ? 'w-full' : 'w-0')} />
                 </span>
               )}
@@ -558,7 +563,7 @@ function BulkWords({ onApply }: { onApply: (text: string) => number }) {
   const [text, setText] = useState('')
   return (
     <details className="group mt-4 rounded-2xl border border-line">
-      <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 px-4 text-sm font-medium [&::-webkit-details-marker]:hidden">
+      <summary className="flex min-h-11 list-none items-center gap-2 px-4 text-sm font-medium [&::-webkit-details-marker]:hidden">
         <ListPlus size={17} aria-hidden /> {b.bulkTitle}
         <ChevronRight size={16} className="ml-auto transition-transform group-open:rotate-90" aria-hidden />
       </summary>

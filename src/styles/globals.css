@@ -135,6 +135,152 @@ body {
   animation: page-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+/* Bottom sheets (phones): rise from the bottom edge while the backdrop fades in. */
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Cards appearing one after another (RevealItem). Hidden until they scroll into view, then rise in.
+   With reduced motion they simply show. */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+[data-reveal]:not([data-shown]) {
+  opacity: 0;
+}
+[data-reveal][data-shown] {
+  animation: reveal-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal]:not([data-shown]) {
+    opacity: 1;
+  }
+}
+
+/* Studio: the intro loader and the page's entrance.
+   .studio-rise items rise in one after another (--d sets each delay); .studio-line draws in from the
+   left. While the intro plays the page holds still ([data-hold]) and starts when it fades. */
+@keyframes studio-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-8deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) rotate(4deg);
+  }
+  80% {
+    transform: scale(0.97) rotate(-2deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes studio-disc {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+@keyframes studio-dot {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  40% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+@keyframes line-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+.studio-intro-disc {
+  animation: studio-disc 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.studio-intro-pop {
+  animation: studio-pop 0.7s cubic-bezier(0.3, 1.2, 0.5, 1) 0.1s both;
+}
+.studio-intro-dot {
+  animation: studio-dot 0.9s ease-in-out infinite both;
+}
+.studio-rise {
+  animation: reveal-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.studio-line {
+  transform-origin: left;
+  animation: line-draw 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+[data-hold] .studio-rise,
+[data-hold] .studio-line {
+  animation-play-state: paused;
+}
+
+/* Opening a sticker set: its cover flies from the card into the page header (View Transitions,
+   names set in LineSetCard / LineSetPage). Everything else cross-fades quickly. */
+::view-transition-group(*) {
+  animation-duration: 0.38s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+}
+/* "See all stickers" (home) → the gallery's search row: the pill moves and grows; its contents
+   don't stretch — the button's label fades out as the search bar fades in. */
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+::view-transition-group(stickers-entry) {
+  animation-duration: 0.45s;
+}
+::view-transition-old(stickers-entry),
+::view-transition-new(stickers-entry) {
+  height: 100%;
+  object-fit: none;
+  object-position: left center;
+  overflow: clip;
+}
+::view-transition-old(stickers-entry) {
+  animation: vt-fade-out 0.16s ease-out both;
+}
+::view-transition-new(stickers-entry) {
+  animation: vt-fade-in 0.3s ease-out 0.1s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 /* Typing caret: a steady blink. */
 @keyframes caret-blink {
   0%,
@@ -161,6 +307,39 @@ body {
   }
 }
 
+/* App feel, not document feel:
+   - No text selection anywhere, except where people type (form fields keep normal selection).
+   - Images can't be dragged out or long-pressed into a save menu by accident.
+   - Buttons and links keep the normal arrow cursor; text fields keep their I-beam. */
+html {
+  -webkit-user-select: none;
+  user-select: none;
+}
+input,
+textarea,
+select,
+[contenteditable='true'] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+img {
+  -webkit-user-drag: none;
+}
+a,
+button,
+summary,
+label,
+select,
+[role='button'],
+[role='tab'],
+[role='radio'],
+[role='switch'],
+[role='menuitem'],
+input[type='checkbox'],
+input[type='radio'] {
+  cursor: default;
+}
+
 /* Touch screens: no long-press callout or text selection on controls. */
 @media (hover: none) {
   button,
@@ -170,6 +349,13 @@ body {
     -webkit-touch-callout: none;
     user-select: none;
   }
+}
+
+/* Search boxes use our own clear button (SearchField), so hide the browser's built-in one. */
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Thin scrollbars app-wide (UI.md §2: density, not a colour choice). */
@@ -188,7 +374,9 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-brown);
   outline-offset: 2px;
-  border-radius: 6px;
+}
+[role='dialog']:focus-visible {
+  outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

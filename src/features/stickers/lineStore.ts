@@ -93,3 +93,6 @@ export const stickerImage = (stickerId: number, large = false) =>
   `https://stickershop.line-scdn.net/stickershop/v1/sticker/${stickerId}/${large ? 'iPhone/sticker@2x' : 'android/sticker'}.png`
 
 export const findLineSet = (id: string) => LINE_SETS.find((s) => s.id === id)
+
+/** View-transition name for a set's cover, shared by its card and its page header. */
+export const coverTransition = (id: string) => `set-cover-${id}`

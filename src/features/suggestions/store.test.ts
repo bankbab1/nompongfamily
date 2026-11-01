@@ -180,3 +180,33 @@ describe('LINE Creators Market text rules', () => {
     expect(errs({ nameTh: '', descTh: 'ไปเที่ยวกัน' }).nameTh).toBe('nameThRequired')
   })
 })
+
+describe('idea status (admin)', () => {
+  beforeEach(() => localStorage.clear())
+
+  it('starts as pending, then keeps the status and note the admin sets', async () => {
+    const svc = createLocalSuggestions(localStorage)
+    const created = await svc.create(input())
+    expect(created.status).toBe('pending')
+    await svc.setStatus(created.id, { status: 'selected', note: '  Love it  ' })
+    const again = (await createLocalSuggestions(localStorage).list()).find((s) => s.id === created.id)!
+    expect(again.status).toBe('selected')
+    expect(again.statusNote).toBe('Love it')
+    expect(again.statusAt).toBeTruthy()
+  })
+
+  it('keeps a status set on a built-in example after reloading', async () => {
+    const svc = createLocalSuggestions(localStorage)
+    const example = (await svc.list()).find((s) => s.isExample && s.status === 'pending')!
+    await svc.setStatus(example.id, { status: 'declined', note: '' })
+    const again = (await createLocalSuggestions(localStorage).list()).find((s) => s.id === example.id)!
+    expect(again.status).toBe('declined')
+  })
+
+  it('links a LINE set only while published', async () => {
+    const svc = createLocalSuggestions(localStorage)
+    const created = await svc.create(input())
+    expect((await svc.setStatus(created.id, { status: 'published', note: '', lineSetId: '37670699' })).lineSetId).toBe('37670699')
+    expect((await svc.setStatus(created.id, { status: 'drawing', note: '', lineSetId: '37670699' })).lineSetId).toBeUndefined()
+  })
+})

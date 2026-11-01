@@ -1,8 +1,11 @@
 import {
+  NOTE_LIMIT,
   STICKER_COUNTS,
   suggestionInputSchema,
   type MoodId,
   type StickerCount,
+  type IdeaStatus,
+  type IdeaStatusUpdate,
   type StickerIdea,
   type Suggestion,
   type SuggestionInput,
@@ -17,6 +20,8 @@ export interface SuggestionsService {
   create(input: SuggestionInput): Promise<Suggestion>
   /** Adds or removes this visitor's "me too" on a suggestion. */
   toggleVote(id: string): Promise<Suggestion>
+  /** Admin: move an idea to a new status, with an optional note to the fan. */
+  setStatus(id: string, update: IdeaStatusUpdate): Promise<Suggestion>
 }
 
 interface StoredSuggestion {
@@ -32,6 +37,11 @@ interface StoredSuggestion {
   createdAt: string
   baseVotes: number
   isExample?: boolean
+  /** Missing on ideas saved before statuses existed: they read as pending. */
+  status?: IdeaStatus
+  statusNote?: string
+  statusAt?: string
+  lineSetId?: string
 }
 
 interface StoredState {
@@ -69,6 +79,9 @@ const EXAMPLES: StoredSuggestion[] = [
     createdAt: '2026-10-20T09:00:00.000Z',
     baseVotes: 24,
     isExample: true,
+    status: 'selected',
+    statusNote: 'ทีมชอบชุดนี้มาก จะเริ่มร่างภาพเร็วๆ นี้นะคับ',
+    statusAt: '2026-10-28T09:00:00.000Z',
   },
   {
     id: 'ex-sleepy',
@@ -112,6 +125,8 @@ const EXAMPLES: StoredSuggestion[] = [
     createdAt: '2026-10-25T18:10:00.000Z',
     baseVotes: 11,
     isExample: true,
+    status: 'drawing',
+    statusAt: '2026-10-30T09:00:00.000Z',
   },
 ]
 
@@ -167,7 +182,15 @@ function readState(storage: Storage | undefined): StoredState {
     const raw = storage?.getItem(STORAGE_KEY)
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<StoredState>
-      return { items: parsed.items ?? EXAMPLES, myVotes: parsed.myVotes ?? [], mine: parsed.mine ?? [] }
+      // Saved copies of the built-in examples are refreshed from code, so example changes reach everyone,
+      // but a status the admin has set (it has a statusAt) is kept.
+      const items = (parsed.items ?? EXAMPLES).map((it) => {
+        const fresh = it.isExample ? EXAMPLES.find((e) => e.id === it.id) : undefined
+        if (!fresh) return it
+        const adminSet = it.statusAt && it.statusAt !== fresh.statusAt
+        return adminSet ? { ...fresh, status: it.status, statusNote: it.statusNote, statusAt: it.statusAt, lineSetId: it.lineSetId } : fresh
+      })
+      return { items, myVotes: parsed.myVotes ?? [], mine: parsed.mine ?? [] }
     }
     const legacy = storage?.getItem(LEGACY_KEY)
     if (legacy) {
@@ -194,9 +217,11 @@ function writeState(storage: Storage | undefined, state: StoredState) {
 
 function toSuggestion(s: StoredSuggestion, state: StoredState): Suggestion {
   const votedByMe = state.myVotes.includes(s.id)
-  const { baseVotes, isExample, ...rest } = s
+  const { baseVotes, isExample, status, statusNote, ...rest } = s
   return {
     ...rest,
+    status: status ?? 'pending',
+    statusNote: statusNote ?? '',
     votes: baseVotes + (votedByMe ? 1 : 0),
     votedByMe,
     mine: state.mine.includes(s.id),
@@ -230,6 +255,22 @@ export function createLocalSuggestions(storage: Storage | undefined = globalThis
       const next = { ...state, myVotes }
       writeState(storage, next)
       return toSuggestion(item, next)
+    },
+    async setStatus(id, update) {
+      const state = readState(storage)
+      const item = state.items.find((s) => s.id === id)
+      if (!item) throw new Error('Suggestion not found')
+      const changed: StoredSuggestion = {
+        ...item,
+        status: update.status,
+        statusNote: update.note.trim().slice(0, NOTE_LIMIT),
+        statusAt: now().toISOString(),
+        // Only a published idea points at a LINE set.
+        lineSetId: update.status === 'published' ? update.lineSetId || undefined : undefined,
+      }
+      const next = { ...state, items: state.items.map((s) => (s.id === id ? changed : s)) }
+      writeState(storage, next)
+      return toSuggestion(changed, next)
     },
   }
 }

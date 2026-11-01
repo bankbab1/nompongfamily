@@ -1,4 +1,4 @@
-import { FileText, LayoutDashboard, LogOut, Shield, User as UserIcon } from 'lucide-react'
+import { LayoutDashboard, LogOut, Shield, User as UserIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useCurrentUser } from '@/features/auth/useAuth'
@@ -74,9 +74,6 @@ export function AccountMenu() {
           <div className="my-1 h-px bg-line" />
           <button role="menuitem" className={item} onClick={() => go('/my')}>
             <LayoutDashboard size={18} aria-hidden /> {t('nav.my')}
-          </button>
-          <button role="menuitem" className={item} onClick={() => go('/my/requests')}>
-            <FileText size={18} aria-hidden /> {t('nav.myRequests')}
           </button>
           <button role="menuitem" className={item} onClick={() => go('/my/profile')}>
             <UserIcon size={18} aria-hidden /> {t('nav.profile')}

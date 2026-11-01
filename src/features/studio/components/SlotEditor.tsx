@@ -132,7 +132,7 @@ export function SlotEditor({ item, total, references, issues, showErrors, onChan
           lang="th"
         />
         <details className="group rounded-2xl border border-line px-4 open:pb-4" open={!!(item.clothingProps || item.colorNotes)}>
-          <summary className="flex min-h-11 cursor-pointer items-center text-sm font-medium text-ink">
+          <summary className="flex min-h-11 items-center text-sm font-medium text-ink">
             {tx('รายละเอียดเพิ่มเติม (ไม่บังคับ)', 'More details (optional)')}
           </summary>
           <div className="space-y-4 pt-1">
@@ -173,7 +173,7 @@ export function SlotEditor({ item, total, references, issues, showErrors, onChan
                   <label
                     key={r.id}
                     className={cn(
-                      'relative h-16 w-16 cursor-pointer overflow-hidden rounded-xl border-2 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
+                      'relative h-16 w-16 overflow-hidden rounded-xl border-2 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
                       on ? 'border-brown' : 'border-line opacity-70 hover:opacity-100',
                     )}
                   >

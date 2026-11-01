@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { ChevronRight, CreditCard, Heart, Image, ShoppingBag, Sticker } from 'lucide-react'
+import { RevealItem } from '@/components/ui/Reveal'
 import { Link } from 'react-router'
 import { Page } from '@/components/layout/AppShell'
 import { LinkButton } from '@/components/ui/LinkButton'
@@ -48,14 +50,16 @@ export default function HomePage() {
   // Straight from the LINE Store sync: the store lists newest first, so new sets show up here on their own.
   const latest = LINE_SETS.slice(0, 6)
 
+  // Fetch the set page's code ahead of time, so the first tap opens (and animates) without a wait.
+  useEffect(() => {
+    void import('@/features/stickers/LineSetPage')
+  }, [])
+
   return (
     <>
       <Page className="grid items-center gap-10 pt-10 pb-6 sm:pt-16 md:grid-cols-[1.1fr_1fr]">
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-sunny" aria-hidden /> nompong family
-          </p>
-          <h1 className="t-hero mt-5 font-display">
+          <h1 className="t-hero font-display">
             {tx('สติกเกอร์อุ่นใจ', 'Warm-hearted stickers')}
             <br />
             <TypingText phrases={HERO_LINES[locale]} className="text-brown-400" caretClassName="bg-sunny" />
@@ -70,7 +74,8 @@ export default function HomePage() {
             <LinkButton to="/suggest" variant="primary" size="lg" iconRight={<ChevronRight size={18} />}>
               {tx('ออกแบบชุดสติกเกอร์', 'Design a sticker set')}
             </LinkButton>
-            <LinkButton to="/stickers" variant="secondary" size="lg">
+            {/* Grows into the gallery's search bar on the next page (shared view-transition name). */}
+            <LinkButton to="/stickers" viewTransition variant="secondary" size="lg" style={{ viewTransitionName: 'stickers-entry' }}>
               {tx('ดูสติกเกอร์ทั้งหมด', 'See all stickers')}
             </LinkButton>
           </div>
@@ -100,15 +105,15 @@ export default function HomePage() {
             <h2 id="latest" className="t-section font-display">
               {tx('ชุดล่าสุด', 'Latest sets')}
             </h2>
-            <Link to="/stickers" className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-muted hover:text-ink">
+            <Link to="/stickers" viewTransition className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-muted hover:text-ink">
               {tx('ดูทั้งหมด', 'See all')} <ChevronRight size={16} aria-hidden />
             </Link>
           </div>
           <ul className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
             {latest.map((s) => (
-              <li key={s.id}>
+              <RevealItem key={s.id}>
                 <LineSetCard set={s} />
-              </li>
+              </RevealItem>
             ))}
           </ul>
         </section>

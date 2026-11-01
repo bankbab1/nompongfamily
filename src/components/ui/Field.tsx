@@ -189,14 +189,14 @@ export function Checkbox({
   const id = idProp ?? auto
   return (
     <div className={className}>
-      <label htmlFor={id} className="flex min-h-11 cursor-pointer items-start gap-3 py-1">
+      <label htmlFor={id} className="flex min-h-11 items-start gap-3 py-1">
         <span className="relative mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center">
           <input
             id={id}
             type="checkbox"
             aria-invalid={!!error || undefined}
             aria-describedby={error ? `${id}-error` : undefined}
-            className="peer h-6 w-6 cursor-pointer appearance-none rounded-md border-2 border-line-strong bg-surface checked:border-brown checked:bg-brown focus-visible:ring-2 focus-visible:ring-sunny aria-[invalid=true]:border-danger"
+            className="peer h-6 w-6 appearance-none rounded-md border-2 border-line-strong bg-surface checked:border-brown checked:bg-brown focus-visible:ring-2 focus-visible:ring-sunny aria-[invalid=true]:border-danger"
             {...rest}
           />
           <Check size={16} strokeWidth={3} className="pointer-events-none absolute text-cream opacity-0 peer-checked:opacity-100" aria-hidden />
@@ -257,7 +257,7 @@ export function RadioCards<T extends string | number>({
             <label
               key={String(o.value)}
               className={cn(
-                'relative flex min-h-11 cursor-pointer gap-3 rounded-2xl border-2 bg-surface p-3.5 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown has-[:focus-visible]:ring-offset-2',
+                'relative flex min-h-11 gap-3 rounded-2xl border-2 bg-surface p-3.5 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown has-[:focus-visible]:ring-offset-2',
                 checked ? 'border-brown bg-sunny-50' : 'border-line hover:border-line-strong',
                 o.disabled && 'cursor-not-allowed opacity-50',
                 columns === 5 && 'items-center justify-center p-2 text-center',

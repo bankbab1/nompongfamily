@@ -22,7 +22,7 @@ const ROLE_INFO: Record<User['role'], { label: Bilingual; icon: typeof UserRound
   admin: {
     label: { th: 'ผู้ดูแลสตูดิโอ', en: 'Studio admin' },
     icon: Shield,
-    body: { th: 'กล่องคำขอ งานผลิต อัปโหลด proof', en: 'Inbox, production, proof uploads' },
+    body: { th: 'ดูแลไอเดีย CR และอัปเดตสถานะ', en: 'Reviews CR ideas and updates their status' },
   },
 }
 

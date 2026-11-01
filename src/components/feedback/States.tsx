@@ -9,8 +9,8 @@ export function Spinner({ className, label = pick({ th: 'กำลังโห�
   return <Loader2 className={cn('h-5 w-5 animate-spin text-muted', className)} aria-label={label} role="status" />
 }
 
-export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn('animate-skeleton rounded-xl bg-line/70', className)} aria-hidden />
+export function Skeleton({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  return <div className={cn('animate-skeleton rounded-xl bg-line/70', className)} style={style} aria-hidden />
 }
 
 export function PageSkeleton({ rows = 4 }: { rows?: number }) {

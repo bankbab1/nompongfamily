@@ -17,7 +17,6 @@ function StickerSetRoute() {
   const { slug = '' } = useParams()
   return /^\d+$/.test(slug) ? <LineSetPage id={slug} /> : <SetDetailPage />
 }
-const EditRequestPage = lazy(() => import('@/features/studio/pages/EditRequestPage'))
 const WallpapersPage = lazy(() => import('@/features/wallpapers/WallpapersPage'))
 const WallpaperDetailPage = lazy(() => import('@/features/wallpapers/WallpaperDetailPage'))
 const ShopPage = lazy(() => import('@/features/shop/ShopPage'))
@@ -29,21 +28,14 @@ const SuggestPage = lazy(() => import('@/features/suggestions/SuggestPage'))
 const NotFoundPage = lazy(() => import('@/features/info/NotFoundPage'))
 const LoginPage = lazy(() => import('@/features/auth/LoginPage'))
 const MyDashboardPage = lazy(() => import('@/features/requests/MyDashboardPage'))
-const MyRequestsPage = lazy(() => import('@/features/requests/MyRequestsPage'))
-const RequestDetailPage = lazy(() => import('@/features/requests/RequestDetailPage'))
 const ProfilePage = lazy(() => import('@/features/requests/ProfilePage'))
-const ProofReviewPage = lazy(() => import('@/features/proofs/ProofReviewPage'))
 const LaterPage = lazy(() => import('@/features/info/LaterPage'))
 
 const AdminLayout = lazy(() => import('@/features/admin/AdminLayout').then((m) => ({ default: m.AdminLayout })))
 const AdminOverviewPage = lazy(() => import('@/features/admin/OverviewPage'))
-const AdminInboxPage = lazy(() => import('@/features/admin/InboxPage'))
-const AdminRequestPage = lazy(() => import('@/features/admin/AdminRequestPage'))
-const ProductionListPage = lazy(() => import('@/features/admin/ProductionListPage'))
-const ProductionJobPage = lazy(() => import('@/features/admin/ProductionJobPage'))
-const AdminStickersPage = lazy(() => import('@/features/admin/StickersAdminPage'))
+const AdminIdeasPage = lazy(() => import('@/features/admin/IdeasPage'))
+const AdminIdeaDetailPage = lazy(() => import('@/features/admin/IdeaDetailPage'))
 const AdminSettingsPage = lazy(() => import('@/features/admin/SettingsPage'))
-const AdminLaterPage = lazy(() => import('@/features/admin/AdminLaterPage'))
 
 const h = (handle: RouteHandle) => handle
 
@@ -76,18 +68,8 @@ export const router = createBrowserRouter(
           element: <RequireAuth />,
           children: [
             { index: true, element: <MyDashboardPage /> },
-            { path: 'requests', element: <MyRequestsPage />, handle: h({ title: { th: 'คำขอของฉัน', en: 'My requests' }, back: '/my' }) },
-            {
-              path: 'requests/:id',
-              element: <RequestDetailPage />,
-              handle: h({ title: { th: 'รายละเอียดคำขอ', en: 'Request details' }, back: '/my/requests' }),
-            },
-            {
-              path: 'requests/:id/edit',
-              element: <EditRequestPage />,
-              handle: h({ title: { th: 'แก้ไขคำขอ', en: 'Edit request' }, back: '/my/requests', hideBottomNav: true }),
-            },
-            { path: 'requests/:id/proof', element: <ProofReviewPage />, handle: h({ title: { th: 'ตรวจงาน', en: 'Review artwork' }, back: '/my/requests' }) },
+            // Requests from the old Studio form are retired; ideas and their status live on My Nompong.
+            { path: 'requests/*', element: <Navigate to="/my" replace /> },
             { path: 'profile', element: <ProfilePage />, handle: h({ title: { th: 'โปรไฟล์', en: 'Profile' }, back: '/my' }) },
             {
               path: 'collection',
@@ -113,16 +95,13 @@ export const router = createBrowserRouter(
           element: <AdminLayout />,
           children: [
             { index: true, element: <AdminOverviewPage /> },
-            { path: 'requests', element: <AdminInboxPage /> },
-            { path: 'requests/:id', element: <AdminRequestPage /> },
-            { path: 'production', element: <ProductionListPage /> },
-            { path: 'production/:id', element: <ProductionJobPage /> },
-            { path: 'stickers', element: <AdminStickersPage /> },
+            { path: 'ideas', element: <AdminIdeasPage /> },
+            { path: 'ideas/:id', element: <AdminIdeaDetailPage /> },
             { path: 'settings', element: <AdminSettingsPage /> },
-            { path: 'content', element: <AdminLaterPage title="หน้าเว็บ & ประกาศ" phase="P1" /> },
-            { path: 'wallpapers', element: <AdminLaterPage title="วอลเปเปอร์" phase="P1" /> },
-            { path: 'products', element: <AdminLaterPage title="สินค้า" phase="P2" /> },
-            { path: 'cards', element: <AdminLaterPage title="การ์ดสะสม" phase="P2" /> },
+            // Old admin pages (requests, production, sticker catalogue, placeholders) are gone:
+            // stickers live in LINE Creators Market, and fan ideas are handled under "ideas".
+            { path: 'requests/*', element: <Navigate to="/admin/ideas" replace /> },
+            { path: '*', element: <Navigate to="/admin" replace /> },
           ],
         },
       ],

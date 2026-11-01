@@ -314,7 +314,7 @@ function CreatorToggle({ checked, onChange }: { checked: boolean; onChange: (v: 
   return (
     <label
       className={cn(
-        'flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
+        'flex min-h-14 items-center gap-3 rounded-2xl border px-4 py-3 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brown',
         checked ? 'border-sunny-200 bg-sunny-50' : 'border-line hover:border-line-strong',
       )}
     >

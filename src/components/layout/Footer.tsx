@@ -15,7 +15,7 @@ const groups = [
     title: 'Nompong Studio',
     links: [
       ['/suggest', { th: 'ออกแบบชุดสติกเกอร์', en: 'Design a sticker set' }],
-      ['/my/requests', { th: 'ติดตามคำขอ', en: 'Track requests' }],
+      ['/my', { th: 'ไอเดียของฉัน', en: 'My ideas' }],
     ],
   },
   {
