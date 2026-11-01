@@ -81,7 +81,7 @@ export default function CatalogPage() {
           value={q}
           onChange={(v) => set('q', v || null)}
           label={tx('ค้นหาชุดสติกเกอร์', 'Search sticker sets')}
-          placeholder={tx('ค้นหาชื่อชุดหรือรหัส เช่น บิงซู, v140', 'Search a name or code, e.g. v140')}
+          placeholder={tx('ค้นหาชื่อชุดหรือรหัส เช่น นมผง, v140', 'Search a name or code, e.g. v140')}
           lang="th"
         />
         <ViewSwitch view={view} onChange={changeView} />
