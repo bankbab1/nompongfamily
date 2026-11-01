@@ -33,7 +33,7 @@ const desktopLinks = [
 
 function PublicHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-line/80 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
+    <header className="fixed inset-x-0 top-0 z-30 lg:sticky border-b border-line/80 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
       <div className="flex h-16 w-full items-center gap-2 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6 lg:px-10">
         {/* Mobile: always the wordmark. Moving between pages is the bottom nav's job (and the phone's own back gesture). */}
         <div className="flex min-w-0 flex-1 items-center lg:hidden">
@@ -209,6 +209,8 @@ export function AppShell() {
         {t('nav.skipToContent')}
       </a>
       <PublicHeader />
+      {/* Mobile header is fixed so browser-toolbar resizing cannot leave a sticky header clipped. */}
+      <div className="h-16 shrink-0 lg:hidden" aria-hidden />
       <main ref={mainRef} id="main" tabIndex={-1} className={cn('flex-1 focus:outline-none', !handle.hideBottomNav && 'pb-24 lg:pb-0')}>
         <Suspense
           fallback={
