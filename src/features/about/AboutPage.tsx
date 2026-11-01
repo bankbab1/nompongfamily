@@ -86,11 +86,11 @@ export default function AboutPage() {
         <p className="t-lead mt-2 font-medium text-ink">{tx('ตัวเล็ก ขนฟู ความทะเล้นเกินตัวคับ', 'A little fluffball with a whole lot of mischief.')}</p>
       </header>
 
-      <article className="mt-8 grid overflow-hidden rounded-3xl border border-line bg-surface md:grid-cols-[1fr_1.3fr]">
+      <article className="mt-8 grid overflow-hidden rounded-3xl border border-line bg-surface grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
         <div className="flex aspect-[4/3] items-center justify-center bg-sunny-100 p-6 md:aspect-auto md:min-h-full" aria-hidden>
           <NompongArt pose="sit" className="h-full max-h-80 w-auto" decorative />
         </div>
-        <div className="p-5 sm:p-8">
+        <div className="min-w-0 p-5 [overflow-wrap:anywhere] sm:p-8">
           <h2 className="font-display text-2xl">
             {tx('น้องนมผง', 'Nompong')} {locale === 'th' && <span className="text-base text-muted">Nompong</span>}
           </h2>
@@ -115,7 +115,7 @@ export default function AboutPage() {
       {intro.data && (
         <section
           aria-labelledby="foundation"
-          className="mt-12 grid items-center gap-6 rounded-3xl border border-line bg-sunny-50 p-5 sm:p-8 md:grid-cols-[1fr_1.2fr]"
+          className="mt-12 grid items-center gap-6 rounded-3xl border border-line bg-sunny-50 p-5 sm:p-8 grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]"
         >
           <img src={setCover(intro.data)} alt="" className="w-full rounded-2xl" />
           <div>

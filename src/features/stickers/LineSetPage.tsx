@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { RevealItem } from '@/components/ui/Reveal'
-import { ArrowUpRight, ChevronLeft, ChevronRight, Share2 } from 'lucide-react'
+import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, MessageCircle, Share2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { EmptyState, Skeleton } from '@/components/feedback/States'
@@ -154,35 +154,64 @@ export default function LineSetPage({ id }: { id: string }) {
   )
 }
 
-/**
- * Share this set's page in the app. Phones open their own share sheet (LINE, Messages…);
- * where that isn't available the link is copied instead.
- */
+/** Share actions with a display-only URL: opening the sheet never focuses a text field. */
 function ShareButton({ title, compact }: { title: string; compact?: boolean }) {
   const tx = useTx()
-  const share = async () => {
-    const url = window.location.href
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, url })
-      } catch {
-        /* closed the share sheet: nothing to do */
-      }
-      return
-    }
+  const [open, setOpen] = useState(false)
+  const url = window.location.href
+  const copy = async () => {
     try {
-      await navigator.clipboard.writeText(url)
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url)
+      } else {
+        // Local HTTP previews do not expose Clipboard API. Select only after an explicit copy tap.
+        const field = document.createElement('textarea')
+        const previous = document.activeElement as HTMLElement | null
+        field.value = url
+        field.readOnly = true
+        field.style.cssText = 'position:fixed;top:0;left:-9999px;font-size:16px'
+        document.body.append(field)
+        try {
+          field.select()
+          if (!document.execCommand('copy')) throw new Error('Copy failed')
+        } finally {
+          field.remove()
+          previous?.focus({ preventScroll: true })
+        }
+      }
       toast.success(tx('คัดลอกลิงก์แล้ว', 'Link copied'))
     } catch {
       toast.error(tx('คัดลอกลิงก์ไม่สำเร็จ', 'Couldn’t copy the link'))
     }
   }
-  // `compact`: a small round icon button (the sticker viewer's footer).
-  if (compact) return <Button variant="secondary" iconOnly label={tx('แชร์', 'Share')} icon={<Share2 size={18} />} onClick={() => void share()} />
   return (
-    <Button variant="secondary" size="lg" icon={<Share2 size={18} />} onClick={() => void share()}>
-      {tx('แชร์', 'Share')}
-    </Button>
+    <>
+      {compact ? (
+        <Button variant="secondary" iconOnly label={tx('แชร์', 'Share')} icon={<Share2 size={18} />} onClick={() => setOpen(true)} />
+      ) : (
+        <Button variant="secondary" size="lg" icon={<Share2 size={18} />} onClick={() => setOpen(true)}>
+          {tx('แชร์', 'Share')}
+        </Button>
+      )}
+      <ResponsiveModal open={open} onOpenChange={setOpen} title={tx('แชร์ชุดนี้', 'Share this set')} description={title} size="sm">
+        <div className="space-y-3">
+          <a
+            href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonBase, buttonSizes.lg, 'w-full justify-start gap-3 bg-[#06c755] text-white hover:brightness-95')}
+          >
+            <MessageCircle size={20} aria-hidden /> {tx('แชร์บน LINE', 'Share on LINE')}
+          </a>
+          <Button variant="secondary" size="lg" block className="justify-start" icon={<Copy size={20} />} onClick={() => void copy()}>
+            {tx('คัดลอกลิงก์', 'Copy link')}
+          </Button>
+          <p className="rounded-2xl border border-line bg-surface-muted px-3 py-3 text-sm text-muted [overflow-wrap:anywhere]" dir="ltr">
+            {url}
+          </p>
+        </div>
+      </ResponsiveModal>
+    </>
   )
 }
 
