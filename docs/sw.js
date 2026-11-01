@@ -25,8 +25,10 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(req)
         .then((res) => {
-          const copy = res.clone()
-          caches.open(CACHE).then((c) => c.put(BASE, copy))
+          if (res.ok) {
+            const copy = res.clone()
+            caches.open(CACHE).then((c) => c.put(BASE, copy))
+          }
           return res
         })
         .catch(() => caches.match(BASE)),
@@ -40,8 +42,11 @@ self.addEventListener('fetch', (event) => {
         (hit) =>
           hit ||
           fetch(req).then((res) => {
-            const copy = res.clone()
-            caches.open(CACHE).then((c) => c.put(req, copy))
+            // Never pin a missing chunk's 404 response in the offline cache.
+            if (res.ok) {
+              const copy = res.clone()
+              caches.open(CACHE).then((c) => c.put(req, copy))
+            }
             return res
           }),
       ),
