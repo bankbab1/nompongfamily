@@ -269,7 +269,7 @@ export function StickerSetBuilder({ onSubmit, submitting }: { onSubmit: (input: 
                 aria-labelledby="count-label"
                 className="relative grid grid-cols-5 gap-1 rounded-2xl bg-surface-muted p-1"
               >
-                <SlidingPill pill={countPill.pill} ready={countPill.ready} className="rounded-xl bg-surface shadow-sm" />
+                <SlidingPill pill={countPill.pill} ready={countPill.ready} className="rounded-xl selected-chip" />
                 {STICKER_COUNTS.map((n) => (
                   <button
                     key={n}

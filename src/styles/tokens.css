@@ -47,6 +47,9 @@
 }
 
 :root {
+  --primary: #26221f;
+  --primary-hover: #3b3632;
+  --on-primary: #fbfaf7;
   --background: #fbfaf7;
   --surface: #ffffff;
   --surface-muted: #f4f2ee;
@@ -72,9 +75,8 @@
   --info-soft: #e0f1ee;
 }
 
-/* Dark theme for the original palette: warm night with golden accents. The brand scale is
-   remapped too (cream ↔ brown), so "bg-brown text-cream" buttons flip to light-on-dark and
-   "bg-sunny" accents become a deep gold that keeps light text readable. */
+/* Warm charcoal surfaces with soft gold actions. Text and decorative brand colors
+   remain separate from primary action colors so neither loses contrast. */
 :root[data-theme='dark'] {
   color-scheme: dark;
 
@@ -82,10 +84,10 @@
   --color-brown: #f2efe9;
   --color-brown-800: #ffffff;
   --color-brown-400: #a8a198;
-  --color-sunny: #866812;
-  --color-sunny-50: #221d12;
-  --color-sunny-100: #2d2614;
-  --color-sunny-200: #3d331a;
+  --color-sunny: #efd27b;
+  --color-sunny-50: #28251e;
+  --color-sunny-100: #393226;
+  --color-sunny-200: #4a4030;
   --color-sunny-700: #f5d76e;
   --color-peach: #e8907f;
   --color-peach-100: #3a2420;
@@ -94,18 +96,21 @@
   --color-mint-100: #1b2e2b;
   --color-mint-700: #a8ddd6;
 
-  --background: #141311;
-  --surface: #1c1b19;
-  --surface-muted: #262421;
-  --nav-pill: #34312c;
-  --nav-pill-edge: rgb(255 255 255 / 0.08);
-  --sticker-tile: #e8e3d9;
-  --sticker-tile-hover: #f0e7cd;
+  --primary: #efd27b;
+  --primary-hover: #f6de98;
+  --on-primary: #282116;
+  --background: #191816;
+  --surface: #24221f;
+  --surface-muted: #302d29;
+  --nav-pill: #4a443c;
+  --nav-pill-edge: rgb(255 234 194 / 0.18);
+  --sticker-tile: #cbc5bb;
+  --sticker-tile-hover: #ddd1b8;
   --text-primary: #f2efe9; /* ~16:1 on background */
-  --text-muted: #a8a198; /* ~7:1 on background */
-  --border: #2e2b27;
-  --border-strong: #433f39;
-  --accent: #866812;
+  --text-muted: #b9b1a7; /* ~7:1 on background */
+  --border: #454039;
+  --border-strong: #625a50;
+  --accent: #efd27b;
   --danger: #ff8f85;
   --danger-soft: #3a1f1d;
   --success: #7fd1a8;

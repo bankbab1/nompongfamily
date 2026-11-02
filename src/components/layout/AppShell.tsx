@@ -54,7 +54,7 @@ function PublicHeader() {
             className={({ isActive }) =>
               cn(
                 'hidden h-10 items-center gap-2 rounded-full px-4 text-sm font-medium whitespace-nowrap transition-colors lg:inline-flex',
-                isActive ? 'bg-brown-800 text-cream' : 'bg-brown text-cream hover:bg-brown-800',
+                isActive ? 'brand-primary ring-2 ring-accent/30' : 'brand-primary',
               )
             }
           >
@@ -133,7 +133,7 @@ function ScrollTopButton({ raised }: { raised: boolean }) {
       tabIndex={show ? 0 : -1}
       aria-hidden={!show}
       className={cn(
-        'fixed right-4 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-brown text-cream shadow-lg shadow-black/15 transition duration-300 hover:bg-brown-800 active:scale-95 lg:right-6 lg:bottom-6',
+        'fixed right-4 z-30 flex h-11 w-11 items-center justify-center rounded-full brand-primary shadow-lg shadow-black/15 transition duration-300 active:scale-95 lg:right-6 lg:bottom-6',
         raised ? 'bottom-[calc(5.5rem+env(safe-area-inset-bottom))]' : 'bottom-[calc(1rem+env(safe-area-inset-bottom))]',
         show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0',
       )}

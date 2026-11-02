@@ -20,7 +20,7 @@ export function LanguageSwitch() {
   return (
     <div ref={track} role="group" aria-label={c.nav.language} className="relative inline-flex h-9 items-center rounded-full bg-surface-muted p-0.5">
       {/* One pill slides between TH and EN. */}
-      <SlidingPill pill={pill} ready={ready} className="rounded-full bg-surface shadow-sm" />
+      <SlidingPill pill={pill} ready={ready} className="rounded-full selected-chip" />
       {options.map((o) => (
         <button
           key={o.id}
@@ -103,7 +103,7 @@ export function MobileSettings() {
 
   const row = 'flex items-center justify-between gap-4 py-2'
   const seg = (on: boolean) =>
-    cn('h-8 min-w-11 rounded-full px-3 text-xs font-semibold transition-colors', on ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink')
+    cn('h-8 min-w-11 rounded-full px-3 text-xs font-semibold transition-colors', on ? 'selected-chip text-ink' : 'text-muted hover:text-ink')
 
   return (
     <div ref={root} className="relative">

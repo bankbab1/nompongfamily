@@ -66,7 +66,7 @@ export function ArtworkViewer({ item }: { item: ProofItem }) {
                   setCompare(false)
                   setSelected(v.version)
                 }}
-                className={cn('min-h-9 rounded-lg px-3 text-sm font-medium', !compare && selected === v.version ? 'bg-surface shadow-sm' : 'text-muted')}
+                className={cn('min-h-9 rounded-lg px-3 text-sm font-medium', !compare && selected === v.version ? 'selected-chip' : 'text-muted')}
               >
                 v{v.version}
               </button>

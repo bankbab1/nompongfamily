@@ -92,7 +92,7 @@ export default function CatalogPage() {
         <div>
           <div className="no-scrollbar -mx-4 overflow-x-auto px-4">
             <div ref={track} role="group" aria-label={tx('เวอร์ชัน', 'Version')} className="relative inline-flex rounded-full bg-surface-muted p-1">
-              <SlidingPill pill={pill.pill} ready={pill.ready} className="rounded-full bg-surface shadow-sm" />
+              <SlidingPill pill={pill.pill} ready={pill.ready} className="rounded-full selected-chip" />
               {tabs.map((t) => (
                 <button
                   key={t.id}
@@ -112,7 +112,7 @@ export default function CatalogPage() {
                   <span
                     className={cn(
                       'min-w-7 rounded-full px-1.5 py-0.5 text-center text-[11px] leading-none font-semibold tabular-nums transition-colors duration-300',
-                      series === t.id ? 'bg-brown text-cream' : 'bg-line/70 text-muted',
+                      series === t.id ? 'brand-primary' : 'bg-line/70 text-muted',
                     )}
                   >
                     {t.count}
@@ -207,7 +207,7 @@ function ViewSwitch({ view, onChange }: { view: View; onChange: (v: View) => voi
           onClick={() => onChange(id)}
           className={cn(
             'flex h-9 w-9 items-center justify-center rounded-full transition-colors',
-            view === id ? 'bg-surface text-ink shadow-sm' : 'text-muted',
+            view === id ? 'selected-chip text-ink' : 'text-muted',
           )}
         >
           <Icon size={17} aria-hidden />

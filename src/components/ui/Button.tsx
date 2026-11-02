@@ -22,7 +22,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 }
 
 export const buttonVariants: Record<ButtonVariant, string> = {
-  primary: 'bg-brown text-cream hover:bg-brown-800',
+  primary: 'brand-primary',
   accent: 'bg-sunny text-[#26221f] hover:brightness-95',
   secondary: 'border border-line bg-surface text-ink hover:border-line-strong hover:bg-surface-muted',
   ghost: 'text-ink hover:bg-surface-muted',

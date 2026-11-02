@@ -63,7 +63,7 @@ export default function IdeasPage() {
               onClick={() => set('status', t.id === 'pending' ? null : t.id)}
               className={cn(
                 'min-h-9 rounded-full px-3.5 text-sm font-medium whitespace-nowrap transition-colors',
-                filter === t.id ? 'bg-surface text-ink shadow-sm' : 'text-muted hover:text-ink',
+                filter === t.id ? 'selected-chip text-ink' : 'text-muted hover:text-ink',
               )}
             >
               {t.label}

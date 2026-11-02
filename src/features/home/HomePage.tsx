@@ -119,7 +119,7 @@ export default function HomePage() {
         </section>
 
         <section className="mt-16 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="flex min-w-0 flex-col rounded-3xl bg-brown p-6 text-cream sm:p-8">
+          <div className="home-studio-card flex min-w-0 flex-col rounded-3xl bg-brown p-6 text-cream sm:p-8">
             <h2 className="font-display text-2xl">{tx('มีไอเดียสติกเกอร์ในใจ?', 'Got a sticker idea?')}</h2>
             <p className="mt-2 max-w-md text-cream/70">
               {tx(

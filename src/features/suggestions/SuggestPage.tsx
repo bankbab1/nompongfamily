@@ -110,7 +110,7 @@ export default function SuggestPage() {
               {c.suggest.wallTitle} {q.data && <span className="text-base font-normal text-muted">({q.data.length})</span>}
             </h2>
             <div ref={sortTrack} role="group" aria-label={c.suggest.sortLabel} className="relative inline-flex rounded-full bg-surface-muted p-1">
-              <SlidingPill pill={sortPill.pill} ready={sortPill.ready} className="rounded-full bg-surface shadow-sm" />
+              <SlidingPill pill={sortPill.pill} ready={sortPill.ready} className="rounded-full selected-chip" />
               {(['popular', 'newest'] as const).map((id) => (
                 <button
                   key={id}
