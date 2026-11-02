@@ -8,7 +8,7 @@ it('serves published wallpapers even when an existing browser has stale mock cat
   db().wallpapers = []
   try {
     const items = await mockApi.catalog.listWallpapers()
-    expect(items).toHaveLength(4)
+    expect(items).toHaveLength(WALLPAPER_COLLECTION.length)
     for (const w of WALLPAPER_COLLECTION) {
       expect((await mockApi.catalog.getWallpaper(w.slug)).variants).toHaveLength(4)
       expect(w.variants.map(v => v.device)).toEqual(['mobile', 'tablet', 'tablet', 'desktop'])

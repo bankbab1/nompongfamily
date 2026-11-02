@@ -25,30 +25,26 @@ export default function WallpapersPage() {
       {q.isError ? (
         <ErrorState error={q.error} onRetry={() => q.refetch()} />
       ) : (
-        <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {q.isPending
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <li key={i}>
-                  <Skeleton className="aspect-[9/16]" />
-                </li>
-              ))
-            : q.data.map((w) => (
-                <li key={w.id}>
+        <div className="space-y-10">
+          {q.isPending ? <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[9/16]" />)}
+          </div> : Array.from(new Set(q.data.map(w => w.theme))).map(theme => {
+            const items = q.data.filter(w => w.theme === theme)
+            return <section key={theme} aria-label={locale === 'en' ? items[0].themeEn || theme : theme}>
+              <h2 className="t-section mb-4 font-display">{locale === 'en' ? items[0].themeEn || theme : theme}</h2>
+              <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                {items.map(w => <li key={w.id}>
                   <Link to={`/wallpapers/${w.slug}`} className="group block">
-                    <img
-                      src={wallpaperAsset(w.previewPath!)}
-                      alt=""
-                      loading="lazy"
-                      className="aspect-[853/1844] w-full rounded-3xl border border-line object-contain transition-transform group-hover:-translate-y-0.5"
-                    />
+                    <img src={wallpaperAsset(w.previewPath!)} alt="" loading="lazy"
+                      className="aspect-[9/19.5] w-full rounded-3xl border border-line object-contain transition-transform group-hover:-translate-y-0.5" />
                     <p className="mt-2 font-display text-base">{locale === 'en' ? w.titleEn : w.titleTh}</p>
-                    <p className="text-sm text-muted">
-                      {(locale === 'en' && w.themeEn) || w.theme} · {w.variants.length} {tx('ขนาด', 'sizes')}
-                    </p>
+                    <p className="text-sm text-muted">{w.variants.length} {tx('ขนาด', 'sizes')}</p>
                   </Link>
-                </li>
-              ))}
-        </ul>
+                </li>)}
+              </ul>
+            </section>
+          })}
+        </div>
       )}
     </Page>
   )

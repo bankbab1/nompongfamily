@@ -1,5 +1,249 @@
 [
   {
+    "id": "wp_w2_moon-cloud",
+    "slug": "w2-moon-cloud",
+    "titleTh": "ฝันบนก้อนเมฆ",
+    "titleEn": "Moon Cloud",
+    "theme": "W2 · ค่ำคืนแห่งความฝัน",
+    "themeEn": "W2 · Dreamy Nights",
+    "palette": [
+      "#243451",
+      "#e6cf9c",
+      "#b7a4bc"
+    ],
+    "previewPath": "wallpapers/w2/moon-cloud-preview.webp",
+    "variants": [
+      {
+        "id": "w2-moon-cloud-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 523,
+        "assetPath": "wallpapers/w2/moon-cloud-phone.jpg"
+      },
+      {
+        "id": "w2-moon-cloud-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 577,
+        "assetPath": "wallpapers/w2/moon-cloud-tablet-portrait.jpg"
+      },
+      {
+        "id": "w2-moon-cloud-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 562,
+        "assetPath": "wallpapers/w2/moon-cloud-tablet-landscape.jpg"
+      },
+      {
+        "id": "w2-moon-cloud-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 519,
+        "assetPath": "wallpapers/w2/moon-cloud-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w2_lantern-camp",
+    "slug": "w2-lantern-camp",
+    "titleTh": "แคมป์แสงอุ่น",
+    "titleEn": "Lantern Camp",
+    "theme": "W2 · ค่ำคืนแห่งความฝัน",
+    "themeEn": "W2 · Dreamy Nights",
+    "palette": [
+      "#243451",
+      "#e6cf9c",
+      "#b7a4bc"
+    ],
+    "previewPath": "wallpapers/w2/lantern-camp-preview.webp",
+    "variants": [
+      {
+        "id": "w2-lantern-camp-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 515,
+        "assetPath": "wallpapers/w2/lantern-camp-phone.jpg"
+      },
+      {
+        "id": "w2-lantern-camp-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 664,
+        "assetPath": "wallpapers/w2/lantern-camp-tablet-portrait.jpg"
+      },
+      {
+        "id": "w2-lantern-camp-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 645,
+        "assetPath": "wallpapers/w2/lantern-camp-tablet-landscape.jpg"
+      },
+      {
+        "id": "w2-lantern-camp-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 650,
+        "assetPath": "wallpapers/w2/lantern-camp-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w2_bedtime-book",
+    "slug": "w2-bedtime-book",
+    "titleTh": "นิทานก่อนนอน",
+    "titleEn": "Bedtime Book",
+    "theme": "W2 · ค่ำคืนแห่งความฝัน",
+    "themeEn": "W2 · Dreamy Nights",
+    "palette": [
+      "#243451",
+      "#e6cf9c",
+      "#b7a4bc"
+    ],
+    "previewPath": "wallpapers/w2/bedtime-book-preview.webp",
+    "variants": [
+      {
+        "id": "w2-bedtime-book-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 352,
+        "assetPath": "wallpapers/w2/bedtime-book-phone.jpg"
+      },
+      {
+        "id": "w2-bedtime-book-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 382,
+        "assetPath": "wallpapers/w2/bedtime-book-tablet-portrait.jpg"
+      },
+      {
+        "id": "w2-bedtime-book-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 405,
+        "assetPath": "wallpapers/w2/bedtime-book-tablet-landscape.jpg"
+      },
+      {
+        "id": "w2-bedtime-book-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 394,
+        "assetPath": "wallpapers/w2/bedtime-book-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w2_star-window",
+    "slug": "w2-star-window",
+    "titleTh": "มองดาวริมหน้าต่าง",
+    "titleEn": "Star Window",
+    "theme": "W2 · ค่ำคืนแห่งความฝัน",
+    "themeEn": "W2 · Dreamy Nights",
+    "palette": [
+      "#243451",
+      "#e6cf9c",
+      "#b7a4bc"
+    ],
+    "previewPath": "wallpapers/w2/star-window-preview.webp",
+    "variants": [
+      {
+        "id": "w2-star-window-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 851,
+        "height": 1849,
+        "format": "JPG",
+        "sizeKb": 490,
+        "assetPath": "wallpapers/w2/star-window-phone.jpg"
+      },
+      {
+        "id": "w2-star-window-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 521,
+        "assetPath": "wallpapers/w2/star-window-tablet-portrait.jpg"
+      },
+      {
+        "id": "w2-star-window-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 490,
+        "assetPath": "wallpapers/w2/star-window-tablet-landscape.jpg"
+      },
+      {
+        "id": "w2-star-window-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 501,
+        "assetPath": "wallpapers/w2/star-window-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w1_corner-peek",
     "slug": "corner-peek",
     "titleTh": "แอบมองจากมุม",
