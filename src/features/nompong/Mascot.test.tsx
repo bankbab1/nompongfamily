@@ -43,7 +43,17 @@ it('pauses both idle motion and a tap reaction in background tabs', () => {
   fireEvent.click(getByRole('button'))
   vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden')
   fireEvent(document, new Event('visibilitychange'))
-  expect(container.querySelector('img')!.style.animationPlayState).toBe('paused')
+  expect((container.querySelector('.nompong-rig') as SVGElement).style.getPropertyValue('--rig-play')).toBe('paused')
   expect((container.querySelector('.mascot-reaction') as HTMLElement).style.animationPlayState).toBe('paused')
   vi.restoreAllMocks()
+})
+
+it('uses separate blinking, ear, tail and paw layers and activates the wave on tap', () => {
+  const { container, getByRole } = render(<NompongMascot interactive />)
+  for (const name of ['head','tail','ear-left','ear-right','eyes-open','eyes-closed','paw']) {
+    expect(container.querySelector(`.rig-${name}`)).toBeTruthy()
+  }
+  expect(container.querySelector('.nompong-rig')).not.toHaveAttribute('data-reacting')
+  fireEvent.click(getByRole('button'))
+  expect(container.querySelector('.nompong-rig')).toHaveAttribute('data-reacting')
 })
