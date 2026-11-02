@@ -10,6 +10,7 @@ import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
 import { useLocale, useTx } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
+import { useCollectionScroll } from './useCollectionScroll'
 import { LineSetCard } from './LineSetCard'
 import { LINE_AUTHOR_URL, LINE_SERIES, LINE_SETS, lineUrl, versionName, VERSIONS, type LineSet } from './lineStore'
 
@@ -54,7 +55,20 @@ export default function CatalogPage() {
 
   const tabs = [{ id: 'all', count: LINE_SETS.length }, ...LINE_SERIES]
   const track = useRef<HTMLDivElement>(null)
-  const pill = useSlidingPill(track, '[aria-pressed="true"]', [series, locale])
+  const sections = useRef<HTMLDivElement>(null)
+  const stickyBar = useRef<HTMLDivElement>(null)
+  const tabScroll = useRef<HTMLDivElement>(null)
+  const readingCollection = useCollectionScroll(sections, stickyBar, `${series}:${deferredQ}:${view}:${locale}`)
+  const activeTab = series === 'all' ? readingCollection : series
+  const pill = useSlidingPill(track, '[aria-pressed="true"]', [activeTab, locale])
+
+  useEffect(() => {
+    const container = tabScroll.current
+    const button = track.current?.querySelector<HTMLElement>('[aria-pressed="true"]')
+    if (!container || !button) return
+    const left = container.scrollLeft + button.getBoundingClientRect().left - container.getBoundingClientRect().left + button.offsetWidth / 2 - container.clientWidth / 2
+    container.scrollTo({ left: Math.max(0, left), behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+  }, [activeTab, locale])
 
   // Fetch the set page's code ahead of time, so the first tap opens (and animates) without a wait.
   useEffect(() => {
@@ -88,23 +102,23 @@ export default function CatalogPage() {
       </div>
 
       {/* Version tabs stay pinned under the header while scrolling the long list. */}
-      <div className="sticky top-16 z-20 -mx-4 mt-3 bg-background/90 px-4 py-2.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/75">
+      <div ref={stickyBar} className="sticky top-16 z-20 -mx-4 mt-3 bg-background/90 px-4 py-2.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/75">
         <div>
-          <div className="no-scrollbar -mx-4 overflow-x-auto px-4">
+          <div ref={tabScroll} className="no-scrollbar -mx-4 overflow-x-auto px-4">
             <div ref={track} role="group" aria-label={tx('เวอร์ชัน', 'Version')} className="relative inline-flex rounded-full bg-surface-muted p-1">
               <SlidingPill pill={pill.pill} ready={pill.ready} className="rounded-full selected-chip" />
               {tabs.map((t) => (
                 <button
                   key={t.id}
                   type="button"
-                  aria-pressed={series === t.id}
+                  aria-pressed={activeTab === t.id}
                   onClick={() => {
                     set('series', t.id === 'all' ? null : t.id)
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                   }}
                   className={cn(
                     'relative inline-flex min-h-9 items-center gap-1.5 rounded-full py-1 pr-1.5 pl-3.5 text-sm whitespace-nowrap transition-colors duration-300',
-                    series === t.id ? 'font-semibold text-ink' : 'font-medium text-muted hover:text-ink',
+                    activeTab === t.id ? 'font-semibold text-ink' : 'font-medium text-muted hover:text-ink',
                   )}
                 >
                   {t.id === 'all' ? tx('ทั้งหมด', 'All') : versionName(t.id)}
@@ -112,7 +126,7 @@ export default function CatalogPage() {
                   <span
                     className={cn(
                       'min-w-7 rounded-full px-1.5 py-0.5 text-center text-[11px] leading-none font-semibold tabular-nums transition-colors duration-300',
-                      series === t.id ? 'brand-primary' : 'bg-line/70 text-muted',
+                      activeTab === t.id ? 'brand-primary' : 'bg-line/70 text-muted',
                     )}
                   >
                     {t.count}
@@ -138,11 +152,11 @@ export default function CatalogPage() {
               </p>
             )}
             {/* One section per version letter, newest (highest number) first inside each. */}
-            <div className="space-y-10">
+            <div ref={sections} className="space-y-10">
               {groupByVersion(items).map((g) => {
                 const info = VERSIONS[g.id]
                 return (
-                  <section key={g.id} aria-labelledby={`v-${g.id}`}>
+                  <section key={g.id} data-collection={g.id} aria-labelledby={`v-${g.id}`}>
                     <header className="mb-4">
                       <h2 id={`v-${g.id}`} className="t-section flex items-baseline gap-2 font-display">
                         {versionName(g.id)}
