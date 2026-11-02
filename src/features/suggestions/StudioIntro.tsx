@@ -3,7 +3,7 @@ import { NompongMascot } from '@/features/nompong/Mascot'
 import { pick } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 
-const SHOW_MS = 900
+const SHOW_MS = 1800
 const FADE_MS = 300
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -15,7 +15,7 @@ export function shouldPlayStudioIntro() {
 
 /**
  * A short "opening the studio" moment: Nompong pops in with a wiggle on a yellow disc while three
- * paint dots bounce. Under a second, each time the Studio opens; tap anywhere to skip. `onDone` fires when it
+ * paint dots bounce. Holds for 1.8 seconds each time the Studio opens; tap anywhere to skip. `onDone` fires when it
  * starts fading, so the page underneath can begin its own entrance.
  */
 export function StudioIntro({ onDone }: { onDone: () => void }) {
