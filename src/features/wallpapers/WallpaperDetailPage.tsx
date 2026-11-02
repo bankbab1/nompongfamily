@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { Download, Laptop, Smartphone, Tablet } from 'lucide-react'
+import { ChevronLeft, Download, Laptop, Smartphone, Tablet } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 import { WallpaperDetailSkeleton } from '@/components/feedback/Skeletons'
 import { Alert, ErrorState } from '@/components/feedback/States'
 import { toast } from '@/components/feedback/Toast'
@@ -39,12 +39,14 @@ export default function WallpaperDetailPage() {
   if (q.isPending)
     return (
       <Page>
+        <WallpaperBackLink />
         <WallpaperDetailSkeleton />
       </Page>
     )
   if (q.isError)
     return (
       <Page>
+        <WallpaperBackLink />
         <ErrorState error={q.error} onRetry={() => q.refetch()} />
       </Page>
     )
@@ -72,6 +74,7 @@ export default function WallpaperDetailPage() {
 
   return (
     <Page>
+        <WallpaperBackLink />
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="flex items-start justify-center rounded-3xl bg-surface-muted p-4 sm:p-8">
           <img
@@ -135,5 +138,16 @@ export default function WallpaperDetailPage() {
         </div>
       </div>
     </Page>
+  )
+}
+
+/** Explicit collection destination also works when a wallpaper is opened from a shared link. */
+function WallpaperBackLink() {
+  const tx = useTx()
+  return (
+    <Link to="/wallpapers" viewTransition className="-ml-1 mb-5 inline-flex min-h-11 items-center gap-1 rounded-full pr-3 text-sm font-medium text-muted hover:text-ink">
+      <ChevronLeft size={18} aria-hidden />
+      {tx('วอลเปเปอร์ทั้งหมด', 'All wallpapers')}
+    </Link>
   )
 }
