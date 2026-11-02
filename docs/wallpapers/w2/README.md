@@ -5,3 +5,5 @@ Four Nompong designs, each independently composed for phone, tablet portrait, ta
 Designs: Moon Cloud, Lantern Camp, Bedtime Book, Star Window.
 
 The exact prompt set is recorded in prompts.json.
+
+List-view thumbnails: each `*-desktop-thumb.jpg` is a 480×270 JPEG (quality 80) made from the desktop file, used for the wallpaper list rows on phones. Add one for every new design (the list falls back to the full desktop image if it is missing).
