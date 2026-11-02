@@ -1,3 +1,4 @@
+import { WALLPAPER_COLLECTION } from '@/features/wallpapers/collection'
 import type {
   AdminRequestMeta,
   ArtworkProof,
@@ -13,7 +14,6 @@ import type {
   TimelineEvent,
   User,
   Wallpaper,
-  WallpaperVariant,
 } from '../types'
 import { stickerArt } from './art'
 
@@ -448,38 +448,7 @@ const SETS: StickerSet[] = [
   }
 })
 
-const WALLPAPER_VARIANTS: Omit<WallpaperVariant, 'id' | 'sizeKb'>[] = [
-  { label: 'มือถือ FHD+', labelEn: 'Phone FHD+', device: 'mobile', width: 1080, height: 2400, format: 'PNG' },
-  { label: 'มือถือ QHD+', labelEn: 'Phone QHD+', device: 'mobile', width: 1440, height: 3200, format: 'PNG' },
-  { label: 'แท็บเล็ตแนวตั้ง', labelEn: 'Tablet portrait', device: 'tablet', width: 2048, height: 2732, format: 'PNG' },
-  { label: 'แท็บเล็ตแนวนอน', labelEn: 'Tablet landscape', device: 'tablet', width: 2732, height: 2048, format: 'PNG' },
-  { label: 'เดสก์ท็อป Full HD', labelEn: 'Desktop Full HD', device: 'desktop', width: 1920, height: 1080, format: 'JPG' },
-  { label: 'เดสก์ท็อป QHD', labelEn: 'Desktop QHD', device: 'desktop', width: 2560, height: 1440, format: 'JPG' },
-  { label: 'เดสก์ท็อป 4K', labelEn: 'Desktop 4K', device: 'desktop', width: 3840, height: 2160, format: 'JPG' },
-]
-
-const WALLPAPERS: Wallpaper[] = (
-  [
-    ['sunny-morning', 'เช้าสดใส', 'Sunny Morning', 'สดใส', 'Bright', ['#FFF4C9', '#F5D76E', '#9DCFC9']],
-    ['peach-nap', 'งีบบ่ายสีพีช', 'Peach Nap', 'ผ่อนคลาย', 'Relaxing', ['#FDEAE4', '#F2B5A7', '#F5D76E']],
-    ['mint-rain', 'ฝนพรำสีมิ้นต์', 'Mint Rain', 'ฤดูฝน', 'Rainy season', ['#E3F3F0', '#9DCFC9', '#A9CBE8']],
-    ['cozy-night', 'คืนอบอุ่น', 'Cozy Night', 'กลางคืน', 'Night', ['#EDE6F4', '#D9C2E8', '#F5D76E']],
-  ] as const
-).map(([slug, titleTh, titleEn, theme, themeEn, palette]) => ({
-  id: `wp_${slug}`,
-  slug,
-  titleTh,
-  titleEn,
-  theme,
-  themeEn,
-  palette: [...palette] as [string, string, string],
-  free: true,
-  variants: WALLPAPER_VARIANTS.map((v) => ({
-    ...v,
-    id: `${slug}_${v.width}x${v.height}`,
-    sizeKb: Math.round((v.width * v.height) / (v.format === 'PNG' ? 900 : 2600)),
-  })),
-}))
+const WALLPAPERS: Wallpaper[] = WALLPAPER_COLLECTION
 
 const PACKAGES: CommissionPackage[] = (
   [

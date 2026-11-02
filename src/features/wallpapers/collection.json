@@ -1,0 +1,246 @@
+[
+  {
+    "id": "wp_w1_corner-peek",
+    "slug": "corner-peek",
+    "titleTh": "แอบมองจากมุม",
+    "titleEn": "Corner Peek",
+    "theme": "W1 · วันสบายๆ กับนมผง",
+    "themeEn": "W1 · Cozy Days with Nompong",
+    "palette": [
+      "#fcf7ed",
+      "#e6c4a2",
+      "#b7c99c"
+    ],
+    "previewPath": "wallpapers/w1/corner-peek-preview.webp",
+    "variants": [
+      {
+        "id": "corner-peek-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 853,
+        "height": 1844,
+        "format": "JPG",
+        "sizeKb": 300,
+        "assetPath": "wallpapers/w1/corner-peek-phone.jpg"
+      },
+      {
+        "id": "corner-peek-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 286,
+        "assetPath": "wallpapers/w1/corner-peek-tablet-portrait.jpg"
+      },
+      {
+        "id": "corner-peek-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 302,
+        "assetPath": "wallpapers/w1/corner-peek-tablet-landscape.jpg"
+      },
+      {
+        "id": "corner-peek-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 280,
+        "assetPath": "wallpapers/w1/corner-peek-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w1_tail-cuddle",
+    "slug": "tail-cuddle",
+    "titleTh": "กอดหางนุ่มๆ",
+    "titleEn": "Tail Cuddle",
+    "theme": "W1 · วันสบายๆ กับนมผง",
+    "themeEn": "W1 · Cozy Days with Nompong",
+    "palette": [
+      "#fcf7ed",
+      "#e6c4a2",
+      "#b7c99c"
+    ],
+    "previewPath": "wallpapers/w1/tail-cuddle-preview.webp",
+    "variants": [
+      {
+        "id": "tail-cuddle-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 190,
+        "assetPath": "wallpapers/w1/tail-cuddle-phone.jpg"
+      },
+      {
+        "id": "tail-cuddle-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 211,
+        "assetPath": "wallpapers/w1/tail-cuddle-tablet-portrait.jpg"
+      },
+      {
+        "id": "tail-cuddle-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 185,
+        "assetPath": "wallpapers/w1/tail-cuddle-tablet-landscape.jpg"
+      },
+      {
+        "id": "tail-cuddle-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 194,
+        "assetPath": "wallpapers/w1/tail-cuddle-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w1_tummy-time",
+    "slug": "tummy-time",
+    "titleTh": "เล่นพุงนุ่มๆ",
+    "titleEn": "Tummy Time",
+    "theme": "W1 · วันสบายๆ กับนมผง",
+    "themeEn": "W1 · Cozy Days with Nompong",
+    "palette": [
+      "#fcf7ed",
+      "#e6c4a2",
+      "#b7c99c"
+    ],
+    "previewPath": "wallpapers/w1/tummy-time-preview.webp",
+    "variants": [
+      {
+        "id": "tummy-time-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 853,
+        "height": 1844,
+        "format": "JPG",
+        "sizeKb": 188,
+        "assetPath": "wallpapers/w1/tummy-time-phone.jpg"
+      },
+      {
+        "id": "tummy-time-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 213,
+        "assetPath": "wallpapers/w1/tummy-time-tablet-portrait.jpg"
+      },
+      {
+        "id": "tummy-time-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 210,
+        "assetPath": "wallpapers/w1/tummy-time-tablet-landscape.jpg"
+      },
+      {
+        "id": "tummy-time-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 196,
+        "assetPath": "wallpapers/w1/tummy-time-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w1_sage-hill",
+    "slug": "sage-hill",
+    "titleTh": "แอบมองบนเนินเขา",
+    "titleEn": "Sage Hill",
+    "theme": "W1 · วันสบายๆ กับนมผง",
+    "themeEn": "W1 · Cozy Days with Nompong",
+    "palette": [
+      "#fcf7ed",
+      "#e6c4a2",
+      "#b7c99c"
+    ],
+    "previewPath": "wallpapers/w1/sage-hill-preview.webp",
+    "variants": [
+      {
+        "id": "sage-hill-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 853,
+        "height": 1843,
+        "format": "JPG",
+        "sizeKb": 413,
+        "assetPath": "wallpapers/w1/sage-hill-phone.jpg"
+      },
+      {
+        "id": "sage-hill-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 365,
+        "assetPath": "wallpapers/w1/sage-hill-tablet-portrait.jpg"
+      },
+      {
+        "id": "sage-hill-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 411,
+        "assetPath": "wallpapers/w1/sage-hill-tablet-landscape.jpg"
+      },
+      {
+        "id": "sage-hill-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 397,
+        "assetPath": "wallpapers/w1/sage-hill-desktop.jpg"
+      }
+    ],
+    "free": true
+  }
+]

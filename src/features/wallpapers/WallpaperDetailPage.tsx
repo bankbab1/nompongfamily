@@ -7,10 +7,10 @@ import { Alert, ErrorState } from '@/components/feedback/States'
 import { toast } from '@/components/feedback/Toast'
 import { Page } from '@/components/layout/AppShell'
 import { Button } from '@/components/ui/Button'
-import { wallpaperArt } from '@/lib/api/mock/art'
+import { wallpaperAsset } from './collection'
 import { api } from '@/lib/api'
 import { qk } from '@/lib/api/queryKeys'
-import type { Wallpaper, WallpaperVariant } from '@/lib/api/types'
+import type { WallpaperVariant } from '@/lib/api/types'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
@@ -19,19 +19,12 @@ import { useLocale, useTx } from '@/lib/i18n'
 const DEVICE_ICON = { mobile: Smartphone, tablet: Tablet, desktop: Laptop }
 const isIOS = typeof navigator !== 'undefined' && /iP(hone|ad|od)/.test(navigator.userAgent)
 
-/**
- * Mock export: renders the artwork at the exact variant resolution (never upscales a
- * preview). The real adapter downloads the pre-rendered master file from protected storage.
- */
-async function renderVariant(w: Wallpaper, v: WallpaperVariant): Promise<Blob> {
-  const img = new Image()
-  img.src = wallpaperArt({ palette: w.palette, width: v.width, height: v.height, title: w.titleEn })
-  await img.decode()
-  const canvas = document.createElement('canvas')
-  canvas.width = v.width
-  canvas.height = v.height
-  canvas.getContext('2d')!.drawImage(img, 0, 0, v.width, v.height)
-  return new Promise((res, rej) => canvas.toBlob((b) => (b ? res(b) : rej(new Error('export'))), v.format === 'PNG' ? 'image/png' : 'image/jpeg', 0.92))
+/** Fetch the published file directly; never redraw or upscale the artwork in a canvas. */
+async function renderVariant(v: WallpaperVariant): Promise<Blob> {
+  if (!v.assetPath) throw new Error('Wallpaper file unavailable')
+  const response = await fetch(wallpaperAsset(v.assetPath))
+  if (!response.ok) throw new Error('Wallpaper download failed')
+  return response.blob()
 }
 
 export default function WallpaperDetailPage() {
@@ -61,7 +54,7 @@ export default function WallpaperDetailPage() {
   async function download() {
     setBusy(true)
     try {
-      const blob = await renderVariant(w, v)
+      const blob = await renderVariant(v)
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
@@ -82,7 +75,7 @@ export default function WallpaperDetailPage() {
       <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="flex items-start justify-center rounded-3xl bg-surface-muted p-4 sm:p-8">
           <img
-            src={wallpaperArt({ palette: w.palette, width: v.width / 4, height: v.height / 4, title: w.titleEn })}
+            src={wallpaperAsset(v.assetPath!)}
             alt={`${tx('ตัวอย่าง', 'Preview of')} ${locale === 'en' ? w.titleEn : w.titleTh} ${v.width}×${v.height}`}
             className={cn(
               'max-h-[70vh] w-auto rounded-2xl border-4 border-brown shadow-lg',

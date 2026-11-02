@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
 import { ErrorState, Skeleton } from '@/components/feedback/States'
 import { Page, PageHeader } from '@/components/layout/AppShell'
-import { wallpaperArt } from '@/lib/api/mock/art'
+import { wallpaperAsset } from './collection'
 import { api } from '@/lib/api'
 import { qk } from '@/lib/api/queryKeys'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
@@ -36,10 +36,10 @@ export default function WallpapersPage() {
                 <li key={w.id}>
                   <Link to={`/wallpapers/${w.slug}`} className="group block">
                     <img
-                      src={wallpaperArt({ palette: w.palette, width: 540, height: 1200, title: w.titleEn })}
+                      src={wallpaperAsset(w.previewPath!)}
                       alt=""
                       loading="lazy"
-                      className="aspect-[9/16] w-full rounded-3xl border border-line object-cover transition-transform group-hover:-translate-y-0.5"
+                      className="aspect-[853/1844] w-full rounded-3xl border border-line object-contain transition-transform group-hover:-translate-y-0.5"
                     />
                     <p className="mt-2 font-display text-base">{locale === 'en' ? w.titleEn : w.titleTh}</p>
                     <p className="text-sm text-muted">

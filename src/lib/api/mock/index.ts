@@ -1,3 +1,4 @@
+import { WALLPAPER_COLLECTION } from '@/features/wallpapers/collection'
 import { adminTransitions, CUSTOMER_EDITABLE } from '@/lib/domain/status'
 import { uid } from '@/lib/utils/id'
 import { validateBrief } from '@/lib/validation/brief'
@@ -331,11 +332,11 @@ const catalog: CatalogService = {
   },
   async listWallpapers() {
     await roundTrip()
-    return clone(db().wallpapers)
+    return clone(WALLPAPER_COLLECTION)
   },
   async getWallpaper(slug) {
     await roundTrip()
-    const w = db().wallpapers.find((x) => x.slug === slug)
+    const w = WALLPAPER_COLLECTION.find((x) => x.slug === slug)
     if (!w) throw new ApiError('not_found', 'Wallpaper not found')
     return clone(w)
   },

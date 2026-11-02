@@ -171,6 +171,7 @@ export interface StickerSet {
 }
 
 export interface WallpaperVariant {
+  assetPath?: string
   id: string
   label: string
   labelEn?: string
@@ -182,6 +183,7 @@ export interface WallpaperVariant {
 }
 
 export interface Wallpaper {
+  previewPath?: string
   id: string
   slug: string
   titleTh: string
