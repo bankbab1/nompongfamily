@@ -9,7 +9,9 @@ it('tracks collections down and back up, and returns to All above the sections',
   vi.stubGlobal('cancelAnimationFrame', vi.fn())
   const root = document.createElement('div')
   const bar = document.createElement('div')
-  bar.getBoundingClientRect = () => ({ bottom: 80 } as DOMRect)
+  let pinned = true
+  bar.style.top = '64px'
+  bar.getBoundingClientRect = () => ({ top: pinned ? 64 : 180, bottom: pinned ? 80 : 196 } as DOMRect)
   let positions = [500, 1500]
   for (const [i, id] of ['Daily', 'Festive'].entries()) {
     const section = document.createElement('section')
@@ -30,7 +32,15 @@ it('tracks collections down and back up, and returns to All above the sections',
   expect(result.current).toBe('Festive')
   scroll([100, 1100])
   expect(result.current).toBe('Daily')
-  scroll([500, 1500])
+  pinned = false
+  // First heading remains near the bar: All still wins while the bar is not pinned.
+  scroll([220, 1500])
+  expect(result.current).toBe('all')
+  pinned = true
+  scroll([100, 1100])
+  expect(result.current).toBe('Daily')
+  pinned = false
+  scroll([220, 1500])
   expect(result.current).toBe('all')
   unmount()
   callbacks = []

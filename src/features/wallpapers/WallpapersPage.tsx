@@ -27,7 +27,7 @@ export default function WallpapersPage() {
       ) : (
         <div className="space-y-10">
           {q.isPending ? <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[9/16]" />)}
+            {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[9/19.5]" />)}
           </div> : Array.from(new Set(q.data.map(w => w.theme))).map(theme => {
             const items = q.data.filter(w => w.theme === theme)
             return <section key={theme} aria-label={locale === 'en' ? items[0].themeEn || theme : theme}>
@@ -35,8 +35,11 @@ export default function WallpapersPage() {
               <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
                 {items.map(w => <li key={w.id}>
                   <Link to={`/wallpapers/${w.slug}`} className="group block">
-                    <img src={wallpaperAsset(w.previewPath!)} alt="" loading="lazy"
-                      className="aspect-[9/19.5] w-full rounded-3xl border border-line object-contain transition-transform group-hover:-translate-y-0.5" />
+                    <div className="overflow-hidden rounded-3xl bg-surface-muted shadow-sm">
+                      <img src={wallpaperAsset(w.previewPath!)} alt="" loading="lazy"
+                        width={w.variants[0].width} height={w.variants[0].height}
+                        className="block h-auto w-full transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transform-none" />
+                    </div>
                     <p className="mt-2 font-display text-base">{locale === 'en' ? w.titleEn : w.titleTh}</p>
                     <p className="text-sm text-muted">{w.variants.length} {tx('ขนาด', 'sizes')}</p>
                   </Link>

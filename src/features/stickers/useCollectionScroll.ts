@@ -8,7 +8,12 @@ export function useCollectionScroll(root: RefObject<HTMLElement | null>, bar: Re
     const measure = () => {
       frame = 0
       if (!root.current || !bar.current) { setActive('all'); return }
-      const edge = bar.current.getBoundingClientRect().bottom
+      const barBox = bar.current.getBoundingClientRect()
+      const stickyTop = Number.parseFloat(getComputedStyle(bar.current).top) || 0
+      // Before the collection bar pins under the header, this is the catalog overview.
+      // Do not let the nearby first section steal the All selection on short screens.
+      if (barBox.top > stickyTop + 1) { setActive('all'); return }
+      const edge = barBox.bottom
       const line = edge + Math.max(24, (window.innerHeight - edge) * 0.25)
       let next = 'all'
       for (const section of root.current.querySelectorAll<HTMLElement>('[data-collection]')) {

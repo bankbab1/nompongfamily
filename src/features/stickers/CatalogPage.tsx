@@ -114,7 +114,7 @@ export default function CatalogPage() {
                   aria-pressed={activeTab === t.id}
                   onClick={() => {
                     set('series', t.id === 'all' ? null : t.id)
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                    window.scrollTo({ top: 0, behavior: t.id === 'all' ? 'instant' : 'smooth' })
                   }}
                   className={cn(
                     'relative inline-flex min-h-9 items-center gap-1.5 rounded-full py-1 pr-1.5 pl-3.5 text-sm whitespace-nowrap transition-colors duration-300',
