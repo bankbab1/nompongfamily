@@ -160,13 +160,14 @@ export default function WallpapersPage() {
 }
 
 /** A wallpaper's preview and name. `list` (phones only): a compact row with a small preview. */
-/** "…/moon-cloud-desktop.jpg" → "…/moon-cloud-desktop-thumb.jpg" (480px wide, made for list rows). */
-const desktopThumb = (path: string) => path.replace(/-desktop\.(jpe?g|png|webp)$/i, '-desktop-thumb.jpg')
+/** "…/moon-cloud-tablet-landscape.jpg" → "…/moon-cloud-tablet-landscape-thumb.jpg" (400×300, made for list rows). */
+const listThumb = (path: string) => path.replace(/\.(jpe?g|png|webp)$/i, '-thumb.jpg')
 
 function WallpaperCard({ w, collection, list }: { w: Wallpaper; collection: string; list: boolean }) {
   const locale = useLocale()
   const tx = useTx()
-  const desktop = w.variants.find((v) => v.device === 'desktop')?.assetPath
+  // The tablet landscape design (4:3) fills a list row's thumbnail best.
+  const landscape = w.variants.find((v) => v.device === 'tablet' && v.width > v.height)?.assetPath
   return (
     <Link
       to={`/wallpapers/${w.slug}`}
@@ -176,25 +177,25 @@ function WallpaperCard({ w, collection, list }: { w: Wallpaper; collection: stri
           'max-sm:flex max-sm:min-h-24 max-sm:items-center max-sm:gap-3 max-sm:rounded-2xl max-sm:border max-sm:border-line max-sm:bg-surface max-sm:p-2 max-sm:pr-3',
       )}
     >
-      {/* List rows (phones): the wide desktop design reads better in a row than the tall phone one. */}
-      {list && desktop && (
-        <div className="aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-surface-muted sm:hidden">
+      {/* List rows (phones): the landscape tablet design reads better in a row than the tall phone one. */}
+      {list && landscape && (
+        <div className="aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-xl bg-surface-muted sm:hidden">
           <img
-            src={wallpaperAsset(desktopThumb(desktop))}
+            src={wallpaperAsset(listThumb(landscape))}
             onError={(e) => {
-              // No small thumbnail for this one yet: use the full desktop image.
-              const full = wallpaperAsset(desktop)
+              // No small thumbnail for this one yet: use the full landscape image.
+              const full = wallpaperAsset(landscape)
               if (e.currentTarget.src !== new URL(full, location.href).href) e.currentTarget.src = full
             }}
             alt=""
             loading="lazy"
-            width={480}
-            height={270}
+            width={400}
+            height={300}
             className="h-full w-full object-cover"
           />
         </div>
       )}
-      <div className={cn('overflow-hidden rounded-3xl bg-surface-muted shadow-sm', list && desktop && 'max-sm:hidden')}>
+      <div className={cn('overflow-hidden rounded-3xl bg-surface-muted shadow-sm', list && landscape && 'max-sm:hidden')}>
         <img
           src={wallpaperAsset(w.previewPath!)}
           alt=""
