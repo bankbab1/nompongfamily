@@ -1,16 +1,16 @@
-import { ArrowUpRight, LayoutGrid, List } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { RevealItem } from '@/components/ui/Reveal'
-import { useDeferredValue, useMemo, useRef, useState, useEffect } from 'react'
+import { useDeferredValue, useEffect, useMemo, useRef } from 'react'
 import { useSearchParams } from 'react-router'
 import { EmptyState } from '@/components/feedback/States'
 import { Page, PageHeader } from '@/components/layout/AppShell'
 import { buttonBase, buttonSizes, buttonVariants } from '@/components/ui/Button'
 import { SearchField } from '@/components/ui/SearchField'
-import { SlidingPill, useSlidingPill } from '@/components/ui/SlidingPill'
+import { CollectionTabs, type CollectionTab } from '@/components/ui/CollectionTabs'
+import { useViewMode, ViewSwitch } from '@/components/ui/ViewSwitch'
 import { useLocale, useTx } from '@/lib/i18n'
 import { cn } from '@/lib/utils/cn'
 import { usePageMeta } from '@/lib/utils/usePageMeta'
-import { useCollectionScroll } from './useCollectionScroll'
 import { LineSetCard } from './LineSetCard'
 import { LINE_AUTHOR_URL, LINE_SERIES, LINE_SETS, lineUrl, versionName, VERSIONS, type LineSet } from './lineStore'
 
@@ -43,32 +43,12 @@ export default function CatalogPage() {
     )
   }, [series, deferredQ])
 
-  const [view, setView] = useState<View>(loadView)
-  const changeView = (v: View) => {
-    setView(v)
-    try {
-      localStorage.setItem(VIEW_KEY, v)
-    } catch {
-      /* storage blocked: the choice lasts for this visit */
-    }
-  }
-
-  const tabs = [{ id: 'all', count: LINE_SETS.length }, ...LINE_SERIES]
-  const track = useRef<HTMLDivElement>(null)
+  const [view, changeView] = useViewMode('nompong.stickers.view')
   const sections = useRef<HTMLDivElement>(null)
-  const stickyBar = useRef<HTMLDivElement>(null)
-  const tabScroll = useRef<HTMLDivElement>(null)
-  const readingCollection = useCollectionScroll(sections, stickyBar, `${series}:${deferredQ}:${view}:${locale}`)
-  const activeTab = series === 'all' ? readingCollection : series
-  const pill = useSlidingPill(track, '[aria-pressed="true"]', [activeTab, locale])
-
-  useEffect(() => {
-    const container = tabScroll.current
-    const button = track.current?.querySelector<HTMLElement>('[aria-pressed="true"]')
-    if (!container || !button) return
-    const left = container.scrollLeft + button.getBoundingClientRect().left - container.getBoundingClientRect().left + button.offsetWidth / 2 - container.clientWidth / 2
-    container.scrollTo({ left: Math.max(0, left), behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
-  }, [activeTab, locale])
+  const tabs: CollectionTab[] = [
+    { id: 'all', label: tx('ทั้งหมด', 'All'), count: LINE_SETS.length },
+    ...LINE_SERIES.map((v) => ({ id: v.id, label: versionName(v.id), count: v.count })),
+  ]
 
   // Fetch the set page's code ahead of time, so the first tap opens (and animates) without a wait.
   useEffect(() => {
@@ -102,41 +82,14 @@ export default function CatalogPage() {
       </div>
 
       {/* Version tabs stay pinned under the header while scrolling the long list. */}
-      <div ref={stickyBar} className="sticky top-16 z-20 -mx-4 mt-3 bg-background/90 px-4 py-2.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/75">
-        <div>
-          <div ref={tabScroll} className="no-scrollbar -mx-4 overflow-x-auto px-4">
-            <div ref={track} role="group" aria-label={tx('เวอร์ชัน', 'Version')} className="relative inline-flex rounded-full bg-surface-muted p-1">
-              <SlidingPill pill={pill.pill} ready={pill.ready} className="rounded-full selected-chip" />
-              {tabs.map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  aria-pressed={activeTab === t.id}
-                  onClick={() => {
-                    set('series', t.id === 'all' ? null : t.id)
-                    window.scrollTo({ top: 0, behavior: t.id === 'all' ? 'instant' : 'smooth' })
-                  }}
-                  className={cn(
-                    'relative inline-flex min-h-9 items-center gap-1.5 rounded-full py-1 pr-1.5 pl-3.5 text-sm whitespace-nowrap transition-colors duration-300',
-                    activeTab === t.id ? 'font-semibold text-ink' : 'font-medium text-muted hover:text-ink',
-                  )}
-                >
-                  {t.id === 'all' ? tx('ทั้งหมด', 'All') : versionName(t.id)}
-                  {/* The count as its own small chip, so it reads apart from the name. */}
-                  <span
-                    className={cn(
-                      'min-w-7 rounded-full px-1.5 py-0.5 text-center text-[11px] leading-none font-semibold tabular-nums transition-colors duration-300',
-                      activeTab === t.id ? 'brand-primary' : 'bg-line/70 text-muted',
-                    )}
-                  >
-                    {t.count}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <CollectionTabs
+        tabs={tabs}
+        selected={series}
+        onSelect={(id) => set('series', id === 'all' ? null : id)}
+        sections={sections}
+        resetKey={`${series}:${deferredQ}:${view}:${locale}`}
+        label={tx('เวอร์ชัน', 'Version')}
+      />
 
       <div className="mt-4" aria-live="polite">
         {items.length === 0 ? (
@@ -190,44 +143,6 @@ export default function CatalogPage() {
         )}
       </div>
     </Page>
-  )
-}
-
-type View = 'grid' | 'list'
-const VIEW_KEY = 'nompong.stickers.view'
-const loadView = (): View => {
-  try {
-    return localStorage.getItem(VIEW_KEY) === 'list' ? 'list' : 'grid'
-  } catch {
-    return 'grid'
-  }
-}
-
-/** Phones only: see the sets as a grid of covers or as a list of rows. */
-function ViewSwitch({ view, onChange }: { view: View; onChange: (v: View) => void }) {
-  const tx = useTx()
-  const options: { id: View; label: string; Icon: typeof LayoutGrid }[] = [
-    { id: 'grid', label: tx('แสดงแบบตาราง', 'Grid view'), Icon: LayoutGrid },
-    { id: 'list', label: tx('แสดงแบบรายการ', 'List view'), Icon: List },
-  ]
-  return (
-    <div role="group" aria-label={tx('มุมมอง', 'View')} className="flex shrink-0 rounded-full bg-surface-muted p-1 sm:hidden">
-      {options.map(({ id, label, Icon }) => (
-        <button
-          key={id}
-          type="button"
-          aria-pressed={view === id}
-          aria-label={label}
-          onClick={() => onChange(id)}
-          className={cn(
-            'flex h-9 w-9 items-center justify-center rounded-full transition-colors',
-            view === id ? 'selected-chip text-ink' : 'text-muted',
-          )}
-        >
-          <Icon size={17} aria-hidden />
-        </button>
-      ))}
-    </div>
   )
 }
 

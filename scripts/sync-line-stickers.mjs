@@ -8,15 +8,56 @@
  * Why a script and not a live embed: LINE sends X-Frame-Options: SAMEORIGIN (no iframes) and
  * no CORS headers (no fetch from the browser), so the list has to be read at build time.
  * If LINE is down or changes its layout, the script keeps the last saved file and exits 0,
- * so a deploy never breaks because of it.
+ * so a deploy never breaks because of it — but it says so loudly: on GitHub Actions every run
+ * writes a summary (sets seen, added, newest) and problems show as yellow warnings on the run.
+ *
+ * Safety: a set we already know is never dropped just because one run didn't see it (LINE may show
+ * GitHub's US servers fewer sets than Thai visitors, e.g. Thailand-only sales). Those are kept.
  */
-import { readFile, writeFile, mkdir } from 'node:fs/promises'
+import { appendFile, readFile, writeFile, mkdir } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const AUTHOR_ID = '6750228'
 const OUT = resolve(dirname(fileURLToPath(import.meta.url)), '../src/data/line-stickers.json')
 const MAX_PAGES = 30
+
+// Look like a normal browser visiting from Thailand; LINE may treat bare/odd clients differently.
+const HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+  Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'th-TH,th;q=0.9,en;q=0.8',
+}
+
+const inCI = !!process.env.GITHUB_ACTIONS
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+/** A warning in the log, and a yellow annotation on the GitHub Actions run. */
+function warn(msg) {
+  console.warn(`LINE stickers: ${msg}`)
+  if (inCI) console.log(`::warning title=LINE sticker sync::${msg}`)
+}
+
+/** Adds lines to the run's summary page on GitHub (no-op locally). */
+async function summary(lines) {
+  if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n')
+}
+
+/** fetch with retries: network errors, 429 and 5xx are tried up to 3 times with a growing pause. */
+async function getWithRetry(url) {
+  let last
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(url, { headers: HEADERS, redirect: 'follow' })
+      if (res.status !== 429 && res.status < 500) return res
+      last = new Error(`${url} → HTTP ${res.status}`)
+    } catch (e) {
+      last = e
+    }
+    if (attempt < 3) await sleep(attempt * 2000)
+  }
+  throw last
+}
 
 const decode = (s) =>
   s
@@ -49,7 +90,7 @@ function split(title) {
 
 async function fetchPage(page) {
   const url = `https://store.line.me/stickershop/author/${AUTHOR_ID}/th?page=${page}`
-  const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (nompongfamily sync)', 'Accept-Language': 'th' } })
+  const res = await getWithRetry(url)
   // Past the last page LINE answers 404: that just means "no more sets".
   if (res.status === 404 && page > 1) return ''
   if (!res.ok) throw new Error(`${url} → HTTP ${res.status}`)
@@ -88,9 +129,7 @@ function parseProduct(html) {
 }
 
 async function fetchDetails(id) {
-  const res = await fetch(`https://store.line.me/stickershop/product/${id}/th`, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (nompongfamily sync)', 'Accept-Language': 'th' },
-  })
+  const res = await getWithRetry(`https://store.line.me/stickershop/product/${id}/th`)
   if (!res.ok) throw new Error(`set ${id} → HTTP ${res.status}`)
   const d = parseProduct(await res.text())
   if (d.count === 0) throw new Error(`set ${id}: no stickers found`)
@@ -114,7 +153,7 @@ async function syncDetails(ids) {
       if (r.status === 'fulfilled') details[batch[j]] = r.value
       else {
         failed++
-        console.warn(`LINE stickers: ${r.reason.message}`)
+        warn(r.reason.message)
       }
     })
   }
@@ -137,14 +176,48 @@ async function main() {
   }
   if (seen.size === 0) throw new Error('No sticker sets found — the LINE page layout may have changed.')
 
-  // The store lists newest first; keep that order.
-  const sets = [...seen.values()].map(({ id, title }) => ({
+  let previous = []
+  try {
+    previous = JSON.parse(await readFile(OUT, 'utf8')).sets ?? []
+  } catch {
+    /* first run */
+  }
+  const known = new Set(previous.map((s) => s.id))
+  const added = [...seen.values()].filter((s) => !known.has(s.id))
+  // Never drop a set we already have because this run didn't see it (see the note at the top).
+  const notSeen = previous.filter((s) => !seen.has(s.id))
+
+  const fresh = [...seen.values()].map(({ id, title }) => ({
     id,
     title,
     ...split(title),
     url: `https://store.line.me/stickershop/product/${id}/th`,
     image: `https://stickershop.line-scdn.net/stickershop/v1/product/${id}/LINEStorePC/main.png`,
   }))
+  // Newest first. LINE product ids grow over time, so sorting by id keeps the store's order and
+  // slots any kept-over sets back where they belong.
+  const sets = [...fresh, ...notSeen].sort((a, b) => Number(b.id) - Number(a.id))
+
+  if (notSeen.length) {
+    warn(
+      `LINE showed ${seen.size} sets but ${previous.length} were saved before; kept the ${notSeen.length} it didn't show (${notSeen
+        .slice(0, 5)
+        .map((s) => s.code || s.id)
+        .join(', ')}${notSeen.length > 5 ? '…' : ''}). If this repeats, LINE may be hiding some sets from GitHub's servers.`,
+    )
+  }
+  await summary([
+    '### LINE sticker sync',
+    '',
+    '| | |',
+    '|---|---|',
+    `| Sets seen on LINE this run | ${seen.size} |`,
+    `| Saved before | ${previous.length} |`,
+    `| New this run | ${added.length}${added.length ? ` (${added.map((s) => split(s.title).code || s.id).join(', ')})` : ''} |`,
+    `| Kept but not seen this run | ${notSeen.length} |`,
+    `| Total on the site now | ${sets.length} |`,
+    `| Newest | ${sets[0]?.title ?? '—'} |`,
+  ])
 
   const data = { authorUrl: `https://store.line.me/stickershop/author/${AUTHOR_ID}`, syncedAt: new Date().toISOString(), sets }
   await mkdir(dirname(OUT), { recursive: true })
@@ -165,6 +238,7 @@ async function main() {
   await syncDetails(sets.map((s) => s.id))
 }
 
-main().catch((err) => {
-  console.warn(`LINE stickers: sync skipped, keeping the last saved list. (${err.message})`)
+main().catch(async (err) => {
+  warn(`sync skipped, keeping the last saved list (${err.message})`)
+  await summary(['### LINE sticker sync', '', `**Skipped** — kept the last saved list. Reason: ${err.message}`])
 })

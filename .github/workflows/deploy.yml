@@ -6,9 +6,11 @@ on:
     paths-ignore:
       - 'docs/**'
   workflow_dispatch:
-  # Once a day, so new LINE sticker sets show up on the site without a code change.
+  # Every 6 hours, so new LINE sticker sets show up on the site without a code change.
+  # (GitHub runs scheduled jobs late when it's busy, sometimes by hours, so once a day was too thin.)
+  # To update right away: Actions → "Build Nompong Studio into docs" → Run workflow.
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '17 */6 * * *'
 
 permissions:
   contents: write
