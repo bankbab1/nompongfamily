@@ -1,7 +1,97 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-02T13:32:13.763Z",
+  "syncedAt": "2026-11-03T14:25:53.172Z",
   "sets": [
+    {
+      "id": "37727782",
+      "title": "นมผง พัสดุปุยส่งใจ (A27)",
+      "name": "พัสดุปุยส่งใจ",
+      "code": "A27",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37727782/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37727782/LINEStorePC/main.png"
+    },
+    {
+      "id": "37727751",
+      "title": "นมผง ปั่นให้หน่อยคับ (v163)",
+      "name": "ปั่นให้หน่อยคับ",
+      "code": "v163",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37727751/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37727751/LINEStorePC/main.png"
+    },
+    {
+      "id": "37725357",
+      "title": "นมผง ร้านน้ำของน้อง (v165)",
+      "name": "ร้านน้ำของน้อง",
+      "code": "v165",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37725357/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37725357/LINEStorePC/main.png"
+    },
+    {
+      "id": "37725291",
+      "title": "นมผง ช่างจิ๋วซ่อมมั่ว (A26)",
+      "name": "ช่างจิ๋วซ่อมมั่ว",
+      "code": "A26",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37725291/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37725291/LINEStorePC/main.png"
+    },
+    {
+      "id": "37725283",
+      "title": "นมผง ไข่มุกเยอะๆ คับ (v162)",
+      "name": "ไข่มุกเยอะๆ คับ",
+      "code": "v162",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37725283/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37725283/LINEStorePC/main.png"
+    },
+    {
+      "id": "37725039",
+      "title": "นมผง นักกีฬาตัวเด้ง (A24)",
+      "name": "นักกีฬาตัวเด้ง",
+      "code": "A24",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37725039/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37725039/LINEStorePC/main.png"
+    },
+    {
+      "id": "37725033",
+      "title": "นมผง โลกใหญ่ปุยจิ๋ว (A29)",
+      "name": "โลกใหญ่ปุยจิ๋ว",
+      "code": "A29",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37725033/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37725033/LINEStorePC/main.png"
+    },
+    {
+      "id": "37725032",
+      "title": "นมผง นมผงชวนปั่นคับ (v145)",
+      "name": "นมผงชวนปั่นคับ",
+      "code": "v145",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37725032/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37725032/LINEStorePC/main.png"
+    },
+    {
+      "id": "37724801",
+      "title": "นมผง ชาอะไรดีคับ (v160)",
+      "name": "ชาอะไรดีคับ",
+      "code": "v160",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37724801/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37724801/LINEStorePC/main.png"
+    },
+    {
+      "id": "37724758",
+      "title": "นมผง มัทฉะของน้อง (v161)",
+      "name": "มัทฉะของน้อง",
+      "code": "v161",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37724758/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37724758/LINEStorePC/main.png"
+    },
     {
       "id": "37703000",
       "title": "นมผง นมผงชวนตีแบดคับ (v146)",
