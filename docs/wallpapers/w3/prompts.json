@@ -1,0 +1,31 @@
+{
+  "collection": "W3 — Sunny Garden",
+  "method": "Built-in image generation",
+  "identityReference": "Nompong_ref(20261101-181258).jpg",
+  "constraints": "White fluffy puppy, gray ears and one tail, white oval nose, exactly four limbs. Soft warm brown lines, pastel storybook watercolor and paper grain. No text, UI, panels, borders or watermark.",
+  "scenes": [
+    {
+      "slug": "daisy-peek",
+      "prompt": "Nompong peeking over low sage mound beside small white daisies, pale cream airy background."
+    },
+    {
+      "slug": "butterfly-hello",
+      "prompt": "Nompong seated in clover meadow, one front paw raised toward one tiny yellow butterfly, powder blue sky."
+    },
+    {
+      "slug": "strawberry-picnic",
+      "prompt": "Use case: illustration-story. Create one finished W3 Sunny Garden wallpaper: Strawberry Picnic. Tall phone portrait 9:19.5 canvas. Image 1 is character identity reference; Image 2 is collection style reference only. Nompong, a small white fluffy puppy with taupe gray floppy ears and ONE matching tail, white oval nose, black eyes, warm brown hand drawn outline. Exactly FOUR limbs: two short front paws gently holding ONE strawberry close to belly, two rear paws resting on a pale cream picnic cloth on grass. Small wicker basket of strawberries beside him. Peaceful sage garden with a few tiny strawberry plants. Warm peach cream sky, gentle pastel storybook watercolor and subtle paper grain. Character and picnic in bottom 35 percent, upper 60 percent quiet and airy for lockscreen clock. No clothes or shoes, no extra animals, no lettering, UI, watermark, border, panels or mockups. Opaque full bleed artwork, preserve Nompong's reference identity."
+    },
+    {
+      "slug": "watering-day",
+      "prompt": "Use case: illustration-story. One finished W3 Sunny Garden wallpaper, Watering Day, tall phone portrait 9:19.5. Reference 1 locks Nompong identity, reference 2 collection style only. Nompong the white fluffy round puppy, gray floppy ears and one gray tail, WHITE oval nose, warm brown drawn lines, black eyes. Sitting on grass with TWO rear paws supporting body and TWO front paws holding a SMALL pale sage watering can together, sprinkling a few drops onto one terracotta pot with a small white daisy. Exactly four limbs total, two ears, one tail. Gentle pale butter yellow garden sky, sage grass and a few tiny white flowers along bottom. Character scene bottom 35 percent; upper 60 percent quiet open pastel background for clock. Plush proportions and soft storybook watercolor paper grain. No clothes, no extra animals, no text, borders, mockups, panels, watermark or UI. Full bleed opaque art. Keep watering can separate from face and anatomically unambiguous paws."
+    }
+  ],
+  "layouts": {
+    "phone": "9:19.5 portrait. Scene bottom 35%, upper 60% quiet for clock.",
+    "tablet-portrait": "3:4 portrait. Scene lower right, upper half and center left quiet.",
+    "tablet-landscape": "4:3 landscape. Scene lower right, left 65% and upper half quiet.",
+    "desktop": "16:9 landscape. Scene lower right, left 65% quiet for icons."
+  },
+  "variants": "Each landscape and tablet image generated separately from the character reference and matching phone scene; no stretching or cropping."
+}
