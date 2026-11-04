@@ -195,14 +195,14 @@ function WallpaperCard({ w, collection, list }: { w: Wallpaper; collection: stri
           />
         </div>
       )}
-      <div className={cn('overflow-hidden rounded-3xl bg-surface-muted shadow-sm', list && landscape && 'max-sm:hidden')}>
+      <div className={cn('aspect-[9/19.5] overflow-hidden rounded-3xl bg-surface-muted shadow-sm', list && landscape && 'max-sm:hidden')}>
         <img
           src={wallpaperAsset(w.previewPath!)}
           alt=""
           loading="lazy"
           width={w.variants[0].width}
           height={w.variants[0].height}
-          className="block h-auto w-full transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transform-none"
+          className="block h-full w-full object-cover object-bottom transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transform-none"
         />
       </div>
       <div className={cn(list && 'max-sm:min-w-0 max-sm:flex-1')}>
