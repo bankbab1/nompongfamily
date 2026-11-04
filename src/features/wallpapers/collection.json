@@ -1,5 +1,66 @@
 [
   {
+    "id": "wp_w3_daisy-peek",
+    "slug": "w3-daisy-peek",
+    "titleTh": "แอบมองดอกเดซี่",
+    "titleEn": "Daisy Peek",
+    "theme": "W3 · สวนวันสดใส",
+    "themeEn": "W3 · Sunny Garden",
+    "palette": [
+      "#fbf6e6",
+      "#bacaa4",
+      "#eed59b"
+    ],
+    "previewPath": "wallpapers/w3/daisy-peek-preview.webp",
+    "variants": [
+      {
+        "id": "w3-daisy-peek-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 850,
+        "height": 1850,
+        "format": "JPG",
+        "sizeKb": 352,
+        "assetPath": "wallpapers/w3/daisy-peek-phone.jpg"
+      },
+      {
+        "id": "w3-daisy-peek-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 341,
+        "assetPath": "wallpapers/w3/daisy-peek-tablet-portrait.jpg"
+      },
+      {
+        "id": "w3-daisy-peek-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 390,
+        "assetPath": "wallpapers/w3/daisy-peek-tablet-landscape.jpg"
+      },
+      {
+        "id": "w3-daisy-peek-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 940,
+        "format": "JPG",
+        "sizeKb": 377,
+        "assetPath": "wallpapers/w3/daisy-peek-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w2_moon-cloud",
     "slug": "w2-moon-cloud",
     "titleTh": "ฝันบนก้อนเมฆ",
