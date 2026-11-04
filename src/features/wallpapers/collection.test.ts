@@ -3,6 +3,14 @@ import { WALLPAPER_COLLECTION } from './collection'
 import { mockApi } from '@/lib/api/mock'
 import { db } from '@/lib/api/mock/db'
 
+it('publishes the complete Cozy Café collection with four designs and sixteen downloads', () => {
+  const cafe = WALLPAPER_COLLECTION.filter(w => w.theme.startsWith('W4 ·'))
+  expect(cafe.map(w => w.slug)).toEqual([
+    'w4-morning-cup', 'w4-window-seat', 'w4-bakery-break', 'w4-sleepy-cafe',
+  ])
+  expect(cafe.flatMap(w => w.variants)).toHaveLength(16)
+})
+
 it('publishes the complete Sunny Garden collection with four designs and sixteen downloads', () => {
   const garden = WALLPAPER_COLLECTION.filter(w => w.theme.startsWith('W3 ·'))
   expect(garden.map(w => w.slug)).toEqual([

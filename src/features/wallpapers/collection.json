@@ -1,5 +1,249 @@
 [
   {
+    "id": "wp_w4_morning-cup",
+    "slug": "w4-morning-cup",
+    "titleTh": "แก้วโปรดยามเช้า",
+    "titleEn": "Morning Cup",
+    "theme": "W4 · คาเฟ่แสนอุ่นของนมผง",
+    "themeEn": "W4 · Nompong’s Cozy Café",
+    "palette": [
+      "#f8e7cf",
+      "#b9d2df",
+      "#bd919d"
+    ],
+    "previewPath": "wallpapers/w4/morning-cup-preview.webp",
+    "variants": [
+      {
+        "id": "w4-morning-cup-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 439,
+        "assetPath": "wallpapers/w4/morning-cup-phone.jpg"
+      },
+      {
+        "id": "w4-morning-cup-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 414,
+        "assetPath": "wallpapers/w4/morning-cup-tablet-portrait.jpg"
+      },
+      {
+        "id": "w4-morning-cup-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 433,
+        "assetPath": "wallpapers/w4/morning-cup-tablet-landscape.jpg"
+      },
+      {
+        "id": "w4-morning-cup-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 420,
+        "assetPath": "wallpapers/w4/morning-cup-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w4_window-seat",
+    "slug": "w4-window-seat",
+    "titleTh": "ที่นั่งริมหน้าต่าง",
+    "titleEn": "Window Seat",
+    "theme": "W4 · คาเฟ่แสนอุ่นของนมผง",
+    "themeEn": "W4 · Nompong’s Cozy Café",
+    "palette": [
+      "#f8e7cf",
+      "#b9d2df",
+      "#bd919d"
+    ],
+    "previewPath": "wallpapers/w4/window-seat-preview.webp",
+    "variants": [
+      {
+        "id": "w4-window-seat-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 899,
+        "height": 1750,
+        "format": "JPG",
+        "sizeKb": 413,
+        "assetPath": "wallpapers/w4/window-seat-phone.jpg"
+      },
+      {
+        "id": "w4-window-seat-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 400,
+        "assetPath": "wallpapers/w4/window-seat-tablet-portrait.jpg"
+      },
+      {
+        "id": "w4-window-seat-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 420,
+        "assetPath": "wallpapers/w4/window-seat-tablet-landscape.jpg"
+      },
+      {
+        "id": "w4-window-seat-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 386,
+        "assetPath": "wallpapers/w4/window-seat-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w4_bakery-break",
+    "slug": "w4-bakery-break",
+    "titleTh": "พักกินครัวซองต์",
+    "titleEn": "Bakery Break",
+    "theme": "W4 · คาเฟ่แสนอุ่นของนมผง",
+    "themeEn": "W4 · Nompong’s Cozy Café",
+    "palette": [
+      "#f8e7cf",
+      "#b9d2df",
+      "#bd919d"
+    ],
+    "previewPath": "wallpapers/w4/bakery-break-preview.webp",
+    "variants": [
+      {
+        "id": "w4-bakery-break-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 899,
+        "height": 1750,
+        "format": "JPG",
+        "sizeKb": 527,
+        "assetPath": "wallpapers/w4/bakery-break-phone.jpg"
+      },
+      {
+        "id": "w4-bakery-break-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 512,
+        "assetPath": "wallpapers/w4/bakery-break-tablet-portrait.jpg"
+      },
+      {
+        "id": "w4-bakery-break-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 516,
+        "assetPath": "wallpapers/w4/bakery-break-tablet-landscape.jpg"
+      },
+      {
+        "id": "w4-bakery-break-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 480,
+        "assetPath": "wallpapers/w4/bakery-break-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w4_sleepy-cafe",
+    "slug": "w4-sleepy-cafe",
+    "titleTh": "งีบมุมคาเฟ่",
+    "titleEn": "Sleepy Café Corner",
+    "theme": "W4 · คาเฟ่แสนอุ่นของนมผง",
+    "themeEn": "W4 · Nompong’s Cozy Café",
+    "palette": [
+      "#f8e7cf",
+      "#b9d2df",
+      "#bd919d"
+    ],
+    "previewPath": "wallpapers/w4/sleepy-cafe-preview.webp",
+    "variants": [
+      {
+        "id": "w4-sleepy-cafe-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 899,
+        "height": 1750,
+        "format": "JPG",
+        "sizeKb": 526,
+        "assetPath": "wallpapers/w4/sleepy-cafe-phone.jpg"
+      },
+      {
+        "id": "w4-sleepy-cafe-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 514,
+        "assetPath": "wallpapers/w4/sleepy-cafe-tablet-portrait.jpg"
+      },
+      {
+        "id": "w4-sleepy-cafe-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 523,
+        "assetPath": "wallpapers/w4/sleepy-cafe-tablet-landscape.jpg"
+      },
+      {
+        "id": "w4-sleepy-cafe-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 529,
+        "assetPath": "wallpapers/w4/sleepy-cafe-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w3_daisy-peek",
     "slug": "w3-daisy-peek",
     "titleTh": "แอบมองดอกเดซี่",
