@@ -61,6 +61,189 @@
     "free": true
   },
   {
+    "id": "wp_w3_butterfly-hello",
+    "slug": "w3-butterfly-hello",
+    "titleTh": "ทักทายผีเสื้อ",
+    "titleEn": "Butterfly Hello",
+    "theme": "W3 · สวนวันสดใส",
+    "themeEn": "W3 · Sunny Garden",
+    "palette": [
+      "#fbf6e6",
+      "#bacaa4",
+      "#eed59b"
+    ],
+    "previewPath": "wallpapers/w3/butterfly-hello-preview.webp",
+    "variants": [
+      {
+        "id": "w3-butterfly-hello-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 350,
+        "assetPath": "wallpapers/w3/butterfly-hello-phone.jpg"
+      },
+      {
+        "id": "w3-butterfly-hello-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 357,
+        "assetPath": "wallpapers/w3/butterfly-hello-tablet-portrait.jpg"
+      },
+      {
+        "id": "w3-butterfly-hello-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 407,
+        "assetPath": "wallpapers/w3/butterfly-hello-tablet-landscape.jpg"
+      },
+      {
+        "id": "w3-butterfly-hello-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 412,
+        "assetPath": "wallpapers/w3/butterfly-hello-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w3_strawberry-picnic",
+    "slug": "w3-strawberry-picnic",
+    "titleTh": "ปิกนิกสตรอว์เบอร์รี",
+    "titleEn": "Strawberry Picnic",
+    "theme": "W3 · สวนวันสดใส",
+    "themeEn": "W3 · Sunny Garden",
+    "palette": [
+      "#fbf6e6",
+      "#bacaa4",
+      "#eed59b"
+    ],
+    "previewPath": "wallpapers/w3/strawberry-picnic-preview.webp",
+    "variants": [
+      {
+        "id": "w3-strawberry-picnic-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 454,
+        "assetPath": "wallpapers/w3/strawberry-picnic-phone.jpg"
+      },
+      {
+        "id": "w3-strawberry-picnic-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 478,
+        "assetPath": "wallpapers/w3/strawberry-picnic-tablet-portrait.jpg"
+      },
+      {
+        "id": "w3-strawberry-picnic-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 463,
+        "assetPath": "wallpapers/w3/strawberry-picnic-tablet-landscape.jpg"
+      },
+      {
+        "id": "w3-strawberry-picnic-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 445,
+        "assetPath": "wallpapers/w3/strawberry-picnic-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w3_watering-day",
+    "slug": "w3-watering-day",
+    "titleTh": "รดน้ำดอกไม้",
+    "titleEn": "Watering Day",
+    "theme": "W3 · สวนวันสดใส",
+    "themeEn": "W3 · Sunny Garden",
+    "palette": [
+      "#fbf6e6",
+      "#bacaa4",
+      "#eed59b"
+    ],
+    "previewPath": "wallpapers/w3/watering-day-preview.webp",
+    "variants": [
+      {
+        "id": "w3-watering-day-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 898,
+        "height": 1752,
+        "format": "JPG",
+        "sizeKb": 437,
+        "assetPath": "wallpapers/w3/watering-day-phone.jpg"
+      },
+      {
+        "id": "w3-watering-day-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 473,
+        "assetPath": "wallpapers/w3/watering-day-tablet-portrait.jpg"
+      },
+      {
+        "id": "w3-watering-day-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 484,
+        "assetPath": "wallpapers/w3/watering-day-tablet-landscape.jpg"
+      },
+      {
+        "id": "w3-watering-day-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 442,
+        "assetPath": "wallpapers/w3/watering-day-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w2_moon-cloud",
     "slug": "w2-moon-cloud",
     "titleTh": "ฝันบนก้อนเมฆ",
