@@ -1,5 +1,249 @@
 [
   {
+    "id": "wp_w6_yellow-umbrella",
+    "slug": "w6-yellow-umbrella",
+    "titleTh": "ร่มเหลืองวันฝนพรำ",
+    "titleEn": "Yellow Umbrella",
+    "theme": "W6 · วันฝนพรำกับนมผง",
+    "themeEn": "W6 · Rainy Day with Nompong",
+    "palette": [
+      "#e8e6d5",
+      "#c3d1e4",
+      "#c5adcf"
+    ],
+    "previewPath": "wallpapers/w6/yellow-umbrella-preview.webp",
+    "variants": [
+      {
+        "id": "w6-yellow-umbrella-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 334,
+        "assetPath": "wallpapers/w6/yellow-umbrella-phone.jpg"
+      },
+      {
+        "id": "w6-yellow-umbrella-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 370,
+        "assetPath": "wallpapers/w6/yellow-umbrella-tablet-portrait.jpg"
+      },
+      {
+        "id": "w6-yellow-umbrella-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 368,
+        "assetPath": "wallpapers/w6/yellow-umbrella-tablet-landscape.jpg"
+      },
+      {
+        "id": "w6-yellow-umbrella-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 346,
+        "assetPath": "wallpapers/w6/yellow-umbrella-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w6_rain-at-the-window",
+    "slug": "w6-rain-at-the-window",
+    "titleTh": "มองฝนริมหน้าต่าง",
+    "titleEn": "Rain at the Window",
+    "theme": "W6 · วันฝนพรำกับนมผง",
+    "themeEn": "W6 · Rainy Day with Nompong",
+    "palette": [
+      "#e8e6d5",
+      "#c3d1e4",
+      "#c5adcf"
+    ],
+    "previewPath": "wallpapers/w6/rain-at-the-window-preview.webp",
+    "variants": [
+      {
+        "id": "w6-rain-at-the-window-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 898,
+        "height": 1751,
+        "format": "JPG",
+        "sizeKb": 309,
+        "assetPath": "wallpapers/w6/rain-at-the-window-phone.jpg"
+      },
+      {
+        "id": "w6-rain-at-the-window-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 335,
+        "assetPath": "wallpapers/w6/rain-at-the-window-tablet-portrait.jpg"
+      },
+      {
+        "id": "w6-rain-at-the-window-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 314,
+        "assetPath": "wallpapers/w6/rain-at-the-window-tablet-landscape.jpg"
+      },
+      {
+        "id": "w6-rain-at-the-window-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 347,
+        "assetPath": "wallpapers/w6/rain-at-the-window-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w6_puddle-hop",
+    "slug": "w6-puddle-hop",
+    "titleTh": "กระโดดข้ามแอ่งน้ำ",
+    "titleEn": "Puddle Hop",
+    "theme": "W6 · วันฝนพรำกับนมผง",
+    "themeEn": "W6 · Rainy Day with Nompong",
+    "palette": [
+      "#e8e6d5",
+      "#c3d1e4",
+      "#c5adcf"
+    ],
+    "previewPath": "wallpapers/w6/puddle-hop-preview.webp",
+    "variants": [
+      {
+        "id": "w6-puddle-hop-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 302,
+        "assetPath": "wallpapers/w6/puddle-hop-phone.jpg"
+      },
+      {
+        "id": "w6-puddle-hop-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 331,
+        "assetPath": "wallpapers/w6/puddle-hop-tablet-portrait.jpg"
+      },
+      {
+        "id": "w6-puddle-hop-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 307,
+        "assetPath": "wallpapers/w6/puddle-hop-tablet-landscape.jpg"
+      },
+      {
+        "id": "w6-puddle-hop-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 323,
+        "assetPath": "wallpapers/w6/puddle-hop-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w6_blanket-nap",
+    "slug": "w6-blanket-nap",
+    "titleTh": "งีบใต้ผ้าห่ม",
+    "titleEn": "Blanket Nap",
+    "theme": "W6 · วันฝนพรำกับนมผง",
+    "themeEn": "W6 · Rainy Day with Nompong",
+    "palette": [
+      "#e8e6d5",
+      "#c3d1e4",
+      "#c5adcf"
+    ],
+    "previewPath": "wallpapers/w6/blanket-nap-preview.webp",
+    "variants": [
+      {
+        "id": "w6-blanket-nap-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 296,
+        "assetPath": "wallpapers/w6/blanket-nap-phone.jpg"
+      },
+      {
+        "id": "w6-blanket-nap-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 322,
+        "assetPath": "wallpapers/w6/blanket-nap-tablet-portrait.jpg"
+      },
+      {
+        "id": "w6-blanket-nap-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 327,
+        "assetPath": "wallpapers/w6/blanket-nap-tablet-landscape.jpg"
+      },
+      {
+        "id": "w6-blanket-nap-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 309,
+        "assetPath": "wallpapers/w6/blanket-nap-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w5_tummy-peek",
     "slug": "w5-tummy-peek",
     "titleTh": "เปิดพุงนุ่มๆ",
