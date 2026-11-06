@@ -1,5 +1,249 @@
 [
   {
+    "id": "wp_w7_rooftop-telescope",
+    "slug": "w7-rooftop-telescope",
+    "titleTh": "ส่องดาวบนดาดฟ้า",
+    "titleEn": "Rooftop Telescope",
+    "theme": "W7 · ดูดาวกับนมผง",
+    "themeEn": "W7 · Stars with Nompong",
+    "palette": [
+      "#22244e",
+      "#24545a",
+      "#dfb494"
+    ],
+    "previewPath": "wallpapers/w7/rooftop-telescope-preview.webp",
+    "variants": [
+      {
+        "id": "w7-rooftop-telescope-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 303,
+        "assetPath": "wallpapers/w7/rooftop-telescope-phone.jpg"
+      },
+      {
+        "id": "w7-rooftop-telescope-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 381,
+        "assetPath": "wallpapers/w7/rooftop-telescope-tablet-portrait.jpg"
+      },
+      {
+        "id": "w7-rooftop-telescope-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 416,
+        "assetPath": "wallpapers/w7/rooftop-telescope-tablet-landscape.jpg"
+      },
+      {
+        "id": "w7-rooftop-telescope-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 345,
+        "assetPath": "wallpapers/w7/rooftop-telescope-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w7_firefly-meadow",
+    "slug": "w7-firefly-meadow",
+    "titleTh": "ทุ่งหิ่งห้อย",
+    "titleEn": "Firefly Meadow",
+    "theme": "W7 · ดูดาวกับนมผง",
+    "themeEn": "W7 · Stars with Nompong",
+    "palette": [
+      "#22244e",
+      "#24545a",
+      "#dfb494"
+    ],
+    "previewPath": "wallpapers/w7/firefly-meadow-preview.webp",
+    "variants": [
+      {
+        "id": "w7-firefly-meadow-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 899,
+        "height": 1750,
+        "format": "JPG",
+        "sizeKb": 358,
+        "assetPath": "wallpapers/w7/firefly-meadow-phone.jpg"
+      },
+      {
+        "id": "w7-firefly-meadow-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 382,
+        "assetPath": "wallpapers/w7/firefly-meadow-tablet-portrait.jpg"
+      },
+      {
+        "id": "w7-firefly-meadow-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 406,
+        "assetPath": "wallpapers/w7/firefly-meadow-tablet-landscape.jpg"
+      },
+      {
+        "id": "w7-firefly-meadow-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 350,
+        "assetPath": "wallpapers/w7/firefly-meadow-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w7_star-map",
+    "slug": "w7-star-map",
+    "titleTh": "แผนที่ดวงดาว",
+    "titleEn": "Star Map",
+    "theme": "W7 · ดูดาวกับนมผง",
+    "themeEn": "W7 · Stars with Nompong",
+    "palette": [
+      "#22244e",
+      "#24545a",
+      "#dfb494"
+    ],
+    "previewPath": "wallpapers/w7/star-map-preview.webp",
+    "variants": [
+      {
+        "id": "w7-star-map-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 347,
+        "assetPath": "wallpapers/w7/star-map-phone.jpg"
+      },
+      {
+        "id": "w7-star-map-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 343,
+        "assetPath": "wallpapers/w7/star-map-tablet-portrait.jpg"
+      },
+      {
+        "id": "w7-star-map-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 370,
+        "assetPath": "wallpapers/w7/star-map-tablet-landscape.jpg"
+      },
+      {
+        "id": "w7-star-map-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 335,
+        "assetPath": "wallpapers/w7/star-map-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w7_meteor-picnic",
+    "slug": "w7-meteor-picnic",
+    "titleTh": "ปิกนิกชมดาวตก",
+    "titleEn": "Meteor Picnic",
+    "theme": "W7 · ดูดาวกับนมผง",
+    "themeEn": "W7 · Stars with Nompong",
+    "palette": [
+      "#22244e",
+      "#24545a",
+      "#dfb494"
+    ],
+    "previewPath": "wallpapers/w7/meteor-picnic-preview.webp",
+    "variants": [
+      {
+        "id": "w7-meteor-picnic-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 297,
+        "assetPath": "wallpapers/w7/meteor-picnic-phone.jpg"
+      },
+      {
+        "id": "w7-meteor-picnic-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 368,
+        "assetPath": "wallpapers/w7/meteor-picnic-tablet-portrait.jpg"
+      },
+      {
+        "id": "w7-meteor-picnic-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 393,
+        "assetPath": "wallpapers/w7/meteor-picnic-tablet-landscape.jpg"
+      },
+      {
+        "id": "w7-meteor-picnic-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 363,
+        "assetPath": "wallpapers/w7/meteor-picnic-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w6_yellow-umbrella",
     "slug": "w6-yellow-umbrella",
     "titleTh": "ร่มเหลืองวันฝนพรำ",
