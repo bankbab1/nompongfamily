@@ -1,7 +1,88 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-08T06:13:20.377Z",
+  "syncedAt": "2026-11-08T13:37:09.432Z",
   "sets": [
+    {
+      "id": "37839988",
+      "title": "นมผง เชียร์แบดมินตันคับ (v222)",
+      "name": "เชียร์แบดมินตันคับ",
+      "code": "v222",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37839988/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839988/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839972",
+      "title": "นมผง เชียร์วอลเลย์บอลคับ (v221)",
+      "name": "เชียร์วอลเลย์บอลคับ",
+      "code": "v221",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37839972/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839972/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839633",
+      "title": "นมผง Out & About (Z10)",
+      "name": "Out & About",
+      "code": "Z10",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/37839633/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839633/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839624",
+      "title": "นมผง ดูกีฬาเชียร์ด้วยกันคับ (v218)",
+      "name": "ดูกีฬาเชียร์ด้วยกันคับ",
+      "code": "v218",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37839624/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839624/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839623",
+      "title": "นมผง Workday Energy (Z12)",
+      "name": "Workday Energy",
+      "code": "Z12",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/37839623/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839623/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839615",
+      "title": "นมผง Easy Replies (Z9)",
+      "name": "Easy Replies",
+      "code": "Z9",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/37839615/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839615/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839611",
+      "title": "นมผง Soft Spot (Z14)",
+      "name": "Soft Spot",
+      "code": "Z14",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/37839611/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839611/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839608",
+      "title": "นมผง ดูบาสด้วยกันคับ (v220)",
+      "name": "ดูบาสด้วยกันคับ",
+      "code": "v220",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37839608/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839608/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839607",
+      "title": "นมผง เชียร์บอลคับ (v219)",
+      "name": "เชียร์บอลคับ",
+      "code": "v219",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37839607/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839607/LINEStorePC/main.png"
+    },
     {
       "id": "37836650",
       "title": "นมผง Snack Talk (Z11)",
