@@ -1,7 +1,25 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-08T13:37:09.432Z",
+  "syncedAt": "2026-11-09T06:46:50.338Z",
   "sets": [
+    {
+      "id": "37850011",
+      "title": "นมผง พลาดได้ไม่เป็นไรคับ (v127)",
+      "name": "พลาดได้ไม่เป็นไรคับ",
+      "code": "v127",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37850011/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37850011/LINEStorePC/main.png"
+    },
+    {
+      "id": "37850009",
+      "title": "นมผง ไม่ต้องฝืนก็ได้คับ (v129)",
+      "name": "ไม่ต้องฝืนก็ได้คับ",
+      "code": "v129",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37850009/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37850009/LINEStorePC/main.png"
+    },
     {
       "id": "37839988",
       "title": "นมผง เชียร์แบดมินตันคับ (v222)",
