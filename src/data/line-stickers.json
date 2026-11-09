@@ -1,7 +1,16 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-09T06:46:50.338Z",
+  "syncedAt": "2026-11-09T22:28:22.780Z",
   "sets": [
+    {
+      "id": "37857363",
+      "title": "นมผง ดื้อคับเจ้าก้อน (A32)",
+      "name": "ดื้อคับเจ้าก้อน",
+      "code": "A32",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37857363/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37857363/LINEStorePC/main.png"
+    },
     {
       "id": "37850011",
       "title": "นมผง พลาดได้ไม่เป็นไรคับ (v127)",
