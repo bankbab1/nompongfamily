@@ -1,7 +1,52 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-11T06:37:56.109Z",
+  "syncedAt": "2026-11-11T19:41:20.344Z",
   "sets": [
+    {
+      "id": "37912004",
+      "title": "นมผง เข้าฉากทีมีป่วน (A41)",
+      "name": "เข้าฉากทีมีป่วน",
+      "code": "A41",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37912004/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37912004/LINEStorePC/main.png"
+    },
+    {
+      "id": "37911540",
+      "title": "นมผง ฝากเงินคับ (v232)",
+      "name": "ฝากเงินคับ",
+      "code": "v232",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37911540/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37911540/LINEStorePC/main.png"
+    },
+    {
+      "id": "37911531",
+      "title": "นมผง ศึกษากองทุนคับ (v231)",
+      "name": "ศึกษากองทุนคับ",
+      "code": "v231",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37911531/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37911531/LINEStorePC/main.png"
+    },
+    {
+      "id": "37911489",
+      "title": "นมผง รอจนปุยย้วย (A37)",
+      "name": "รอจนปุยย้วย",
+      "code": "A37",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37911489/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37911489/LINEStorePC/main.png"
+    },
+    {
+      "id": "37911429",
+      "title": "นมผง เชียร์ MotoGP คับ (v225)",
+      "name": "เชียร์ MotoGP คับ",
+      "code": "v225",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37911429/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37911429/LINEStorePC/main.png"
+    },
     {
       "id": "37909440",
       "title": "นมผง แต่งตัวแมตช์ลุคคับ (v226)",
@@ -208,6 +253,15 @@
       "series": "Z",
       "url": "https://store.line.me/stickershop/product/37839633/th",
       "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839633/LINEStorePC/main.png"
+    },
+    {
+      "id": "37839631",
+      "title": "นมผง ขับรถเที่ยวเล่นคับ (v217)",
+      "name": "ขับรถเที่ยวเล่นคับ",
+      "code": "v217",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37839631/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37839631/LINEStorePC/main.png"
     },
     {
       "id": "37839624",
