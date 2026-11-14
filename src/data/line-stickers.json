@@ -1,7 +1,88 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-14T06:37:01.387Z",
+  "syncedAt": "2026-11-14T18:13:35.356Z",
   "sets": [
+    {
+      "id": "37985466",
+      "title": "นมผง ทัวร์พิพิธภัณฑ์ (A68)",
+      "name": "ทัวร์พิพิธภัณฑ์",
+      "code": "A68",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37985466/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37985466/LINEStorePC/main.png"
+    },
+    {
+      "id": "37985453",
+      "title": "นมผง จอมต่อบล็อก (A66)",
+      "name": "จอมต่อบล็อก",
+      "code": "A66",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37985453/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37985453/LINEStorePC/main.png"
+    },
+    {
+      "id": "37985405",
+      "title": "นมผง ห้องอัดเสียงสุดป่วน (A63)",
+      "name": "ห้องอัดเสียงสุดป่วน",
+      "code": "A63",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37985405/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37985405/LINEStorePC/main.png"
+    },
+    {
+      "id": "37984368",
+      "title": "นมผง เต่าน้อยจอมชิล (A74)",
+      "name": "เต่าน้อยจอมชิล",
+      "code": "A74",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37984368/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37984368/LINEStorePC/main.png"
+    },
+    {
+      "id": "37984367",
+      "title": "นมผง กระต่ายหลังพุ่ม (A72)",
+      "name": "กระต่ายหลังพุ่ม",
+      "code": "A72",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37984367/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37984367/LINEStorePC/main.png"
+    },
+    {
+      "id": "37984365",
+      "title": "นมผง นากน้อยกับหินโปรด (A75)",
+      "name": "นากน้อยกับหินโปรด",
+      "code": "A75",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37984365/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37984365/LINEStorePC/main.png"
+    },
+    {
+      "id": "37984361",
+      "title": "นมผง ลูกแกะเพื่อนใหม่ (A71)",
+      "name": "ลูกแกะเพื่อนใหม่",
+      "code": "A71",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37984361/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37984361/LINEStorePC/main.png"
+    },
+    {
+      "id": "37984358",
+      "title": "นมผง ปุยหลงเขาวงกต (A70)",
+      "name": "ปุยหลงเขาวงกต",
+      "code": "A70",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37984358/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37984358/LINEStorePC/main.png"
+    },
+    {
+      "id": "37984357",
+      "title": "นมผง เพนกวินพุงไถล (A73)",
+      "name": "เพนกวินพุงไถล",
+      "code": "A73",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37984357/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37984357/LINEStorePC/main.png"
+    },
     {
       "id": "37982291",
       "title": "นมผง เมืองเมฆนุ่มนิ่ม (A52)",
