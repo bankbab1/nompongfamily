@@ -1,7 +1,16 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-13T19:49:35.497Z",
+  "syncedAt": "2026-11-14T06:37:01.387Z",
   "sets": [
+    {
+      "id": "37982291",
+      "title": "นมผง เมืองเมฆนุ่มนิ่ม (A52)",
+      "name": "เมืองเมฆนุ่มนิ่ม",
+      "code": "A52",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37982291/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37982291/LINEStorePC/main.png"
+    },
     {
       "id": "37966899",
       "title": "นมผง วันซักผ้าตัวป่วน (A65)",
