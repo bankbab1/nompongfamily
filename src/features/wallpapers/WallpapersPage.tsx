@@ -161,7 +161,7 @@ export default function WallpapersPage() {
 
 /** A wallpaper's preview and name. `list` (phones only): a compact row with a small preview. */
 /** "…/moon-cloud-tablet-landscape.jpg" → "…/moon-cloud-tablet-landscape-thumb.jpg" (400×300, made for list rows). */
-const listThumb = (path: string) => path.replace(/\.(jpe?g|png|webp)$/i, '-thumb.jpg')
+const listThumb = (path: string) => /\/w[89]\//.test(path) ? path : path.replace(/\.(jpe?g|png|webp)$/i, '-thumb.jpg')
 
 function WallpaperCard({ w, collection, list }: { w: Wallpaper; collection: string; list: boolean }) {
   const locale = useLocale()

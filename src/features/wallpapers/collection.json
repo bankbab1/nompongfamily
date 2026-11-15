@@ -1,5 +1,493 @@
 [
   {
+    "id": "wp_w9_bookshop-door",
+    "slug": "w9-bookshop-door",
+    "titleTh": "หน้าร้านหนังสือ",
+    "titleEn": "Bookshop Door",
+    "theme": "W9 · ร้านหนังสือจิ๋ว",
+    "themeEn": "W9 · Tiny Bookshop",
+    "palette": [
+      "#d9cfaa",
+      "#a9b7cf",
+      "#ae7184"
+    ],
+    "previewPath": "wallpapers/w9/bookshop-door-phone.jpg",
+    "variants": [
+      {
+        "id": "w9-bookshop-door-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 430,
+        "assetPath": "wallpapers/w9/bookshop-door-phone.jpg"
+      },
+      {
+        "id": "w9-bookshop-door-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 321,
+        "assetPath": "wallpapers/w9/bookshop-door-tablet-portrait.jpg"
+      },
+      {
+        "id": "w9-bookshop-door-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 383,
+        "assetPath": "wallpapers/w9/bookshop-door-tablet-landscape.jpg"
+      },
+      {
+        "id": "w9-bookshop-door-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 444,
+        "assetPath": "wallpapers/w9/bookshop-door-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w9_storytime-window",
+    "slug": "w9-storytime-window",
+    "titleTh": "อ่านนิทานริมหน้าต่าง",
+    "titleEn": "Storytime Window",
+    "theme": "W9 · ร้านหนังสือจิ๋ว",
+    "themeEn": "W9 · Tiny Bookshop",
+    "palette": [
+      "#d9cfaa",
+      "#a9b7cf",
+      "#ae7184"
+    ],
+    "previewPath": "wallpapers/w9/storytime-window-phone.jpg",
+    "variants": [
+      {
+        "id": "w9-storytime-window-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1847,
+        "format": "JPG",
+        "sizeKb": 377,
+        "assetPath": "wallpapers/w9/storytime-window-phone.jpg"
+      },
+      {
+        "id": "w9-storytime-window-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 267,
+        "assetPath": "wallpapers/w9/storytime-window-tablet-portrait.jpg"
+      },
+      {
+        "id": "w9-storytime-window-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 338,
+        "assetPath": "wallpapers/w9/storytime-window-tablet-landscape.jpg"
+      },
+      {
+        "id": "w9-storytime-window-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 395,
+        "assetPath": "wallpapers/w9/storytime-window-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w9_book-tower",
+    "slug": "w9-book-tower",
+    "titleTh": "ข้างกองหนังสือ",
+    "titleEn": "Book Tower",
+    "theme": "W9 · ร้านหนังสือจิ๋ว",
+    "themeEn": "W9 · Tiny Bookshop",
+    "palette": [
+      "#d9cfaa",
+      "#a9b7cf",
+      "#ae7184"
+    ],
+    "previewPath": "wallpapers/w9/book-tower-phone.jpg",
+    "variants": [
+      {
+        "id": "w9-book-tower-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 388,
+        "assetPath": "wallpapers/w9/book-tower-phone.jpg"
+      },
+      {
+        "id": "w9-book-tower-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 292,
+        "assetPath": "wallpapers/w9/book-tower-tablet-portrait.jpg"
+      },
+      {
+        "id": "w9-book-tower-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 351,
+        "assetPath": "wallpapers/w9/book-tower-tablet-landscape.jpg"
+      },
+      {
+        "id": "w9-book-tower-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 433,
+        "assetPath": "wallpapers/w9/book-tower-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w9_last-page-nap",
+    "slug": "w9-last-page-nap",
+    "titleTh": "งีบข้างหนังสือ",
+    "titleEn": "Last Page Nap",
+    "theme": "W9 · ร้านหนังสือจิ๋ว",
+    "themeEn": "W9 · Tiny Bookshop",
+    "palette": [
+      "#d9cfaa",
+      "#a9b7cf",
+      "#ae7184"
+    ],
+    "previewPath": "wallpapers/w9/last-page-nap-phone.jpg",
+    "variants": [
+      {
+        "id": "w9-last-page-nap-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 349,
+        "assetPath": "wallpapers/w9/last-page-nap-phone.jpg"
+      },
+      {
+        "id": "w9-last-page-nap-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 278,
+        "assetPath": "wallpapers/w9/last-page-nap-tablet-portrait.jpg"
+      },
+      {
+        "id": "w9-last-page-nap-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 344,
+        "assetPath": "wallpapers/w9/last-page-nap-tablet-landscape.jpg"
+      },
+      {
+        "id": "w9-last-page-nap-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 417,
+        "assetPath": "wallpapers/w9/last-page-nap-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w8_shell-treasure",
+    "slug": "w8-shell-treasure",
+    "titleTh": "เปลือกหอยริมทะเล",
+    "titleEn": "Shell Treasure",
+    "theme": "W8 · วันสบายริมทะเล",
+    "themeEn": "W8 · Seaside Days",
+    "palette": [
+      "#b8ddf5",
+      "#f6deb8",
+      "#f4b8a9"
+    ],
+    "previewPath": "wallpapers/w8/shell-treasure-phone.jpg",
+    "variants": [
+      {
+        "id": "w8-shell-treasure-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 341,
+        "assetPath": "wallpapers/w8/shell-treasure-phone.jpg"
+      },
+      {
+        "id": "w8-shell-treasure-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 270,
+        "assetPath": "wallpapers/w8/shell-treasure-tablet-portrait.jpg"
+      },
+      {
+        "id": "w8-shell-treasure-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 294,
+        "assetPath": "wallpapers/w8/shell-treasure-tablet-landscape.jpg"
+      },
+      {
+        "id": "w8-shell-treasure-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 385,
+        "assetPath": "wallpapers/w8/shell-treasure-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w8_tidepool-peek",
+    "slug": "w8-tidepool-peek",
+    "titleTh": "ส่องดาวทะเล",
+    "titleEn": "Tidepool Peek",
+    "theme": "W8 · วันสบายริมทะเล",
+    "themeEn": "W8 · Seaside Days",
+    "palette": [
+      "#b8ddf5",
+      "#f6deb8",
+      "#f4b8a9"
+    ],
+    "previewPath": "wallpapers/w8/tidepool-peek-phone.jpg",
+    "variants": [
+      {
+        "id": "w8-tidepool-peek-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 427,
+        "assetPath": "wallpapers/w8/tidepool-peek-phone.jpg"
+      },
+      {
+        "id": "w8-tidepool-peek-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 331,
+        "assetPath": "wallpapers/w8/tidepool-peek-tablet-portrait.jpg"
+      },
+      {
+        "id": "w8-tidepool-peek-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 335,
+        "assetPath": "wallpapers/w8/tidepool-peek-tablet-landscape.jpg"
+      },
+      {
+        "id": "w8-tidepool-peek-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 425,
+        "assetPath": "wallpapers/w8/tidepool-peek-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w8_beach-umbrella",
+    "slug": "w8-beach-umbrella",
+    "titleTh": "งีบใต้ร่มชายหาด",
+    "titleEn": "Beach Umbrella",
+    "theme": "W8 · วันสบายริมทะเล",
+    "themeEn": "W8 · Seaside Days",
+    "palette": [
+      "#b8ddf5",
+      "#f6deb8",
+      "#f4b8a9"
+    ],
+    "previewPath": "wallpapers/w8/beach-umbrella-phone.jpg",
+    "variants": [
+      {
+        "id": "w8-beach-umbrella-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1847,
+        "format": "JPG",
+        "sizeKb": 362,
+        "assetPath": "wallpapers/w8/beach-umbrella-phone.jpg"
+      },
+      {
+        "id": "w8-beach-umbrella-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 285,
+        "assetPath": "wallpapers/w8/beach-umbrella-tablet-portrait.jpg"
+      },
+      {
+        "id": "w8-beach-umbrella-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 328,
+        "assetPath": "wallpapers/w8/beach-umbrella-tablet-landscape.jpg"
+      },
+      {
+        "id": "w8-beach-umbrella-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 408,
+        "assetPath": "wallpapers/w8/beach-umbrella-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w8_seaside-boardwalk",
+    "slug": "w8-seaside-boardwalk",
+    "titleTh": "ทางเดินริมทะเลยามเย็น",
+    "titleEn": "Seaside Boardwalk",
+    "theme": "W8 · วันสบายริมทะเล",
+    "themeEn": "W8 · Seaside Days",
+    "palette": [
+      "#b8ddf5",
+      "#f6deb8",
+      "#f4b8a9"
+    ],
+    "previewPath": "wallpapers/w8/seaside-boardwalk-phone.jpg",
+    "variants": [
+      {
+        "id": "w8-seaside-boardwalk-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 369,
+        "assetPath": "wallpapers/w8/seaside-boardwalk-phone.jpg"
+      },
+      {
+        "id": "w8-seaside-boardwalk-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 852,
+        "height": 1136,
+        "format": "JPG",
+        "sizeKb": 291,
+        "assetPath": "wallpapers/w8/seaside-boardwalk-tablet-portrait.jpg"
+      },
+      {
+        "id": "w8-seaside-boardwalk-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1252,
+        "height": 939,
+        "format": "JPG",
+        "sizeKb": 321,
+        "assetPath": "wallpapers/w8/seaside-boardwalk-tablet-landscape.jpg"
+      },
+      {
+        "id": "w8-seaside-boardwalk-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 434,
+        "assetPath": "wallpapers/w8/seaside-boardwalk-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w7_rooftop-telescope",
     "slug": "w7-rooftop-telescope",
     "titleTh": "ส่องดาวบนดาดฟ้า",
