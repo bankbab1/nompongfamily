@@ -1,7 +1,25 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-15T06:43:52.773Z",
+  "syncedAt": "2026-11-15T09:58:59.688Z",
   "sets": [
+    {
+      "id": "37999422",
+      "title": "นมผง เขินแล้วหาทางหนี (A83)",
+      "name": "เขินแล้วหาทางหนี",
+      "code": "A83",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/37999422/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37999422/LINEStorePC/main.png"
+    },
+    {
+      "id": "37999386",
+      "title": "นมผง ซื้อของเข้าบ้านคับ (v207)",
+      "name": "ซื้อของเข้าบ้านคับ",
+      "code": "v207",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/37999386/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/37999386/LINEStorePC/main.png"
+    },
     {
       "id": "37999148",
       "title": "นมผง ก้อนฟูเฝ้าหน้าต่าง (A88)",
