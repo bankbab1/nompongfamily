@@ -1,7 +1,70 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-15T09:58:59.688Z",
+  "syncedAt": "2026-11-16T18:09:12.958Z",
   "sets": [
+    {
+      "id": "38014740",
+      "title": "นมผง Roommate Mode (Z18)",
+      "name": "Roommate Mode",
+      "code": "Z18",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38014740/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014740/LINEStorePC/main.png"
+    },
+    {
+      "id": "38014729",
+      "title": "นมผง Group Plans (Z16)",
+      "name": "Group Plans",
+      "code": "Z16",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38014729/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014729/LINEStorePC/main.png"
+    },
+    {
+      "id": "38014572",
+      "title": "นมผง พิพิธภัณฑ์อุ้งเท้า (A100)",
+      "name": "พิพิธภัณฑ์อุ้งเท้า",
+      "code": "A100",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38014572/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014572/LINEStorePC/main.png"
+    },
+    {
+      "id": "38014563",
+      "title": "นมผง ชุดมังกรกระดาษ (A92)",
+      "name": "ชุดมังกรกระดาษ",
+      "code": "A92",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38014563/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014563/LINEStorePC/main.png"
+    },
+    {
+      "id": "38014559",
+      "title": "นมผง ก้อนฟูเล่นโจรสลัด (A94)",
+      "name": "ก้อนฟูเล่นโจรสลัด",
+      "code": "A94",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38014559/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014559/LINEStorePC/main.png"
+    },
+    {
+      "id": "38014170",
+      "title": "นมผง เจ้าปุยบนพื้นเด้ง (A90)",
+      "name": "เจ้าปุยบนพื้นเด้ง",
+      "code": "A90",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38014170/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014170/LINEStorePC/main.png"
+    },
+    {
+      "id": "38014154",
+      "title": "นมผง โต๊ะบอร์ดเกมขี้โกง (A67)",
+      "name": "โต๊ะบอร์ดเกมขี้โกง",
+      "code": "A67",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38014154/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38014154/LINEStorePC/main.png"
+    },
     {
       "id": "37999422",
       "title": "นมผง เขินแล้วหาทางหนี (A83)",
