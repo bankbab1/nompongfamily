@@ -1,7 +1,61 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-16T18:09:12.958Z",
+  "syncedAt": "2026-11-17T08:36:13.384Z",
   "sets": [
+    {
+      "id": "38044755",
+      "title": "นมผง ก้อนฟูเมืองกระจก (A97)",
+      "name": "ก้อนฟูเมืองกระจก",
+      "code": "A97",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38044755/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38044755/LINEStorePC/main.png"
+    },
+    {
+      "id": "38044749",
+      "title": "นมผง ข้ามมิติของจิ๋ว (A98)",
+      "name": "ข้ามมิติของจิ๋ว",
+      "code": "A98",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38044749/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38044749/LINEStorePC/main.png"
+    },
+    {
+      "id": "38044744",
+      "title": "นมผง ปุยสร้างรังนอน (A99)",
+      "name": "ปุยสร้างรังนอน",
+      "code": "A99",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38044744/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38044744/LINEStorePC/main.png"
+    },
+    {
+      "id": "38044742",
+      "title": "นมผง ร้านหมวกประหลาด (A96)",
+      "name": "ร้านหมวกประหลาด",
+      "code": "A96",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38044742/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38044742/LINEStorePC/main.png"
+    },
+    {
+      "id": "38044739",
+      "title": "นมผง ยานดำน้ำฟองปุย (A93)",
+      "name": "ยานดำน้ำฟองปุย",
+      "code": "A93",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38044739/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38044739/LINEStorePC/main.png"
+    },
+    {
+      "id": "38044731",
+      "title": "นมผง ปุยรักษาดาวตก (A95)",
+      "name": "ปุยรักษาดาวตก",
+      "code": "A95",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38044731/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38044731/LINEStorePC/main.png"
+    },
     {
       "id": "38014740",
       "title": "นมผง Roommate Mode (Z18)",
