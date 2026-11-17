@@ -1,5 +1,493 @@
 [
   {
+    "id": "wp_w14_ticket-booth",
+    "slug": "w14-ticket-booth",
+    "titleTh": "ซุ้มขายตั๋ว",
+    "titleEn": "Ticket Booth",
+    "theme": "W14 · สวนสนุกย้อนยุค",
+    "themeEn": "W14 · Retro Amusement Park",
+    "palette": [
+      "#daeaf0",
+      "#ecb29d",
+      "#c1cdb0"
+    ],
+    "previewPath": "wallpapers/w14/ticket-booth-phone.jpg",
+    "variants": [
+      {
+        "id": "w14-ticket-booth-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 329,
+        "assetPath": "wallpapers/w14/ticket-booth-phone.jpg"
+      },
+      {
+        "id": "w14-ticket-booth-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 352,
+        "assetPath": "wallpapers/w14/ticket-booth-tablet-portrait.jpg"
+      },
+      {
+        "id": "w14-ticket-booth-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 427,
+        "assetPath": "wallpapers/w14/ticket-booth-tablet-landscape.jpg"
+      },
+      {
+        "id": "w14-ticket-booth-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 455,
+        "assetPath": "wallpapers/w14/ticket-booth-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w14_ferris-wheel",
+    "slug": "w14-ferris-wheel",
+    "titleTh": "ชิงช้าสวรรค์",
+    "titleEn": "Ferris Wheel",
+    "theme": "W14 · สวนสนุกย้อนยุค",
+    "themeEn": "W14 · Retro Amusement Park",
+    "palette": [
+      "#daeaf0",
+      "#ecb29d",
+      "#c1cdb0"
+    ],
+    "previewPath": "wallpapers/w14/ferris-wheel-phone.jpg",
+    "variants": [
+      {
+        "id": "w14-ferris-wheel-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 349,
+        "assetPath": "wallpapers/w14/ferris-wheel-phone.jpg"
+      },
+      {
+        "id": "w14-ferris-wheel-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 352,
+        "assetPath": "wallpapers/w14/ferris-wheel-tablet-portrait.jpg"
+      },
+      {
+        "id": "w14-ferris-wheel-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 409,
+        "assetPath": "wallpapers/w14/ferris-wheel-tablet-landscape.jpg"
+      },
+      {
+        "id": "w14-ferris-wheel-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 432,
+        "assetPath": "wallpapers/w14/ferris-wheel-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w14_paper-ducks",
+    "slug": "w14-paper-ducks",
+    "titleTh": "ตกเป็ดกระดาษ",
+    "titleEn": "Paper Ducks",
+    "theme": "W14 · สวนสนุกย้อนยุค",
+    "themeEn": "W14 · Retro Amusement Park",
+    "palette": [
+      "#daeaf0",
+      "#ecb29d",
+      "#c1cdb0"
+    ],
+    "previewPath": "wallpapers/w14/paper-ducks-phone.jpg",
+    "variants": [
+      {
+        "id": "w14-paper-ducks-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 303,
+        "assetPath": "wallpapers/w14/paper-ducks-phone.jpg"
+      },
+      {
+        "id": "w14-paper-ducks-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 330,
+        "assetPath": "wallpapers/w14/paper-ducks-tablet-portrait.jpg"
+      },
+      {
+        "id": "w14-paper-ducks-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 397,
+        "assetPath": "wallpapers/w14/paper-ducks-tablet-landscape.jpg"
+      },
+      {
+        "id": "w14-paper-ducks-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 423,
+        "assetPath": "wallpapers/w14/paper-ducks-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w14_carousel",
+    "slug": "w14-carousel",
+    "titleTh": "ม้าหมุน",
+    "titleEn": "Carousel",
+    "theme": "W14 · สวนสนุกย้อนยุค",
+    "themeEn": "W14 · Retro Amusement Park",
+    "palette": [
+      "#daeaf0",
+      "#ecb29d",
+      "#c1cdb0"
+    ],
+    "previewPath": "wallpapers/w14/carousel-phone.jpg",
+    "variants": [
+      {
+        "id": "w14-carousel-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 361,
+        "assetPath": "wallpapers/w14/carousel-phone.jpg"
+      },
+      {
+        "id": "w14-carousel-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 381,
+        "assetPath": "wallpapers/w14/carousel-tablet-portrait.jpg"
+      },
+      {
+        "id": "w14-carousel-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 451,
+        "assetPath": "wallpapers/w14/carousel-tablet-landscape.jpg"
+      },
+      {
+        "id": "w14-carousel-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 480,
+        "assetPath": "wallpapers/w14/carousel-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w15_clay-worktable",
+    "slug": "w15-clay-worktable",
+    "titleTh": "โต๊ะปั้นดิน",
+    "titleEn": "Clay Worktable",
+    "theme": "W15 · สตูดิโอเซรามิก",
+    "themeEn": "W15 · Pottery Studio",
+    "palette": [
+      "#f0d5bd",
+      "#a8bacb",
+      "#d5ae91"
+    ],
+    "previewPath": "wallpapers/w15/clay-worktable-phone.jpg",
+    "variants": [
+      {
+        "id": "w15-clay-worktable-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 330,
+        "assetPath": "wallpapers/w15/clay-worktable-phone.jpg"
+      },
+      {
+        "id": "w15-clay-worktable-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 373,
+        "assetPath": "wallpapers/w15/clay-worktable-tablet-portrait.jpg"
+      },
+      {
+        "id": "w15-clay-worktable-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 444,
+        "assetPath": "wallpapers/w15/clay-worktable-tablet-landscape.jpg"
+      },
+      {
+        "id": "w15-clay-worktable-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 475,
+        "assetPath": "wallpapers/w15/clay-worktable-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w15_pottery-wheel",
+    "slug": "w15-pottery-wheel",
+    "titleTh": "แป้นหมุนปั้นดิน",
+    "titleEn": "Pottery Wheel",
+    "theme": "W15 · สตูดิโอเซรามิก",
+    "themeEn": "W15 · Pottery Studio",
+    "palette": [
+      "#f0d5bd",
+      "#a8bacb",
+      "#d5ae91"
+    ],
+    "previewPath": "wallpapers/w15/pottery-wheel-phone.jpg",
+    "variants": [
+      {
+        "id": "w15-pottery-wheel-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 343,
+        "assetPath": "wallpapers/w15/pottery-wheel-phone.jpg"
+      },
+      {
+        "id": "w15-pottery-wheel-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 364,
+        "assetPath": "wallpapers/w15/pottery-wheel-tablet-portrait.jpg"
+      },
+      {
+        "id": "w15-pottery-wheel-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 445,
+        "assetPath": "wallpapers/w15/pottery-wheel-tablet-landscape.jpg"
+      },
+      {
+        "id": "w15-pottery-wheel-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 457,
+        "assetPath": "wallpapers/w15/pottery-wheel-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w15_glazed-cups",
+    "slug": "w15-glazed-cups",
+    "titleTh": "ชั้นถ้วยเคลือบ",
+    "titleEn": "Glazed Cups",
+    "theme": "W15 · สตูดิโอเซรามิก",
+    "themeEn": "W15 · Pottery Studio",
+    "palette": [
+      "#f0d5bd",
+      "#a8bacb",
+      "#d5ae91"
+    ],
+    "previewPath": "wallpapers/w15/glazed-cups-phone.jpg",
+    "variants": [
+      {
+        "id": "w15-glazed-cups-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 326,
+        "assetPath": "wallpapers/w15/glazed-cups-phone.jpg"
+      },
+      {
+        "id": "w15-glazed-cups-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 359,
+        "assetPath": "wallpapers/w15/glazed-cups-tablet-portrait.jpg"
+      },
+      {
+        "id": "w15-glazed-cups-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 408,
+        "assetPath": "wallpapers/w15/glazed-cups-tablet-landscape.jpg"
+      },
+      {
+        "id": "w15-glazed-cups-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 425,
+        "assetPath": "wallpapers/w15/glazed-cups-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
+    "id": "wp_w15_pawprint-planter",
+    "slug": "w15-pawprint-planter",
+    "titleTh": "กระถางลายอุ้งเท้า",
+    "titleEn": "Pawprint Planter",
+    "theme": "W15 · สตูดิโอเซรามิก",
+    "themeEn": "W15 · Pottery Studio",
+    "palette": [
+      "#f0d5bd",
+      "#a8bacb",
+      "#d5ae91"
+    ],
+    "previewPath": "wallpapers/w15/pawprint-planter-phone.jpg",
+    "variants": [
+      {
+        "id": "w15-pawprint-planter-phone",
+        "label": "มือถือ",
+        "labelEn": "Phone",
+        "device": "mobile",
+        "width": 852,
+        "height": 1846,
+        "format": "JPG",
+        "sizeKb": 333,
+        "assetPath": "wallpapers/w15/pawprint-planter-phone.jpg"
+      },
+      {
+        "id": "w15-pawprint-planter-tablet-portrait",
+        "label": "แท็บเล็ตแนวตั้ง",
+        "labelEn": "Tablet portrait",
+        "device": "tablet",
+        "width": 1086,
+        "height": 1448,
+        "format": "JPG",
+        "sizeKb": 362,
+        "assetPath": "wallpapers/w15/pawprint-planter-tablet-portrait.jpg"
+      },
+      {
+        "id": "w15-pawprint-planter-tablet-landscape",
+        "label": "แท็บเล็ตแนวนอน",
+        "labelEn": "Tablet landscape",
+        "device": "tablet",
+        "width": 1448,
+        "height": 1086,
+        "format": "JPG",
+        "sizeKb": 454,
+        "assetPath": "wallpapers/w15/pawprint-planter-tablet-landscape.jpg"
+      },
+      {
+        "id": "w15-pawprint-planter-desktop",
+        "label": "คอมพิวเตอร์",
+        "labelEn": "Desktop",
+        "device": "desktop",
+        "width": 1672,
+        "height": 941,
+        "format": "JPG",
+        "sizeKb": 456,
+        "assetPath": "wallpapers/w15/pawprint-planter-desktop.jpg"
+      }
+    ],
+    "free": true
+  },
+  {
     "id": "wp_w12_smell-the-tulip",
     "slug": "w12-smell-the-tulip",
     "titleTh": "ดมดอกทิวลิป",
