@@ -1,7 +1,61 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-17T08:36:13.384Z",
+  "syncedAt": "2026-11-17T21:01:54.540Z",
   "sets": [
+    {
+      "id": "38045599",
+      "title": "นมผง Phone Mode (Z17)",
+      "name": "Phone Mode",
+      "code": "Z17",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38045599/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38045599/LINEStorePC/main.png"
+    },
+    {
+      "id": "38045234",
+      "title": "นมผง Campus Life (Z21)",
+      "name": "Campus Life",
+      "code": "Z21",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38045234/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38045234/LINEStorePC/main.png"
+    },
+    {
+      "id": "38045220",
+      "title": "นมผง Meetings (Z24)",
+      "name": "Meetings",
+      "code": "Z24",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38045220/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38045220/LINEStorePC/main.png"
+    },
+    {
+      "id": "38045213",
+      "title": "นมผง Job Hunt (Z22)",
+      "name": "Job Hunt",
+      "code": "Z22",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38045213/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38045213/LINEStorePC/main.png"
+    },
+    {
+      "id": "38045204",
+      "title": "นมผง After Class (Z20)",
+      "name": "After Class",
+      "code": "Z20",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38045204/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38045204/LINEStorePC/main.png"
+    },
+    {
+      "id": "38045201",
+      "title": "นมผง Study Sprint (Z19)",
+      "name": "Study Sprint",
+      "code": "Z19",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38045201/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38045201/LINEStorePC/main.png"
+    },
     {
       "id": "38044755",
       "title": "นมผง ก้อนฟูเมืองกระจก (A97)",
