@@ -1,7 +1,43 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-22T19:47:48.738Z",
+  "syncedAt": "2026-11-23T23:59:34.951Z",
   "sets": [
+    {
+      "id": "38175275",
+      "title": "นมผง ชวนไปห้องสมุดคับ (v241)",
+      "name": "ชวนไปห้องสมุดคับ",
+      "code": "v241",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/38175275/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38175275/LINEStorePC/main.png"
+    },
+    {
+      "id": "38175271",
+      "title": "นมผง ถ่ายรูปเล่นกันคับ (v236)",
+      "name": "ถ่ายรูปเล่นกันคับ",
+      "code": "v236",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/38175271/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38175271/LINEStorePC/main.png"
+    },
+    {
+      "id": "38175270",
+      "title": "นมผง เข้าคาเฟ่แมวคับ (v240)",
+      "name": "เข้าคาเฟ่แมวคับ",
+      "code": "v240",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/38175270/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38175270/LINEStorePC/main.png"
+    },
+    {
+      "id": "38175267",
+      "title": "นมผง ปลูกต้นไม้กันคับ (v244)",
+      "name": "ปลูกต้นไม้กันคับ",
+      "code": "v244",
+      "series": "V",
+      "url": "https://store.line.me/stickershop/product/38175267/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38175267/LINEStorePC/main.png"
+    },
     {
       "id": "38162351",
       "title": "นมผง Budget Chat (Z55)",
