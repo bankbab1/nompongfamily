@@ -1,7 +1,61 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-23T23:59:34.951Z",
+  "syncedAt": "2026-11-24T10:01:48.056Z",
   "sets": [
+    {
+      "id": "38205502",
+      "title": "นมผง ปุยติดตีนตุ๊กแก (A104)",
+      "name": "ปุยติดตีนตุ๊กแก",
+      "code": "A104",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38205502/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38205502/LINEStorePC/main.png"
+    },
+    {
+      "id": "38205500",
+      "title": "นมผง ปุยตอกตราดาว (A106)",
+      "name": "ปุยตอกตราดาว",
+      "code": "A106",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38205500/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38205500/LINEStorePC/main.png"
+    },
+    {
+      "id": "38205490",
+      "title": "นมผง เจ้าปุยกับซิปดื้อ (A102)",
+      "name": "เจ้าปุยกับซิปดื้อ",
+      "code": "A102",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38205490/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38205490/LINEStorePC/main.png"
+    },
+    {
+      "id": "38205488",
+      "title": "นมผง เจ้าก้อนกับยางยืด (A105)",
+      "name": "เจ้าก้อนกับยางยืด",
+      "code": "A105",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38205488/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38205488/LINEStorePC/main.png"
+    },
+    {
+      "id": "38205478",
+      "title": "นมผง ก้อนฟูเล่นแม่เหล็ก (A101)",
+      "name": "ก้อนฟูเล่นแม่เหล็ก",
+      "code": "A101",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38205478/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38205478/LINEStorePC/main.png"
+    },
+    {
+      "id": "38205192",
+      "title": "นมผง Bestie SOS (Z51)",
+      "name": "Bestie SOS",
+      "code": "Z51",
+      "series": "Z",
+      "url": "https://store.line.me/stickershop/product/38205192/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38205192/LINEStorePC/main.png"
+    },
     {
       "id": "38175275",
       "title": "นมผง ชวนไปห้องสมุดคับ (v241)",
