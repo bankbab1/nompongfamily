@@ -1,7 +1,52 @@
 {
   "authorUrl": "https://store.line.me/stickershop/author/6750228",
-  "syncedAt": "2026-11-27T21:25:31.961Z",
+  "syncedAt": "2026-11-28T07:58:08.822Z",
   "sets": [
+    {
+      "id": "38314471",
+      "title": "นมผง ก้อนฟูกับปุ่มลึกลับ (A131)",
+      "name": "ก้อนฟูกับปุ่มลึกลับ",
+      "code": "A131",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38314471/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38314471/LINEStorePC/main.png"
+    },
+    {
+      "id": "38314470",
+      "title": "นมผง ปุยคอสตูมบรอกโคลี (A136)",
+      "name": "ปุยคอสตูมบรอกโคลี",
+      "code": "A136",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38314470/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38314470/LINEStorePC/main.png"
+    },
+    {
+      "id": "38314466",
+      "title": "นมผง ปุยกับปูตัวจ้อย (A130)",
+      "name": "ปุยกับปูตัวจ้อย",
+      "code": "A130",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38314466/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38314466/LINEStorePC/main.png"
+    },
+    {
+      "id": "38313967",
+      "title": "นมผง ปุยเพื่อนหมีขั้วโลก (A129)",
+      "name": "ปุยเพื่อนหมีขั้วโลก",
+      "code": "A129",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38313967/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38313967/LINEStorePC/main.png"
+    },
+    {
+      "id": "38313940",
+      "title": "นมผง เจ้าก้อนเฟอเร็ต (A125)",
+      "name": "เจ้าก้อนเฟอเร็ต",
+      "code": "A125",
+      "series": "A",
+      "url": "https://store.line.me/stickershop/product/38313940/th",
+      "image": "https://stickershop.line-scdn.net/stickershop/v1/product/38313940/LINEStorePC/main.png"
+    },
     {
       "id": "38290008",
       "title": "นมผง ปุยแร็กคูนมือซน (A124)",
